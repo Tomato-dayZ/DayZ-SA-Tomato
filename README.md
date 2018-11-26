@@ -8,10 +8,20 @@ Dayz Standalone UI Admin Tool
 
 See CHANGELOG.md
 
+## Notes
 
+It is probably bad written
 
+It can be done better
 
+It has surely bugs i dont know of
 
+There will be someone who creates an actuall good Admin 
+
+Meanwhile i am Listening to suggestions 
+and fixing the known bugs if i can 
+
+You could cantact me per mail at DayZ-SA-Tomato@Primary-Network.de
 
 ## Installing
 1. Copy DayZ-SA-Tomato to your Server/Client main Folder
