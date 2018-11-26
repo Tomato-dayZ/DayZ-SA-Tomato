@@ -25,33 +25,33 @@ See CHANGELOG.md
 
 
 
-## Test And Use
+## Test and Use
 
 Start your Server and login
 
 
 ```
-In Game press "M" Key to Bring up The UI
+In Game press "M" Key to bring up the UI
 ```
 
 ## Features
 
-* **In Game** - M Key Brings up the UI
+* **In Game** - M Key brings up the UI
 * **In Game** - Insert Key go to Camera Mode Insert again to tp to Cursor
 * **In Game** - N Key to Teleport to Cursor
 
 ------------
 
-* **Commans Tab** - Toggle In Game Keys
-* **Commans Tab** - Self Heal
-* **Commans Tab** - Daytime
-* **Commans Tab** - Nighttime
-* **Commans Tab** - Spawn Carrepaired and filled
-* **Commans Tab** - Refill nearest Car
+* **Commands Tab** - Toggle In Game Keys
+* **Commands Tab** - Self Heal
+* **Commands Tab** - Daytime
+* **Commands Tab** - Nighttime
+* **Commands Tab** - Spawn Car repaired and filled
+* **Commands Tab** - Refill nearest Car
 
 ------------
 
-* **Spwan Tab** - Item/AI/Building Spawning 
+* **Spawn Tab** - Item/AI/Building Spawning 
 
 ------------
 
@@ -59,7 +59,7 @@ In Game press "M" Key to Bring up The UI
 * **Player Tab** - Tp Players and tp to Players
 * **Player Tab** - Strip Player
 * **Player Tab** - Position of Player
-* **Player Tab** - Dissable Stamina for specific Player 
+* **Player Tab** - Disable Stamina for specific Player 
 * **Player Tab** - Heal Player
 * **Player Tab** - Kill Player
 
@@ -70,11 +70,11 @@ In Game press "M" Key to Bring up The UI
 
 ### Known Issues
 
-* **Commans Tab** - Camera,Camera TP Buttons without Function
+* **Commands Tab** - Camera TP Buttons without Function
 * **Spwan Tab** - Item Preview (right side not working)
 * **Spwan Tab** - Building spawning in ground
 * **Player Tab** - Blood Energy not showing correctly (sometimes it does)
-* **Player Tab** - Send Message not not Working
+* **Player Tab** - Send Message not working
 
 ## License
 
