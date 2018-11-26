@@ -1,0 +1,178 @@
+FrameWidgetClass rootFrame {
+ position 10 10
+ size 1400 800
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  FrameWidgetClass command_settings_root {
+   ignorepointer 1
+   position 0 0
+   size 1 1
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+   {
+    ButtonWidgetClass btn_Command_Day {
+     position 125 360
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Day"
+    }
+    ButtonWidgetClass btn_Command_Cam {
+     position 750 165
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Camera"
+    }
+    ButtonWidgetClass ButtonWidget2 {
+     position 947.81403 -136.842
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Heal"
+    }
+    ButtonWidgetClass btn_Command_Night {
+     position 550 360
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Night"
+    }
+    ButtonWidgetClass btn_Command_Refill {
+     position 550 460
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Refill"
+    }
+    CheckBoxWidgetClass Config_Cam {
+     position 125 165
+     size 544.16296 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Free Cam Teleport (insert Key)"
+    }
+    ButtonWidgetClass ButtonWidget5 {
+     position 310.56699 -154.14101
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Heal"
+    }
+    ButtonWidgetClass btn_Command_Heal {
+     clipchildren 1
+     inheritalpha 0
+     position 125 260
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Heal"
+    }
+    ButtonWidgetClass btn_Command_CamTp {
+     position 1100 165
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Camera (Tp)"
+    }
+    ButtonWidgetClass btn_Command_SpCar {
+     position 125 460
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Spawn Car"
+    }
+    ButtonWidgetClass ButtonWidget9 {
+     position 611.57001 -97.7071
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Heal"
+    }
+    ButtonWidgetClass ButtonWidget10 {
+     position 1304.92004 -109.47
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Heal"
+    }
+    ButtonWidgetClass ButtonWidget11 {
+     position 12.8862 -89.7536
+     size 300 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Heal"
+    }
+    TextWidgetClass TextWidget0 {
+     position 0 10
+     size 1 50
+     halign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 1
+     style Bold
+     text "Commands"
+     "exact text" 0
+     "size to text h" 0
+     "size to text v" 0
+     "text halign" center
+     "text valign" center
+    }
+    PanelWidgetClass PanelWidget0 {
+     color 0.9333 0 0.0784 1
+     position 0 75
+     size 0.9 3.5
+     halign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 1
+     style rover_sim_colorable
+    }
+    CheckBoxWidgetClass Config_Teleport {
+     position 125 100
+     size 320.33899 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Teleport (n Key)"
+     checked 0
+    }
+   }
+  }
+ }
+}
