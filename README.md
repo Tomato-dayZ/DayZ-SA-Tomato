@@ -16,7 +16,7 @@ It can be done better
 
 It has surely bugs i dont know of
 
-There will be someone who creates an actuall good Admin 
+There will be someone who creates an actuall good Admin Tool
 
 Meanwhile i am Listening to suggestions 
 and fixing the known bugs if i can 
