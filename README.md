@@ -2,14 +2,14 @@
 
 Dayz Standalone UI Admin Tool
 
-[========]
+
 
 ## Changelog
 
 See CHANGELOG.md
 
 
-[========]
+
 
 
 
@@ -22,7 +22,7 @@ See CHANGELOG.md
 
 
 
-[========]
+
 
 
 ## Test And Use
@@ -34,12 +34,7 @@ Start your Server and login
 In Game press "M" Key to Bring up The UI
 ```
 
-
-[========]
-
-
-
-### Features
+## Features
 
 * **In Game** - M Key Brings up the UI
 * **In Game** - Insert Key go to Camera Mode Insert again to tp to Cursor
@@ -72,7 +67,6 @@ In Game press "M" Key to Bring up The UI
 
 * **Map Tab** - Shows Location of all Players on the Map
 
-[========]
 
 ### Known Issues
 
@@ -82,13 +76,9 @@ In Game press "M" Key to Bring up The UI
 * **Player Tab** - Blood Energy not showing correctly (sometimes it does)
 * **Player Tab** - Send Message not not Working
 
-[========]
-
 ## License
 
 This project is licensed under the GNU v3 License - see the [LICENSE.md](LICENSE.md) file for details
-
-[========]
 
 ## Acknowledgments
 
