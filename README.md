@@ -26,7 +26,7 @@ You could cantact me per mail at DayZ-SA-Tomato@Primary-Network.de
 ## Installing
 1. Copy DayZ-SA-Tomato to your Server/Client main Folder
 2. Set start param -mod=DayZ-SA-Tomato at Server/Client
-3. Since the Mod is currently not signed set verifySignatures = 0 in your server.cfg
+(3. Since the Mod is currently not signed set verifySignatures = 0 in your server.cfg) Should Work now Signed the mod
 4. DayZ-SA-Tomato/Config/Admins.txt set your Steam64Id
 
 Also Available in the Steam workshop 
