@@ -81,7 +81,7 @@ In Game press "M" Key to bring up the UI
 
 
 ### Known Issues
-
+** If admins open the ui it opens for all player ! Gets fixed today**
 * **Commands Tab** - Camera TP Buttons without Function
 * **Spwan Tab** - Item Preview (right side not working)
 * **Spwan Tab** - Building spawning in ground
