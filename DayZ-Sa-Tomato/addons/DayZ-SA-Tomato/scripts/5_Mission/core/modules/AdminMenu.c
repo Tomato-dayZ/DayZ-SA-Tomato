@@ -75,7 +75,7 @@ class AdminMenu //extends UIScriptedMenu
 						Print("Admin Menu sender name : " + sender.GetName() + "PlainID : " + sender.GetPlainId());
 						AdminIdentity = Admin.GetIdentity();
 						AdminUID 	  = AdminIdentity.GetPlainId();
-						GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_OK, new Param1<string>( "Test" ), false, NULL );
+						GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_OK, new Param1<string>( "Test" ), false, AdminIdentity );
 					}
 				}
 
@@ -169,7 +169,7 @@ class AdminMenu //extends UIScriptedMenu
 							EntityAI oObjp = GetGame().CreateObject( ItemPrev_Item, vector.Zero, false, false );
 							//obEditor.addObject( oObj );
 							
-								GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_ItemPrev_ok, new Param1<EntityAI>( oObjp ), false, NULL );
+								GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_ItemPrev_ok, new Param1<EntityAI>( oObjp ), false, AdminIdentity );
 					
 															
 								
@@ -680,12 +680,12 @@ class AdminMenu //extends UIScriptedMenu
 								{
 									ScriptRPC IsStamina = new ScriptRPC();
 									IsStamina.Write(PlayerName);
-									IsStamina.Send(NULL, M_RPCs.M_Admin_Menu_Player_Stamina_ok, false, sender);
+									IsStamina.Send(NULL, M_RPCs.M_Admin_Menu_Player_Stamina_ok, false, AdminIdentity);
 								}else
 								{
 									ScriptRPC IsStamina2 = new ScriptRPC();
 									IsStamina2.Write("NULL");
-									IsStamina2.Send(NULL, M_RPCs.M_Admin_Menu_Player_Stamina_ok, false, sender);
+									IsStamina2.Send(NULL, M_RPCs.M_Admin_Menu_Player_Stamina_ok, false, AdminIdentity);
 								}
 							}
 						}
@@ -712,7 +712,7 @@ class AdminMenu //extends UIScriptedMenu
 									if ( selectedIdentity.GetName() == MSGName )
 									{
 										Msgparam = new Param1<string>( MSG );
-										GetGame().RPCSingleParam(Admin, ERPCs.RPC_USER_ACTION_MESSAGE, Msgparam, true, sender);
+										GetGame().RPCSingleParam(Admin, ERPCs.RPC_USER_ACTION_MESSAGE, Msgparam, true, AdminIdentity);
 									}
 								}
 							}
@@ -772,7 +772,7 @@ class AdminMenu //extends UIScriptedMenu
 								PPos.Write(health);
 								PPos.Write(blood);
 								PPos.Write(positionP);
-								PPos.Send(NULL, M_RPCs.M_Admin_Menu_Player_Health, false, sender);
+								PPos.Send(NULL, M_RPCs.M_Admin_Menu_Player_Health, false, AdminIdentity);
 							}
 						}	
 					if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
@@ -788,75 +788,75 @@ class AdminMenu //extends UIScriptedMenu
 
 	void SendRPC() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu, new Param1<vector>( GetCursorPos() ), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu, new Param1<vector>( GetCursorPos() ), false, AdminIdentity );
 	}
 	
 	void SendRPCItem(string item) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_Ground, new Param1<string>(item), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_Ground, new Param1<string>(item), false, AdminIdentity );
 	}
 	
 	
 	void SendRPCHeal() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Heal, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Heal, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	void SendRPCStrip(string PlayerName) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Strip, new Param1<string>(PlayerName), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Strip, new Param1<string>(PlayerName), false, AdminIdentity );
 	}
 	
 	void SendRPCTpTo(string PlayerName) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpTo, new Param1<string>(PlayerName), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpTo, new Param1<string>(PlayerName), false, AdminIdentity );
 	}
 	
 	void SendRPCTpMe(string PlayerName) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpMe, new Param1<string>(PlayerName), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpMe, new Param1<string>(PlayerName), false, AdminIdentity );
 	}
 	
 	void SendRPCTpAllMe() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpAllMe, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpAllMe, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	void SendRPCSpCar() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_Car, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_Car, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	void SendRPCDay() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Day, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Day, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	void SendRPCNight() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Night, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Night, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	void SendRPCRefill() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Car_Refill, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Car_Refill, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	
 	
 	void SendRPCTpToPos(string pos) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpToPos, new Param1<string>(pos), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpToPos, new Param1<string>(pos), false, AdminIdentity );
 	}
 	
 	void SendRPCKill(string PlayerName) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Kill, new Param1<string>(PlayerName), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Kill, new Param1<string>(PlayerName), false, AdminIdentity );
 	}
 	
 	void SendRPCSpWear() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_SpWear, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_SpWear, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	

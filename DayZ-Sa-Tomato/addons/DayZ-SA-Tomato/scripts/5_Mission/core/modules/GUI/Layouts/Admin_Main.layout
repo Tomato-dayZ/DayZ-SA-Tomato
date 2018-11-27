@@ -420,7 +420,7 @@ FrameWidgetClass settings_menu_root {
    vexactsize 1
    priority 1
    style Normal
-   text "Admin Menu"
+   text "DayZ SA Tomato"
    font "gui/fonts/sdf_MetronLight72"
    "text color" 0.8157 0.1255 0.7843 1
    "exact text" 0
