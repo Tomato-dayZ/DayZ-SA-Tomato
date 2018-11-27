@@ -8,17 +8,18 @@ Dayz Standalone UI Admin Tool
 
 See CHANGELOG.md
 
+## News
+
+28.11.2018 0:30am
+
+### Fixed
+- UI opens for everyone on the server when Admin opens it
+
+### Next up
+- Detailed Installation Guide since getting to often the same questions
+- Custom Log for better analysis of bugs
+
 ## Notes
-
-27.11.2018
-Today an Update will roll out critical errors gonna be fixed 
-1. Menu opens for everyone when admin opens it (players can't run any command)
-2. I need to check why for some ppl it's not working my guess is it does not work via launcher
-3. Some always getting kicked because modified data (need to talk to ppl to see what they are doing wrong and update installation guide 
-
-That are the main problems I came across today as soon as I am back home I am gonna address those. 
-That would be the day one patch.
-Sorry for that !
 
 It is probably bad written
 
@@ -91,7 +92,6 @@ In Game press "M" Key to bring up the UI
 
 
 ### Known Issues
-** If admins open the ui it opens for all player ! Gets fixed today**
 * **Commands Tab** - Camera TP Buttons without Function
 * **Spwan Tab** - Item Preview (right side not working)
 * **Spwan Tab** - Building spawning in ground
