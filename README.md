@@ -10,6 +10,16 @@ See CHANGELOG.md
 
 ## Notes
 
+27.11.2018
+Today an Update will roll out critical errors gonna be fixed 
+1. Menu opens for everyone when admin opens it (players can't run any command)
+2. I need to check why for some ppl it's not working my guess is it does not work via launcher
+3. Some always getting kicked because modified data (need to talk to ppl to see what they are doing wrong and update installation guide 
+
+That are the main problems I came across today as soon as I am back home I am gonna address those. 
+That would be the day one patch.
+Sorry for that !
+
 It is probably bad written
 
 It can be done better
