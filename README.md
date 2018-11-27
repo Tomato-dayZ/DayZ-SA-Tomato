@@ -29,6 +29,8 @@ You could cantact me per mail at DayZ-SA-Tomato@Primary-Network.de
 3. Since the Mod is currently not signed set verifySignatures = 0 in your server.cfg
 4. DayZ-SA-Tomato/Config/Admins.txt set your Steam64Id
 
+Also Available in the Steam workshop 
+https://steamcommunity.com/sharedfiles/filedetails/?id=1575615457
 
 
 
