@@ -18,6 +18,8 @@ See CHANGELOG.md
 ### Next up
 - Detailed Installation Guide since getting to often the same questions
 - Custom Log for better analysis of bugs
+- Player List Only shows one Player
+- Map Always shows player1 name for all Players
 
 #### If Someone got the mod to work on a 3rd Party hoster Cantact me or join https://discord.gg/Svgz48m
 
@@ -43,6 +45,7 @@ You could cantact me per mail at DayZ-SA-Tomato@Primary-Network.de
 ## Installing
 #### Disable all other mods you use right now
 
+0. Check out this Link if you are using a 3rd party hoster they changed there Wiki since a user asked them how to Install this mod probs to them https://trugaming.com/wiki/index.php?title=DayZ#Server_Side_Mods hoefully this helps a little bit 
 1. Copy DayZ-SA-Tomato to your Server/Client main Folder
 2. Copy SchnitzelPommes.bikey to your Servers keys folder
 3. Make sure YourServerFolder/DayZ-Sa-Tomato/Config/Admins.txt file exist (You can delete it Client side)
