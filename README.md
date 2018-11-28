@@ -10,16 +10,16 @@ See CHANGELOG.md
 
 ## News
 
-28.11.2018 0:30am
+28.11.2018 23:30
 
 ### Fixed
-- UI opens for everyone on the server when Admin opens it
+- U can open the menu even if you are not the first one logged in to server :D
+- Map shows all player and there names 
+- Playerlist Working
+- Custom Loggin addet but not used much
+- Install Guide Updated
+- In your Profile Folder there is a new folder calld TomatoLogs Uplad contents to pastebin when reporting Bugs
 
-### Next up
-- Detailed Installation Guide since getting to often the same questions
-- Custom Log for better analysis of bugs
-- Player List Only shows one Player
-- Map Always shows player1 name for all Players
 
 #### If Someone got the mod to work on a 3rd Party hoster Cantact me or join https://discord.gg/Svgz48m
 
