@@ -21,24 +21,34 @@ See CHANGELOG.md
 
 ## Notes
 
-It is probably bad written
+You can do with this tool what you want as the licence says if you add any features to it i would appreciate if you would share your code so that everyone can benefit from it.
 
-It can be done better
+I recommend if you use it on your own server to merge this tool with your other mods (if there licence allows it) and create one big server mod for compatibility.
 
-It has surely bugs i dont know of
+It is probably bad written.
 
-There will be someone who creates an actuall good Admin Tool
+It can be done better.
+
+It has surely bugs i dont know of.
+
+There will be someone who creates an actuall good Admin Tool.
 
 Meanwhile i am Listening to suggestions 
-and fixing the known bugs if i can 
+and fixing the known bugs if i can .
 
 You could cantact me per mail at DayZ-SA-Tomato@Primary-Network.de
 
 ## Installing
+#### Disable all other mods you use right now
+
 1. Copy DayZ-SA-Tomato to your Server/Client main Folder
-2. Set start param -mod=DayZ-SA-Tomato at Server/Client
-(3. Since the Mod is currently not signed set verifySignatures = 0 in your server.cfg) Should Work now Signed the mod
-4. DayZ-SA-Tomato/Config/Admins.txt set your Steam64Id
+2. Copy SchnitzelPommes.bikey to your Servers keys folder
+3. Make sure YourServerFolder/DayZ-Sa-Tomato/Config/Admins.txt file exist (You can delete it Client side)
+4. Make sure when step 3 completed add your Steam64ID to this file(for every ID 1 line)
+5. Set start param -mod=DayZ-SA-Tomato at Server/Client 
+![alt text](https://steamuserimages-a.akamaihd.net/ugc/43117016076707122/9D374D1F7933C13B477EE6792A3735D9FFAC74B4/)
+
+#### Enable all mods you disabled one by one again contact me per mail at DayZ-SA-Tomato@Primary-Network.de and tell me which mods are not compatible so we can write a list here
 
 Also Available in the Steam workshop 
 https://steamcommunity.com/sharedfiles/filedetails/?id=1575615457
@@ -52,6 +62,13 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1575615457
 
 Start your Server and login
 
+Check your Server log for 
+
+```
+Adding Admin:
+```
+
+If this Meessage appears the server loadet the tool if not you did something wrong
 
 ```
 In Game press "M" Key to bring up the UI
