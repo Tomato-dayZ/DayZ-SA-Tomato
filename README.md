@@ -19,7 +19,11 @@ See CHANGELOG.md
 - Custom Loggin addet but not used much
 - Install Guide Updated
 - In your Profile Folder there is a new folder calld TomatoLogs Uplad contents to pastebin when reporting Bugs
-
+ ### next up
+ - have sleep
+ - Teleports on PlayerTab 
+ - Usage of Logs
+ - checking why custom loodouts does not work when mod is active
 
 #### If Someone got the mod to work on a 3rd Party hoster Cantact me or join https://discord.gg/Svgz48m
 
