@@ -2,10 +2,16 @@
 All notable changes to this project will be documented in this file.
 
 
+## 29.11.2018 23:00
+
+### Fixed
+- If more then one admin is Online both of them can see Playerlist + Map
+- Teleport Buttons working now on PlayerTab 
+
 ## 28.11.2018 23:30
 
 ### Fixed
-- U can open the menu even if you are not the first one logged in to server :D
+- You can open the menu even if you are not the first one logged in to server :D
 - Map shows all player and there names 
 - Playerlist Working
 - Custom Loggin addet but not used much
