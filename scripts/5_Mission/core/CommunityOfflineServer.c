@@ -277,7 +277,6 @@ class CommunityOfflineServer : MissionServer
 				{
 					return true;	
 				}
-			return false;
 			}
 			return false;
 	}
