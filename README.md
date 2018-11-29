@@ -31,6 +31,7 @@ See CHANGELOG.md
 
 You can do with this tool what you want as the licence says if you add any features to it i would appreciate if you would share your code so that everyone can benefit from it.
 
+#### Every mod which uses a Custom Mission is not compatible with any other mod which does the same so a merge has to be done in order to use both !
 I recommend if you use it on your own server to merge this tool with your other mods (if there licence allows it) and create one big server mod for compatibility.
 
 It is probably bad written.
