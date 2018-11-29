@@ -1,6 +1,0 @@
-///'scripts.pbo' from Mikero's dos tools, dll version 5.66///
-prefix=com\DayZ-SA-Tomato
-revision=1
-Pbo Type is: Arma Unknown pbo typ (no config).
-Sha: '5CAF7A50CB0D1CACBB90A6A0DA4EFC47B8998E0D'
-//////</HEADER>//////
