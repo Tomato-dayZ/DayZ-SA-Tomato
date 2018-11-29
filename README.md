@@ -10,20 +10,15 @@ See CHANGELOG.md
 
 ## News
 
-28.11.2018 23:30
+## 29.11.2018 23:00
 
 ### Fixed
-- U can open the menu even if you are not the first one logged in to server :D
-- Map shows all player and there names 
-- Playerlist Working
-- Custom Loggin addet but not used much
-- Install Guide Updated
-- In your Profile Folder there is a new folder calld TomatoLogs Uplad contents to pastebin when reporting Bugs
+- If more then one admin is Online both of them can see Playerlist + Map
+- Teleport Buttons working now on PlayerTab 
+
  ### next up
- - have sleep
- - Teleports on PlayerTab 
  - Usage of Logs
- - checking why custom loodouts does not work when mod is active
+
 
 #### If Someone got the mod to work on a 3rd Party hoster Cantact me or join https://discord.gg/Svgz48m
 
