@@ -85,6 +85,15 @@ FrameWidgetClass rootFrame {
      text "Strip Player"
     }
     ButtonWidgetClass btn_Player_tpMe {
+     position 610 330
+     size 350 45
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Teleport To Player"
+    }
+    ButtonWidgetClass btn_Player_tpto {
      position 610 390
      size 350 45
      hexactpos 1
@@ -92,15 +101,6 @@ FrameWidgetClass rootFrame {
      hexactsize 1
      vexactsize 1
      text "Teleport Player here"
-    }
-    ButtonWidgetClass btn_Player_tpto {
-     position 610 330
-     size 350 45
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     text "Teleport to Player"
     }
     ButtonWidgetClass btn_Player_Heal {
      position 610 210

@@ -267,20 +267,19 @@ class CommunityOfflineServer : MissionServer
 	
 	
 	
-	bool  IsAdmin( string name, string ID ) 
-	{
-		array<Man> players = new array<Man>;
-					GetGame().GetPlayers( players );
-		for (int i = 0; i < players.Count(); ++i)
-			{
-				if (players.Get(i).GetIdentity().GetName() == name && m_AdminList.Contains(ID))
-				{
-					return true;	
-				}
-			return false;
-			}
-			return false;
-	}
+	// bool  IsAdmin( string name, string ID ) 
+	// {
+		// array<Man> players = new array<Man>;
+					// GetGame().GetPlayers( players );
+		// for (int i = 0; i < players.Count(); ++i)
+			// {
+				// if (players.Get(i).GetIdentity().GetName() == name && m_AdminList.Contains(ID))
+				// {
+					// return true;	
+				// }
+			// }
+			// return false;
+	// }
 	
 	
 	
@@ -289,7 +288,6 @@ class CommunityOfflineServer : MissionServer
 		GetGame().GetWorld().GetPlayerList(m_Players);
 		array<Man> players = new array<Man>;
 		GetGame().GetPlayers( players );
-		CLogDebug("Player Count : " + players.Count().ToString() );
 		//PlayerBase currentPlayer;
 		int Count = 0;
 		for (int i = 0; i < players.Count(); ++i)
@@ -315,6 +313,30 @@ class CommunityOfflineServer : MissionServer
 			Count ++;
 		}
 		return Admin; 
+	}
+	
+	bool IsAdmin(string name, string ID ) 
+	{
+		GetGame().GetWorld().GetPlayerList(m_Players);
+		array<Man> players = new array<Man>;
+		GetGame().GetPlayers( players );
+		//PlayerBase currentPlayer;
+		int Count = 0;
+		for (int i = 0; i < players.Count(); ++i)
+		{
+			if(Count >= m_Players.Count() )
+				{
+					Count = 0;
+				}
+			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(Count));
+			if (currentPlayer.GetIdentity().GetName() == name && m_AdminList.Contains(ID))
+			{
+				Admin 		  = currentPlayer;
+				return true;	
+			}else
+			Count ++;
+		}
+		return false; 
 	}
 
 	ref Man GetPlayerFromIdentity( PlayerIdentity identity ) 
