@@ -55,7 +55,7 @@ You could cantact me per mail at DayZ-SA-Tomato@Primary-Network.de
 3. Make sure YourServerFolder/DayZ-Sa-Tomato/Config/Admins.txt file exist (You can delete it Client side)
 4. Make sure when step 3 completed add your Steam64ID to this file(for every ID 1 line)
 5. Set start param -mod=DayZ-SA-Tomato at Server/Client 
-6. Add -profiles=D:\YourProfileFolderMaybe/DayzServer/Log and -scrAllowFileWrite To your server Parameters
+6. If not exist Add -profiles=D:\YourProfileFolderMaybe/DayzServer/Log and -scrAllowFileWrite To your server Parameters
 ![alt text](https://steamuserimages-a.akamaihd.net/ugc/43117016076707122/9D374D1F7933C13B477EE6792A3735D9FFAC74B4/)
 
 #### Enable all mods you disabled one by one again contact me per mail at DayZ-SA-Tomato@Primary-Network.de and tell me which mods are not compatible so we can write a list here
