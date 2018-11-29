@@ -27,7 +27,7 @@ See CHANGELOG.md
 
 #### If Someone got the mod to work on a 3rd Party hoster Cantact me or join https://discord.gg/Svgz48m
 
-## Notes
+##  Notes
 
 You can do with this tool what you want as the licence says if you add any features to it i would appreciate if you would share your code so that everyone can benefit from it.
 
