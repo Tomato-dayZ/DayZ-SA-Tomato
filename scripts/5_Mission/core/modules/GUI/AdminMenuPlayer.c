@@ -58,13 +58,13 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 		m_btn_Player_Strip = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_Strip" ) );
 		m_btn_Player_Kill = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_Kill" ) );
 		m_btn_Player_Heal = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_Heal" ) );
-		m_btn_Player_TpMe = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_TpMe" ) );
-		m_btn_Player_TpTo = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_TpTo" ) );
+		m_btn_Player_TpMe = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_tpMe" ) );
+		m_btn_Player_TpTo = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_tpto" ) );
 		m_btn_Player_Stamina = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_Stamina" ) );
 		m_btn_Player_KillAll = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_KillAll" ) );
 		m_btn_Player_HealAll = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_HealAll" ) );
 		m_btn_Player_StripAll = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_StripAll" ) );
-		m_btn_Player_TpMeAll = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_TpMeAll" ) );
+		m_btn_Player_TpMeAll = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_tpMeAll" ) );
 		m_btn_Player_Send = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_Send" ) );
 		m_Text_Player_Blood = TextWidget.Cast( m_Root.FindAnyWidget( "Text_Player_Blood" ) );
 		m_Text_Player_Health = TextWidget.Cast( m_Root.FindAnyWidget( "Text_Player_Energy" ) );
@@ -73,7 +73,10 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 		//PlayerList();
 		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_List_Request, new Param1<string>(""), false, NULL );
 	}
-	
+	void LogD(string s)
+	{
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Debug, new Param1<string>( s ), false, NULL );
+	}
 	bool Click(Widget w, int x, int y, int button)
 	{
 		PlayerBase player = PlayerBase.Cast( GetGame().GetPlayer() );
@@ -109,6 +112,7 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 			if( ( w == m_btn_Player_TpMe ) )
 			{
 				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpMe, new Param1<string>(PlayerName), false, NULL );
+				LogD("AdminMenuPlayer - Click - m_btn_Player_TpMe Playername : " + PlayerName)
 				return true;
 			}
 			

@@ -26,6 +26,7 @@ class AdminMenu //extends UIScriptedMenu
 	PlayerBase Admin;
 	PlayerIdentity AdminIdentity;
 	string AdminUID;
+	ref array<Man> m_Players;
 				
 	void AdminMenu() 
 	{
@@ -53,6 +54,7 @@ class AdminMenu //extends UIScriptedMenu
 		ItemBase oItem = NULL;
 		PlayerIdentity AdminIdent;
 		bool ai = false;
+		int Count = 0;
 
 		int quantity = 0;
 		string text = "";
@@ -406,23 +408,58 @@ class AdminMenu //extends UIScriptedMenu
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
 							if ( Admin != NULL) 
 							{
-								for ( int z = 0; z < players.Count(); ++z )
+								
+								
+								array<Man> playerstptp = new array<Man>;
+								GetGame().GetPlayers( playerstptp );
+
+								vector AdminPos;
+								AdminPos = Admin.GetPosition();
+								GetServerMission().CLogDebug("TPTO Target : " + selectedIdentity.GetName() + " PlayerName : " + PlayerName);
+								for ( int it = 0; it < playerstptp.Count(); ++it )
 								{
-									selectedPlayer = players.Get(z);
-									selectedIdentity = selectedPlayer.GetIdentity();
-									GetServerMission().CLogDebug("Current Player : " + selectedIdentity.GetName() + "TP Player name : " + PlayerName);
+									PlayerBase Targettpto = playerstptp.Get(it);
+									selectedIdentity =playerstptp.Get(it).GetIdentity();
+									GetServerMission().CLogDebug("TPTO Target : " + selectedIdentity.GetName() + " PlayerName : " + PlayerName + " Number :" + it.ToString());
 									if ( selectedIdentity.GetName() == PlayerName )
 									{
-										selectedPlayer.SetPosition(Admin.GetPosition());
-
-										Msgparam = new Param1<string>( "You were teleported by the admin!" );
-										GetGame().RPCSingleParam(Admin, ERPCs.RPC_USER_ACTION_MESSAGE, Msgparam, true, selectedIdentity);
-											  
-										strMessage = "Player " + PlayerName + " was teleported to your location!";
-										Msgparam = new Param1<string>( strMessage );
-										GetGame().RPCSingleParam(Admin, ERPCs.RPC_USER_ACTION_MESSAGE, Msgparam, true, AdminIdentity);
+									//PlayerBase Target = players.Get(i);
+									Targettpto.SetPosition( AdminPos );
 									}
 								}
+							
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								// for ( int z = 0; z < players.Count(); ++z )
+								// {
+									// if(Count >= m_Players.Count() )
+									// {
+										// Count = 0;
+									// }
+									// selectedPlayer = PlayerBase.Cast(m_Players.Get(Count));
+									// selectedIdentity = selectedPlayer.GetIdentity();
+									// GetServerMission().CLogDebug("Current Player : " + selectedIdentity.GetName() + "TP Player name : " + PlayerName);
+									// if ( selectedIdentity.GetName() == PlayerName )
+									// {
+										// selectedPlayer.SetPosition(Admin.GetPosition());
+
+										// Msgparam = new Param1<string>( "You were teleported by the admin!" );
+										// GetGame().RPCSingleParam(Admin, ERPCs.RPC_USER_ACTION_MESSAGE, Msgparam, true, selectedIdentity);
+											  
+										// strMessage = "Player " + PlayerName + " was teleported to your location!";
+										// Msgparam = new Param1<string>( strMessage );
+										// GetGame().RPCSingleParam(Admin, ERPCs.RPC_USER_ACTION_MESSAGE, Msgparam, true, AdminIdentity);
+									// }
+									// Count ++;
+								//}
 							}
 						}
 						
