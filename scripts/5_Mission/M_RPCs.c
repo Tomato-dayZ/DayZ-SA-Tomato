@@ -54,4 +54,10 @@ enum M_RPCs
 	M_Admin_Menu_Player_Health = 7032;
 	M_Admin_Menu_Player_Stamina_Request = 7033;
 	M_Admin_Menu_Player_Stamina_ok = 7034;
+	M_Admin_Menu_Log_Info = 7035;
+	M_Admin_Menu_Player_List_Request = 7036;
+	M_Admin_Menu_Player_List = 7037;
+	M_Admin_Menu_Log_Debug = 7038;
+	M_Admin_Menu_Log_Startup = 7039;
+	M_Admin_Menu_Log_RPC = 7040;
 }

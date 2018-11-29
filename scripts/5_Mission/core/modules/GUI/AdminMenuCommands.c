@@ -137,6 +137,10 @@ class AdminMenuGuiCommands extends ScriptedWidgetEventHandler
 			
 			if( ( w == m_Command_Test ) )
 			{
+				string msg;
+				msg = "TestLog";
+				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Info, new Param1<string>( msg ), false, NULL );
+				Message("Send Log RPC msg = " + msg);
 				return true;
 			}
 			return true;

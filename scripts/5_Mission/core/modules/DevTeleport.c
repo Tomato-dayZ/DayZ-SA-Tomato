@@ -3,6 +3,8 @@
 	Copyright (C) 2018  DayZ-SA-Tomato
 	
 	This file is part of DayZ SA Tomato.
+	Originally from DayZCommunityOfflineMode
+	Link : https://github.com/Arkensor/DayZCommunityOfflineMode
 	
     DayZ SA Tomato is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -40,7 +42,7 @@ class DevTeleport
 				ref PlayerBase player = GetServerMission().GetPlayerFromIdentity( sender );
 				// permission check - server mission file
 				// if has permissions send message back to client
-				if ( GetServerMission().IsAdmin( sender.GetName(), sender.GetPlainId()) 
+				if ( GetServerMission().IsAdmin( sender.GetName(), sender.GetPlainId()) )
 				{
 					player.SetPosition( positionToTeleport ); //set player position on server side
 

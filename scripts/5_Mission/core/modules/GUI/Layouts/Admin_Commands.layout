@@ -172,6 +172,24 @@ FrameWidgetClass rootFrame {
      text "Teleport (n Key)"
      checked 0
     }
+    ButtonWidgetClass btn_Command_Test {
+     position 152.78999 631.31201
+     size 378.93399 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Test Load Conf"
+    }
+    TextWidgetClass Text_Command_Test {
+     position 573.13898 627.05402
+     size 342.647 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Param"
+    }
    }
   }
  }

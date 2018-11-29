@@ -58,7 +58,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 		
 		m_Spawn_editBox = m_Root.FindAnyWidget("className_spawner_box");
 		
-		UpdateList( "All" )
+		UpdateList( "All" );
 	}
 	
 	//TODO
@@ -70,7 +70,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 		int quantity = 0;
 		string text = "";
 		ItemBase oItem = NULL;
-		string ai_new = ""
+		string ai_new = "";
 		if ( strSelection == "" ) 
 		{
 			strSelection = GetEditBoxInput();
@@ -83,7 +83,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
         	if ( GetGame().IsKindOf( strSelection, "DZ_LightAI" ) ) 
         	{
         		ai = true;
-				ai_new = "true"
+				ai_new = "true";
         	}
 
             if( w == m_Spawn_btnSpawnCursor )
@@ -93,9 +93,9 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 				
 				ScriptRPC Cursor_rpc = new ScriptRPC();
 				Cursor_rpc.Write(strSelection);
-				Cursor_rpc.Write(GetCursorPos())
+				Cursor_rpc.Write(GetCursorPos());
 				Cursor_rpc.Write(ai_new);
-				Cursor_rpc.Write(text)
+				Cursor_rpc.Write(text);
 				Cursor_rpc.Send(NULL, M_RPCs.M_Admin_Menu_Spawn_Cursor, false, NULL);
 				
 				
@@ -114,7 +114,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 				ScriptRPC rpc = new ScriptRPC();
 				rpc.Write(strSelection);
 				rpc.Write(ai_new);
-				rpc.Write(text)
+				rpc.Write(text);
 				rpc.Send(NULL, M_RPCs.M_Admin_Menu_Spawn_Ground, false, NULL);
 
             }
@@ -125,7 +125,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 				ScriptRPC Inventory_rpc = new ScriptRPC();
 				Inventory_rpc.Write(strSelection);
 				Inventory_rpc.Write(ai_new);
-				Inventory_rpc.Write(text)
+				Inventory_rpc.Write(text);
 				Inventory_rpc.Send(NULL, M_RPCs.M_Admin_Menu_Spawn_Inventory, false, NULL);
             }
         }
@@ -356,7 +356,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 		if ( previewItem ) 
 		{
 			GetGame().ObjectDelete( previewItem );
-			delete m_item_widget
+			delete m_item_widget;
 		}
 	}
 	

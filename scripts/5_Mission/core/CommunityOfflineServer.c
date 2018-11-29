@@ -3,6 +3,8 @@
 	Copyright (C) 2018  DayZ-SA-Tomato
 	
 	This file is part of DayZ SA Tomato.
+	Originally from DayZCommunityOfflineMode
+	Link : https://github.com/Arkensor/DayZCommunityOfflineMode
 	
     DayZ SA Tomato is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,7 +27,7 @@ class CommunityOfflineServer : MissionServer
 	ref AdminMenu adminMenu;
 	protected float m_LogInTimerLength = 1;
 	//admin list
-	PlayerBase Admin = null;
+	PlayerBase Admin = NULL;
 	protected ref map<string, string> m_AdminList;
 	static ref map<string, string> m_StaminaList;
 	protected string m_AdminListPath = "$CurrentDir:\\DayZ-SA-Tomato\\Config\\";
@@ -113,7 +115,7 @@ class CommunityOfflineServer : MissionServer
 			PlayerIdent = currentPlayer.GetIdentity();
 			PlayerName = PlayerIdent.GetName();
 			PlayerSteam64ID = PlayerIdent.GetPlainId();
-			PlayerPos = currentPlayer.GetPosition()
+			PlayerPos = currentPlayer.GetPosition();
 			currentPlayer.OnTick();
 
 			if (m_StaminaList.Contains(PlayerName))
@@ -137,51 +139,114 @@ class CommunityOfflineServer : MissionServer
 	
 	void SendPosTOAdmins()
 	{
+		int m_currentPlayer1;
 		array<Man> players = new array<Man>;
-					GetGame().GetPlayers( players );
-					
+		GetGame().GetPlayers( players );
+				
 		for (int i = 0; i < players.Count(); ++i)
+		{
+			if(m_currentPlayer1 >= m_Players.Count() )
 			{
+				m_currentPlayer1 = 0;
+			}
+			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(m_currentPlayer1));
+			string PlayerName;
+			PlayerIdentity PlayerIdent;
+			string PlayerSteam64ID;
+			PlayerIdent = currentPlayer.GetIdentity();
+			PlayerName = PlayerIdent.GetName();
+			PlayerSteam64ID = PlayerIdent.GetPlainId();
+			vector pos;
 				
-				PlayerBase currentPlayer = players.Get(i);
-				string PlayerName;
-				PlayerIdentity PlayerIdent;
-				string PlayerSteam64ID;
-				PlayerName = PlayerIdent.GetName()
-				PlayerIdent = currentPlayer.GetIdentity();
-				PlayerSteam64ID = PlayerIdent.GetPlainId();
-				vector pos;
-					
-					pos = currentPlayer.GetPosition()
-				
-				SendPosToAdmins(PlayerName, pos)
+			pos = currentPlayer.GetPosition();
+			CLogDebug("CommunityOfflineServer - SendPosTOAdmins1/2() - Name :" + PlayerName + "pos : " + pos);
+			//SendPosToAdmins(PlayerName, pos);
+			m_currentPlayer1++;
 			
-				
-			}
-	}
-	void SendPosToAdmins(string PlayerName, vector pos)
-	{
-		array<Man> players = new array<Man>;
-					GetGame().GetPlayers( players );
+			int m_currentPlayer2;
+			array<Man> players1 = new array<Man>;
+			GetGame().GetPlayers( players1 );
 					
-		for (int i = 0; i < players.Count(); ++i)
+			for (int i1 = 0; i1 < players1.Count(); ++i1)
 			{
-				PlayerBase currentPlayer = players.Get(i);
-				string AdminPlayerName;
-				PlayerIdentity AdminIdent;
-				string PlayerSteam64ID;
-				AdminPlayerName = AdminIdent.GetName()
-				AdminIdent = currentPlayer.GetIdentity();
-				PlayerSteam64ID = AdminIdent.GetPlainId();
-				if (IsAdmin(AdminPlayerName, PlayerSteam64ID ))
-					{
-						ScriptRPC PPos = new ScriptRPC();
-						PPos.Write(PlayerName);
-						PPos.Write(pos);
-						PPos.Send(NULL, M_RPCs.M_Admin_Menu_Map_Player, false, AdminIdent);
-					}
+				if(m_currentPlayer2 >= m_Players.Count() )
+			{
+				m_currentPlayer2 = 0;
 			}
+				PlayerBase currentPlayer1 = PlayerBase.Cast(m_Players.Get(m_currentPlayer2));
+				string AdminPlayerName1;
+				PlayerIdentity AdminIdent1;
+				string PlayerSteam64ID1;
+				AdminIdent1 = currentPlayer1.GetIdentity();
+				AdminPlayerName1 = AdminIdent1.GetName();
+				PlayerSteam64ID1 = AdminIdent1.GetPlainId();
+				if (IsAdmin(AdminPlayerName1, PlayerSteam64ID1 ))
+				{
+					CLogDebug("CommunityOfflineServer - SendPosTOAdmins2/2() - Name :" + PlayerName + "pos : " + pos);
+					ScriptRPC PPos = new ScriptRPC();
+					PPos.Write(PlayerName);
+					PPos.Write(pos);
+					PPos.Send(NULL, M_RPCs.M_Admin_Menu_Map_Player, false, AdminIdent1);
+				}
+				m_currentPlayer2++;
+			}
+				
+				
+		}
 	}
+	void SendPlayerListToAdmins()
+	{
+		int m_currentPlayer1;
+		array<Man> players = new array<Man>;
+		GetGame().GetPlayers( players );
+				
+		for (int i = 0; i < players.Count(); ++i)
+		{
+			if(m_currentPlayer1 >= m_Players.Count() )
+			{
+				m_currentPlayer1 = 0;
+			}
+			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(m_currentPlayer1));
+			string PlayerName;
+			PlayerIdentity PlayerIdent;
+			string PlayerSteam64ID;
+			PlayerIdent = currentPlayer.GetIdentity();
+			PlayerName = PlayerIdent.GetName();
+			PlayerSteam64ID = PlayerIdent.GetPlainId();		
+			CLogDebug("CommunityOfflineServer - SendPlayerListToAdmins() - Name :" + PlayerName + "m_currentPlayer1 : " + m_currentPlayer1);
+			//SendPosToAdmins(PlayerName, pos);
+			m_currentPlayer1++;
+			
+			int m_currentPlayer2 = 0;
+			array<Man> players1 = new array<Man>;
+			GetGame().GetPlayers( players1 );
+					
+			for (int i1 = 0; i1 < players1.Count(); ++i1)
+			{
+				if(m_currentPlayer2 >= m_Players.Count() )
+				{
+					m_currentPlayer2 = 0;
+				}
+				PlayerBase currentPlayer1 = PlayerBase.Cast(m_Players.Get(m_currentPlayer2));
+				string AdminPlayerName1;
+				PlayerIdentity AdminIdent1;
+				string PlayerSteam64ID1;
+				AdminIdent1 = currentPlayer1.GetIdentity();
+				AdminPlayerName1 = AdminIdent1.GetName();
+				PlayerSteam64ID1 = AdminIdent1.GetPlainId();
+				if (IsAdmin(AdminPlayerName1, PlayerSteam64ID1 ))
+				{
+					ScriptRPC PList = new ScriptRPC();
+					PList.Write(PlayerName);
+					PList.Send(NULL, M_RPCs.M_Admin_Menu_Player_List, false, AdminIdent1);
+				}
+				m_currentPlayer2++;
+			}
+				
+				
+		}
+	}
+	
 	void AddStamina(string name)
 	{
 		m_StaminaList.Insert(name, "null");
@@ -217,22 +282,39 @@ class CommunityOfflineServer : MissionServer
 			return false;
 	}
 	
+	
+	
 	PlayerBase IsAdminID(string name, string ID ) 
 	{
+		GetGame().GetWorld().GetPlayerList(m_Players);
 		array<Man> players = new array<Man>;
-					GetGame().GetPlayers( players );
+		GetGame().GetPlayers( players );
+		CLogDebug("Player Count : " + players.Count().ToString() );
+		//PlayerBase currentPlayer;
+		int Count = 0;
 		for (int i = 0; i < players.Count(); ++i)
-			{
-				if (players.Get(i).GetIdentity().GetName() == name && m_AdminList.Contains(ID))
+		{
+			if(Count >= m_Players.Count() )
 				{
-					Admin 		  = players.Get(i);
-					//AdminIdentity = Admin.GetIdentity();
-					//AdminUID 	  = AdminIdentity.GetPlainId();
-					return Admin;	
+					Count = 0;
 				}
-			return Admin;
+			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(Count));
+			CLogDebug("Current Player : " + currentPlayer.GetIdentity().GetName() + "Count : " + Count.ToString());
+			if (currentPlayer.GetIdentity().GetName() == name && m_AdminList.Contains(ID))
+			{
+				Admin 		  = currentPlayer;
+				//AdminIdentity = Admin.GetIdentity();
+				//AdminUID 	  = AdminIdentity.GetPlainId();
+				CLogDebug("Returning True for : " + players.Get(i).GetIdentity().GetName() );
+				return Admin;	
+			}else
+			{
+			CLogDebug("Returning False 1" );
+			Admin = NULL;
 			}
-		return Admin; // temp true
+			Count ++;
+		}
+		return Admin; 
 	}
 
 	ref Man GetPlayerFromIdentity( PlayerIdentity identity ) 
@@ -335,7 +417,115 @@ class CommunityOfflineServer : MissionServer
 		{
 			queueTime = m_LogInTimerLength;
 		}
-}
+	}
+	
+	void  CLogInfo(string log) 
+	{
+		int year, month, day, hour, minute, second;
+		GetYearMonthDay(year, month, day);
+		GetHourMinuteSecond(hour, minute, second);
+	
+		string date = day.ToStringLen(2) + "." + month.ToStringLen(2) + "." + year.ToStringLen(4) + " " + hour.ToStringLen(2) + ":" + minute.ToStringLen(2);
+		Print(log);
+		if(FileExist("$profile:\\TomatoLog"))
+		{
+			FileHandle file = OpenFile("$profile:\\TomatoLog\\Info.log", FileMode.APPEND);
+			if (file != 0)
+			{
+				FPrintln(file, "[" + date + "] - " + log);
+				CloseFile(file);
+			}
+		}else{
+			MakeDirectory("$profile:\\TomatoLog");
+			FileHandle file2 = OpenFile("$profile:\\TomatoLog\\Info.log", FileMode.APPEND);
+			if (file != 0)
+			{
+				FPrintln(file, "[" + date + "] - " + log);
+				CloseFile(file);
+			}
+		}
+	}
+	
+	void  CLogRPC(string log) 
+	{
+		int year, month, day, hour, minute, second;
+		GetYearMonthDay(year, month, day);
+		GetHourMinuteSecond(hour, minute, second);
+	
+		string date = day.ToStringLen(2) + "." + month.ToStringLen(2) + "." + year.ToStringLen(4) + " " + hour.ToStringLen(2) + ":" + minute.ToStringLen(2);
+		Print(log);
+		if(FileExist("$profile:\\TomatoLog"))
+		{
+			FileHandle file = OpenFile("$profile:\\TomatoLog\\RPC.log", FileMode.APPEND);
+			if (file != 0)
+			{
+				FPrintln(file, "[" + date + "] - " + log);
+				CloseFile(file);
+			}
+		}else{
+			MakeDirectory("$profile:\\TomatoLog");
+			FileHandle file2 = OpenFile("$profile:\\TomatoLog\\RPC.log", FileMode.APPEND);
+			if (file != 0)
+			{
+				FPrintln(file, "[" + date + "] - " + log);
+				CloseFile(file);
+			}
+		}
+	}
+	
+	void  CLogStartup(string log) 
+	{
+		int year, month, day, hour, minute, second;
+		GetYearMonthDay(year, month, day);
+		GetHourMinuteSecond(hour, minute, second);
+	
+		string date = day.ToStringLen(2) + "." + month.ToStringLen(2) + "." + year.ToStringLen(4) + " " + hour.ToStringLen(2) + ":" + minute.ToStringLen(2);
+		Print(log);
+		if(FileExist("$profile:\\TomatoLog"))
+		{
+			FileHandle file = OpenFile("$profile:\\TomatoLog\\Startup.log", FileMode.APPEND);
+			if (file != 0)
+			{
+				FPrintln(file, "[" + date + "] - " + log);
+				CloseFile(file);
+			}
+		}else{
+			MakeDirectory("$profile:\\TomatoLog");
+			FileHandle file2 = OpenFile("$profile:\\TomatoLog\\Startup.log", FileMode.APPEND);
+			if (file != 0)
+			{
+				FPrintln(file, "[" + date + "] - " + log);
+				CloseFile(file);
+			}
+		}
+	}
+	
+	void  CLogDebug(string log) 
+	{
+		int year, month, day, hour, minute, second;
+		GetYearMonthDay(year, month, day);
+		GetHourMinuteSecond(hour, minute, second);
+	
+		string date = day.ToStringLen(2) + "." + month.ToStringLen(2) + "." + year.ToStringLen(4) + " " + hour.ToStringLen(2) + ":" + minute.ToStringLen(2);
+		Print(log);
+		if(FileExist("$profile:\\TomatoLog"))
+		{
+			FileHandle file = OpenFile("$profile:\\TomatoLog\\Debug.log", FileMode.APPEND);
+			if (file != 0)
+			{
+				FPrintln(file, "[" + date + "] - " + log);
+				CloseFile(file);
+			}
+		}else{
+			MakeDirectory("$profile:\\TomatoLog");
+			FileHandle file2 = OpenFile("$profile:\\TomatoLog\\Debug.log", FileMode.APPEND);
+			if (file != 0)
+			{
+				FPrintln(file, "[" + date + "] - " + log);
+				CloseFile(file);
+			}
+		}
+	}
 	
 	
     void InitHive()

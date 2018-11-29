@@ -77,6 +77,8 @@ protected MapWidget m_Map_Map;
 					if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
 						{
 							AddPlayerMarker(PosName, Pos1);
+							string msg = "AdminMenuMap - M_RPCs.M_Admin_Menu_Map_Player Adding " + PosName + " Pos :" + Pos1 + " To List";
+							GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Debug, new Param1<string>( msg ), false, NULL );
 						}
 			break;
 		}

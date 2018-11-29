@@ -53,7 +53,7 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 			
 		m_Menu						= menu;
 		GetDayZGame().Event_OnRPC.Insert( this.ReceiveRPC );
-		m_PlayerList = TextListboxWidget.Cast( m_Root.FindAnyWidget( "Player_Player_List" )
+		m_PlayerList = TextListboxWidget.Cast( m_Root.FindAnyWidget( "Player_Player_List" ) );
 		m_Box_Player_Message = EditBoxWidget.Cast( m_Root.FindAnyWidget( "Box_Player_Message" ) );
 		m_btn_Player_Strip = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_Strip" ) );
 		m_btn_Player_Kill = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_Kill" ) );
@@ -70,7 +70,8 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 		m_Text_Player_Health = TextWidget.Cast( m_Root.FindAnyWidget( "Text_Player_Energy" ) );
 		m_Text_Player_Pos = TextWidget.Cast( m_Root.FindAnyWidget( "Text_Player_Pos" ) );
 		m_Cb_Player_Stamina	= CheckBoxWidget.Cast( m_Root.FindAnyWidget( "Cb_Player_Stamina" ) );
-		PlayerList();
+		//PlayerList();
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_List_Request, new Param1<string>(""), false, NULL );
 	}
 	
 	bool Click(Widget w, int x, int y, int button)
@@ -238,6 +239,21 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 						
 
 			break;
+			
+			case M_RPCs.M_Admin_Menu_Player_List:
+				string ListName;
+				ctx.Read(ListName);
+					if ( GetGame().IsServer() ) 
+						{
+							
+						}	
+					if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
+						{
+							m_PlayerList.AddItem( ListName, NULL, 0 ); 
+							string msg = "AdminMenuMap - M_RPCs.M_Admin_Menu_Player_List Adding " + ListName;
+							GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Debug, new Param1<string>( msg ), false, NULL );
+						}
+			break;
 		}
 	}
 	
@@ -262,13 +278,15 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 	void PlayerList()
 	{
 		
-		m_PlayerList.ClearItems();
-		array<Man> players = new array<Man>;
-		GetGame().GetPlayers( players );
-		for (int i = 0; i < players.Count(); ++i)
-			{
-				m_PlayerList.AddItem( players.Get(i).GetIdentity().GetName(), NULL, 0 );  
-			}
+		// m_PlayerList.ClearItems();
+		// array<Man> players = new array<Man>;
+		// GetGame().GetPlayers( players );
+		// for (int i = 0; i < players.Count(); ++i)
+			// {
+				// string msg = "AdminMenuPlayer - PlayerList() Adding " + players.Get(i).GetIdentity().GetName() + " To List";
+				// GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Info, new Param1<string>( msg ), false, NULL );
+				// m_PlayerList.AddItem( players.Get(i).GetIdentity().GetName(), NULL, 0 );  
+			// }
 	}
 	
 	string GetCurrentSelection()

@@ -39,7 +39,7 @@ class AdminMenuGui extends UIScriptedMenu
 		bool okstap;
 		okstap = false;
 		if ( w == m_SpawnTab.m_classList ) {
-		okstap = m_SpawnTab.OnItemSelect(w, x, y, row, column, oldRow, oldColumn)
+		okstap = m_SpawnTab.OnItemSelect(w, x, y, row, column, oldRow, oldColumn);
 	return okstap;
 		}
 		return okstap;
@@ -143,21 +143,21 @@ class AdminMenuGui extends UIScriptedMenu
 		bool ok = false;
 		if ( w.GetName().Contains("_spawn_") )
 		{
-			ok = m_SpawnTab.Click(w, x, y, button)
+			ok = m_SpawnTab.Click(w, x, y, button);
 			return ok;
 		}
 		
 		//CommandTab
 		if ( w.GetName().Contains("_Command_") )
 		{
-			ok = m_CommandTab.Click(w, x, y, button)
+			ok = m_CommandTab.Click(w, x, y, button);
 			return ok;
 		}
 		
 		//PlayerTab
 		if ( w.GetName().Contains("_Player_") )
 		{
-			ok = m_PlayerTab.Click(w, x, y, button)
+			ok = m_PlayerTab.Click(w, x, y, button);
 			return ok;
 		}
 		

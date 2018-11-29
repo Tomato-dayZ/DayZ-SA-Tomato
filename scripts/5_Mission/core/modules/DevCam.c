@@ -3,6 +3,8 @@
 	Copyright (C) 2018  DayZ-SA-Tomato
 	
 	This file is part of DayZ SA Tomato.
+	Originally from DayZCommunityOfflineMode
+	Link : https://github.com/Arkensor/DayZCommunityOfflineMode
 	
     DayZ SA Tomato is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

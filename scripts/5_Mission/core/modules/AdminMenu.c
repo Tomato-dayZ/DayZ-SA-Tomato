@@ -62,31 +62,90 @@ class AdminMenu //extends UIScriptedMenu
 		switch(rpc_type)
 		{
 			
-			case (int)M_RPCs.M_Admin_Menu:
+			case M_RPCs.M_Admin_Menu_Log_Info:
+				string InfoLog; 	
+				Param1<string> stringParam1;
+				ctx.Read( stringParam1 );
+				InfoLog = stringParam1.param1;
 				if ( GetGame().IsServer() ) 
 				{
-					Print("Admin Menu RPC");
 					//GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu, new Param1<vector>( GetCursorPos() ), false, NULL );
 					// permission check - server mission file
 					
 					Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-					if ( Admin != null ) 
+					if ( Admin != NULL) 
 					{
-						Print("Admin Menu sender name : " + sender.GetName() + "PlainID : " + sender.GetPlainId());
-						AdminIdentity = Admin.GetIdentity();
-						AdminUID 	  = AdminIdentity.GetPlainId();
-						GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_OK, new Param1<string>( "Test" ), false, NULL );
+						GetServerMission().CLogInfo(InfoLog);
 					}
 				}
-
-			if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
+			break;
+			
+			case M_RPCs.M_Admin_Menu_Log_Debug:
+				string DebugLog; 	
+				Param1<string> stringParam2;
+				ctx.Read( stringParam2 );
+				DebugLog = stringParam2.param1;
+				if ( GetGame().IsServer() ) 
+				{
+					//GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu, new Param1<vector>( GetCursorPos() ), false, NULL );
+					// permission check - server mission file
+					
+					Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
+					if ( Admin != NULL) 
+					{
+						GetServerMission().CLogDebug(DebugLog);
+					}
+				}
+			break;
+			
+			case M_RPCs.M_Admin_Menu_Log_Startup:
+				string StartupLog; 	
+				Param1<string> stringParam3;
+				ctx.Read( stringParam3 );
+				StartupLog = stringParam3.param1;
+				if ( GetGame().IsServer() ) 
+				{	
+					Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
+					if ( Admin != NULL) 
+					{
+						GetServerMission().CLogStartup(StartupLog);
+					}
+				}
+			break;
+			
+			case M_RPCs.M_Admin_Menu_Log_RPC:
+				string RPCLog; 	
+				Param1<string> stringParam4;
+				ctx.Read( stringParam4 );
+				RPCLog = stringParam4.param1;
+				if ( GetGame().IsServer() ) 
+				{
+					//GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu, new Param1<vector>( GetCursorPos() ), false, NULL );
+					// permission check - server mission file
+					
+					Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
+					if ( Admin != NULL) 
+					{
+						GetServerMission().CLogRPC(RPCLog);
+					}
+				}
+			break;
+			
+			case (int)M_RPCs.M_Admin_Menu:
+				if ( GetGame().IsServer() ) 
+				{
+					GetServerMission().CLogDebug("M_RPCs.M_Admin_Menu - RPC Main sender : " + sender.GetName());
+					Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
+					if ( Admin != NULL) 
+					{
+						GetServerMission().CLogDebug("M_RPCs.M_Admin_Menu - Is Admin sender : " + sender.GetName() + "Admin name : " + Admin.GetIdentity().GetName());
+						AdminIdentity = Admin.GetIdentity();
+						AdminUID 	  = AdminIdentity.GetPlainId();
+						GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_OK, new Param1<string>( "Test" ), false, AdminIdentity );
+					}
+				}
+				if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
 			{
-				  // UIScriptedMenu adminMenuGui = NULL;
-				  // adminMenuGui = new AdminMenuGui();
-				 // if ( g_Game.GetUIManager().GetMenu() == NULL )
-					// { 
-						// g_Game.GetUIManager().ShowScriptedMenu( adminMenuGui, NULL );
-					// }
 			}
 			break;
 			
@@ -123,10 +182,11 @@ class AdminMenu //extends UIScriptedMenu
 				if ( GetGame().IsServer() ) 
 					{
 						Admin = GetServerMission().IsAdminID( sender.GetName(), sender.GetPlainId());
-						if ( Admin != null ) 
+						if ( Admin != NULL) 
 						{
 							
-							EntityAI oObj = GetGame().CreateObject( GroundN_Item, Admin.GetPosition(), false, ai );
+							//EntityAI oObj = GetGame().CreateObject( GroundN_Item, Admin.GetPosition(), false, ai );
+							EntityAI oObj = EntityAI.Cast(GetGame().CreateObject( GroundN_Item, Admin.GetPosition(), false, ai ));
 							//obEditor.addObject( oObj );
 							if ( oObj.IsInherited( ItemBase ) )
 							{
@@ -163,13 +223,13 @@ class AdminMenu //extends UIScriptedMenu
 				if ( GetGame().IsServer() ) 
 					{
 						Admin = GetServerMission().IsAdminID( sender.GetName(), sender.GetPlainId());
-						if ( Admin != null ) 
+						if ( Admin != NULL) 
 						{
 
 							EntityAI oObjp = GetGame().CreateObject( ItemPrev_Item, vector.Zero, false, false );
 							//obEditor.addObject( oObj );
 							
-								GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_ItemPrev_ok, new Param1<EntityAI>( oObjp ), false, NULL );
+								GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_ItemPrev_ok, new Param1<EntityAI>( oObjp ), false, AdminIdentity );
 					
 															
 								
@@ -200,7 +260,7 @@ class AdminMenu //extends UIScriptedMenu
 				if ( GetGame().IsServer() ) 
 					{
 						Admin = GetServerMission().IsAdminID( sender.GetName(), sender.GetPlainId());
-						if ( Admin != null ) 
+						if ( Admin != NULL) 
 						{
 							
 							
@@ -254,7 +314,7 @@ class AdminMenu //extends UIScriptedMenu
 				if ( GetGame().IsServer() ) 
 					{
 						Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-						if ( Admin != null ) 
+						if ( Admin != NULL) 
 						{
 							EntityAI oCursorObj = GetGame().CreateObject( Cursor_Item, Cursor_Pos, false, ai );
 							//obEditor.addObject( oCursorObj );
@@ -293,7 +353,7 @@ class AdminMenu //extends UIScriptedMenu
 						{
 							
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								//AdminIdentity = Admin.GetIdentity();
 						//AdminUID 	  = AdminIdentity.GetPlainId();
@@ -319,7 +379,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								for ( int a = 0; a < players.Count(); ++a )
 								{
@@ -344,12 +404,13 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								for ( int z = 0; z < players.Count(); ++z )
 								{
 									selectedPlayer = players.Get(z);
 									selectedIdentity = selectedPlayer.GetIdentity();
+									GetServerMission().CLogDebug("Current Player : " + selectedIdentity.GetName() + "TP Player name : " + PlayerName);
 									if ( selectedIdentity.GetName() == PlayerName )
 									{
 										selectedPlayer.SetPosition(Admin.GetPosition());
@@ -376,7 +437,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								for ( int zm = 0; zm < players.Count(); ++zm )
 								{
@@ -397,7 +458,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								int tpCount = TeleportAllPlayersTo(Admin);
 								 string msgc = "All " + tpCount.ToString() + " Players Teleported to my POS!";
@@ -415,7 +476,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								Car MyNiva;
 								vector position = Admin.GetPosition();
@@ -451,7 +512,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								ref array<Object> nearest_objects = new array<Object>;
 								ref array<CargoBase> proxy_cargos = new array<CargoBase>;
@@ -486,7 +547,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								GetGame().GetWorld().SetDate( 1988, 5, 23, 12, 0 );
 							}	
@@ -501,7 +562,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								GetGame().GetWorld().SetDate( 1988, 9, 23, 22, 0 );
 							}
@@ -518,7 +579,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								vector position3 = "0 0 0";
 								m_TPLocations.Find( cData, position3 );
@@ -549,7 +610,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								for ( int ig = 0; ig < players.Count(); ++ig )
 								{
@@ -573,7 +634,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								for ( int ig1 = 0; ig1 < players.Count(); ++ig1 )
 								{
@@ -594,7 +655,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								for ( int ig2 = 0; ig2 < players.Count(); ++ig2 )
 								{
@@ -619,7 +680,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								for ( int ig3 = 0; ig3 < players.Count(); ++ig3 )
 								{
@@ -640,9 +701,9 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
-								GetServerMission().RemoveStamina(PlayerName)
+								GetServerMission().RemoveStamina(PlayerName);
 							}
 						}
 						
@@ -657,9 +718,9 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
-								GetServerMission().AddStamina(PlayerName)
+								GetServerMission().AddStamina(PlayerName);
 							}
 						}
 						
@@ -674,18 +735,18 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								if (GetServerMission().StaminaContains(PlayerName))
 								{
 									ScriptRPC IsStamina = new ScriptRPC();
 									IsStamina.Write(PlayerName);
-									IsStamina.Send(NULL, M_RPCs.M_Admin_Menu_Player_Stamina_ok, false, sender);
+									IsStamina.Send(NULL, M_RPCs.M_Admin_Menu_Player_Stamina_ok, false, AdminIdentity);
 								}else
 								{
 									ScriptRPC IsStamina2 = new ScriptRPC();
 									IsStamina2.Write("NULL");
-									IsStamina2.Send(NULL, M_RPCs.M_Admin_Menu_Player_Stamina_ok, false, sender);
+									IsStamina2.Send(NULL, M_RPCs.M_Admin_Menu_Player_Stamina_ok, false, AdminIdentity);
 								}
 							}
 						}
@@ -703,7 +764,7 @@ class AdminMenu //extends UIScriptedMenu
 					if ( GetGame().IsServer() ) 
 						{
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								for ( int z1 = 0; z1 < players.Count(); ++z1 )
 								{
@@ -712,7 +773,7 @@ class AdminMenu //extends UIScriptedMenu
 									if ( selectedIdentity.GetName() == MSGName )
 									{
 										Msgparam = new Param1<string>( MSG );
-										GetGame().RPCSingleParam(Admin, ERPCs.RPC_USER_ACTION_MESSAGE, Msgparam, true, sender);
+										GetGame().RPCSingleParam(Admin, ERPCs.RPC_USER_ACTION_MESSAGE, Msgparam, true, AdminIdentity);
 									}
 								}
 							}
@@ -731,9 +792,25 @@ class AdminMenu //extends UIScriptedMenu
 						{
 							
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								GetServerMission().SendPosTOAdmins();
+							}
+						}	
+					if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
+						{
+							
+						}
+			break; 
+			
+			case M_RPCs.M_Admin_Menu_Player_List_Request:
+					if ( GetGame().IsServer() ) 
+						{
+							
+							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
+							if ( Admin != NULL) 
+							{
+								GetServerMission().SendPlayerListToAdmins();
 							}
 						}	
 					if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
@@ -750,7 +827,7 @@ class AdminMenu //extends UIScriptedMenu
 						{
 							
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
-							if ( Admin != null ) 
+							if ( Admin != NULL) 
 							{
 								DebugMonitorValues values = HealthPlayer.GetDebugMonitorValues();
 								float Value1;
@@ -764,7 +841,7 @@ class AdminMenu //extends UIScriptedMenu
 								Print("Name : " + HealthPlayer.GetIdentity().GetName() + "blood :" + blood);
 							
 								vector Value;
-								Value = HealthPlayer.GetPosition()
+								Value = HealthPlayer.GetPosition();
 								string positionP = string.Format(" %1 %2 %3", Value[0].ToString(), Value[1].ToString(), Value[2].ToString());
 								Print("Name : " + HealthPlayer.GetIdentity().GetName() + "positionP :" + positionP);
 								
@@ -772,7 +849,7 @@ class AdminMenu //extends UIScriptedMenu
 								PPos.Write(health);
 								PPos.Write(blood);
 								PPos.Write(positionP);
-								PPos.Send(NULL, M_RPCs.M_Admin_Menu_Player_Health, false, sender);
+								PPos.Send(NULL, M_RPCs.M_Admin_Menu_Player_Health, false, AdminIdentity);
 							}
 						}	
 					if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
@@ -788,75 +865,75 @@ class AdminMenu //extends UIScriptedMenu
 
 	void SendRPC() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu, new Param1<vector>( GetCursorPos() ), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu, new Param1<vector>( GetCursorPos() ), false, AdminIdentity );
 	}
 	
 	void SendRPCItem(string item) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_Ground, new Param1<string>(item), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_Ground, new Param1<string>(item), false, AdminIdentity );
 	}
 	
 	
 	void SendRPCHeal() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Heal, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Heal, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	void SendRPCStrip(string PlayerName) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Strip, new Param1<string>(PlayerName), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Strip, new Param1<string>(PlayerName), false, AdminIdentity );
 	}
 	
 	void SendRPCTpTo(string PlayerName) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpTo, new Param1<string>(PlayerName), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpTo, new Param1<string>(PlayerName), false, AdminIdentity );
 	}
 	
 	void SendRPCTpMe(string PlayerName) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpMe, new Param1<string>(PlayerName), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpMe, new Param1<string>(PlayerName), false, AdminIdentity );
 	}
 	
 	void SendRPCTpAllMe() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpAllMe, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpAllMe, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	void SendRPCSpCar() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_Car, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_Car, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	void SendRPCDay() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Day, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Day, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	void SendRPCNight() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Night, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Night, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	void SendRPCRefill() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Car_Refill, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Car_Refill, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	
 	
 	void SendRPCTpToPos(string pos) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpToPos, new Param1<string>(pos), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpToPos, new Param1<string>(pos), false, AdminIdentity );
 	}
 	
 	void SendRPCKill(string PlayerName) 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Kill, new Param1<string>(PlayerName), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Kill, new Param1<string>(PlayerName), false, AdminIdentity );
 	}
 	
 	void SendRPCSpWear() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_SpWear, new Param1<string>(""), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_SpWear, new Param1<string>(""), false, AdminIdentity );
 	}
 	
 	
