@@ -159,7 +159,7 @@ class CommunityOfflineServer : MissionServer
 			vector pos;
 				
 			pos = currentPlayer.GetPosition();
-			CLogDebug("CommunityOfflineServer - SendPosTOAdmins1/2() - Name :" + PlayerName + "pos : " + pos)
+			CLogDebug("CommunityOfflineServer - SendPosTOAdmins1/2() - Name :" + PlayerName + "pos : " + pos);
 			//SendPosToAdmins(PlayerName, pos);
 			m_currentPlayer1++;
 			
@@ -182,7 +182,7 @@ class CommunityOfflineServer : MissionServer
 				PlayerSteam64ID1 = AdminIdent1.GetPlainId();
 				if (IsAdmin(AdminPlayerName1, PlayerSteam64ID1 ))
 				{
-					CLogDebug("CommunityOfflineServer - SendPosTOAdmins2/2() - Name :" + PlayerName + "pos : " + pos)
+					CLogDebug("CommunityOfflineServer - SendPosTOAdmins2/2() - Name :" + PlayerName + "pos : " + pos);
 					ScriptRPC PPos = new ScriptRPC();
 					PPos.Write(PlayerName);
 					PPos.Write(pos);
