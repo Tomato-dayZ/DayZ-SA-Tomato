@@ -410,7 +410,7 @@ class AdminMenu //extends UIScriptedMenu
 								{
 									selectedPlayer = players.Get(z);
 									selectedIdentity = selectedPlayer.GetIdentity();
-									GetServerMission().CLogDebug("Current Player : " + selectedIdentity.GetName() + "TP Player name : " + PlayerName)
+									GetServerMission().CLogDebug("Current Player : " + selectedIdentity.GetName() + "TP Player name : " + PlayerName);
 									if ( selectedIdentity.GetName() == PlayerName )
 									{
 										selectedPlayer.SetPosition(Admin.GetPosition());
