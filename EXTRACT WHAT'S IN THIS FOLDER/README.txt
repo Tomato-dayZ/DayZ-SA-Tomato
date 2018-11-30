@@ -1,0 +1,3 @@
+EXTRACT WHAT'S IN THIS FOLDER DIRECTLY INTO YOUR ROOT FOLDER.
+
+Obviously don't extract this file.
