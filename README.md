@@ -10,3 +10,5 @@ Dayz Standalone UI Admin Tool
 
 ## Set VerifySignatures to 0 or Sign it everytime you rebuild
 
+# Init.c not used Changed class name copy to your mpmissions folder
+
