@@ -91,8 +91,8 @@ modded class MissionGameplay
 Mission CreateCustomMission(string path)
 {
     if ( GetGame().IsServer() && GetGame().IsMultiplayer() ) {
-        return new CommunityOfflineServer(); // this always runs because createcustommission isnt a client side function
+        return new CustomMission(); // this always runs because createcustommission isnt a client side function
     }
     return new MissionGameplay();
 }
-// class, function, params
+//class, function, params

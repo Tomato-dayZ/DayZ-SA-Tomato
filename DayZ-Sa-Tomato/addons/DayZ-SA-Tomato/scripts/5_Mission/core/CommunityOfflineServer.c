@@ -19,7 +19,10 @@
     You should have received a copy of the GNU General Public License
     along with DayZ SA Tomato.  If not, see <https://www.gnu.org/licenses/>.
 	*/
-class CommunityOfflineServer : MissionServer
+	//#include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\init.c"
+//class CommunityOfflineServer : CustomMission
+// modded class CustomMission
+class CustomMission: MissionServer
 {
     protected bool m_bLoaded;
     ref DevTeleport devTeleport;
@@ -31,7 +34,7 @@ class CommunityOfflineServer : MissionServer
 	protected ref map<string, string> m_AdminList;
 	static ref map<string, string> m_StaminaList;
 	protected string m_AdminListPath = "$CurrentDir:\\DayZ-SA-Tomato\\Config\\";
-	void CommunityOfflineServer()
+	void CustomMission()
 	{
 	    Print( "CommunityOfflineServer::CommunityOfflineServer()" );
 	    m_bLoaded = false;
@@ -40,7 +43,7 @@ class CommunityOfflineServer : MissionServer
 		adminMenu = new AdminMenu();
 	}
 
-	void ~CommunityOfflineServer()
+	void ~CustomMission()
 	{
 	    Print( "CommunityOfflineServer::~CommunityOfflineServer()" );
 	}
@@ -355,7 +358,7 @@ class CommunityOfflineServer : MissionServer
 	override void OnInit()
 	{
 		super.OnInit();
-        SetupWeather();
+        //SetupWeather();
 		
 		//Admin list Insert from text
 		m_AdminList    = new map<string, string>; //UID, name
@@ -550,18 +553,18 @@ class CommunityOfflineServer : MissionServer
 	}
 	
 	
-    void InitHive()
-	{
-		Hive oHive = GetHive();
+    // void InitHive()
+	// {
+		// Hive oHive = GetHive();
 		
-		if( !oHive )
-		{
-			oHive = CreateHive();
-		}
+		// if( !oHive )
+		// {
+			// oHive = CreateHive();
+		// }
 
-		if( oHive )
-		{
-			oHive.InitOffline();
-		}
-	}
+		// if( oHive )
+		// {
+			// oHive.InitOffline();
+		// }
+	// }
 }

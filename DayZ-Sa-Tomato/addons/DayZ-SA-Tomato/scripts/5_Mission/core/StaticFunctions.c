@@ -258,9 +258,9 @@ static void SetFreezePlayer( ref PlayerBase player, bool freeze )
     player.GetInputController().OverrideAimChangeY( freeze, 0 );
 }
 
-static CommunityOfflineServer GetServerMission()
+static CustomMission GetServerMission()
 {
-    return CommunityOfflineServer.Cast( GetGame().GetMission() );
+    return CustomMission.Cast( GetGame().GetMission() );
 }
 
 static ref PlayerBase GetPlayer()
