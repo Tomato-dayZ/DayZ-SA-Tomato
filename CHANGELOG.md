@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 
+## 01.12.2018 23:00
+
+### Fixed
+- No CustomMission is Created anymore this means Init.c File works now (Custom loadout and mods Using this file)
+- This means there should be no incompatibility with any mod now
+
 ## 29.11.2018 23:00
 
 ### Fixed
