@@ -60,4 +60,5 @@ enum M_RPCs
 	M_Admin_Menu_Log_Debug = 7038;
 	M_Admin_Menu_Log_Startup = 7039;
 	M_Admin_Menu_Log_RPC = 7040;
+	M_Admin_Menu_Message = 7041;
 }

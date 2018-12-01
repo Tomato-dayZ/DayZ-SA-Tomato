@@ -47,11 +47,7 @@ modded class MissionGameplay
 	override void OnMissionStart()
 	{
 		super.OnMissionStart();
-
-		Widget welcomeMenu = GetGame().GetWorkspace().CreateWidgets( "DZ\\DayZ-SA-Tomato\\scripts\\5_Mission\\core\\WelcomeMenu.layout", NULL );
-		//welcomeMenu.Show(true);
-
-		GetGame().GetCallQueue( CALL_CATEGORY_GUI ).CallLater( welcomeMenu.Show, 5000, false, false );
+		
 	}
 	
 	
@@ -68,11 +64,8 @@ modded class MissionGameplay
 		}
 
 		if ( key == KeyCode.KC_INSERT ) 
-		{
-
-			//devCam.SendRPC( isSpectating, GetCursorPos() );
+		{			
 			adminMenuManager.CamTeleport( isSpectating, GetCursorPos() );
-
 			isSpectating = !isSpectating;
 		}
 		if ( key == KeyCode.KC_M )
@@ -80,19 +73,20 @@ modded class MissionGameplay
 			if(GetGame().IsClient() || !GetGame().IsMultiplayer())
 			{
 				if ( player )
-				{					
-							adminMenuManager.MenuOpen();
+				{			
+					GetPlayer().MessageStatus( "Admin Menue Is Client" );
+					adminMenuManager.MenuOpen();
 			    }			
 		    }
 		}
 	}
 }
 
-Mission CreateCustomMission(string path)
-{
-    if ( GetGame().IsServer() && GetGame().IsMultiplayer() ) {
-        return new CommunityOfflineServer(); // this always runs because createcustommission isnt a client side function
-    }
-    return new MissionGameplay();
-}
-// class, function, params
+//Mission CreateCustomMission(string path)
+// {
+    // if ( GetGame().IsServer() && GetGame().IsMultiplayer() ) {
+        // return new CustomMission(); // this always runs because createcustommission isnt a client side function
+    // }
+    // return new MissionGameplay();
+// }
+//class, function, params

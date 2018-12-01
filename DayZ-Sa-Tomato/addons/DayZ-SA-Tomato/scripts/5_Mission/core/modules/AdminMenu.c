@@ -121,10 +121,7 @@ class AdminMenu //extends UIScriptedMenu
 				ctx.Read( stringParam4 );
 				RPCLog = stringParam4.param1;
 				if ( GetGame().IsServer() ) 
-				{
-					//GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu, new Param1<vector>( GetCursorPos() ), false, NULL );
-					// permission check - server mission file
-					
+				{	
 					Admin = GetServerMission().IsAdminID(sender.GetName(), sender.GetPlainId());
 					if ( Admin != NULL) 
 					{

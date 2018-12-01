@@ -19,6 +19,7 @@
     You should have received a copy of the GNU General Public License
     along with DayZ SA Tomato.  If not, see <https://www.gnu.org/licenses/>.
 	*/
+	
 class DevCam 
 {
 	void DevCam() 

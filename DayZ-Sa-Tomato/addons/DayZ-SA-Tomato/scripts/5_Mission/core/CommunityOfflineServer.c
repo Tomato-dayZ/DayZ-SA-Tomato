@@ -19,32 +19,37 @@
     You should have received a copy of the GNU General Public License
     along with DayZ SA Tomato.  If not, see <https://www.gnu.org/licenses/>.
 	*/
-class CommunityOfflineServer : MissionServer
+modded class MissionServer
 {
     protected bool m_bLoaded;
     ref DevTeleport devTeleport;
-	ref DevCam devCam;
+	
 	ref AdminMenu adminMenu;
+	ref DevCam devCam;
 	protected float m_LogInTimerLength = 1;
 	//admin list
 	PlayerBase Admin = NULL;
 	protected ref map<string, string> m_AdminList;
 	static ref map<string, string> m_StaminaList;
 	protected string m_AdminListPath = "$CurrentDir:\\DayZ-SA-Tomato\\Config\\";
-	void CommunityOfflineServer()
+	void MissionServer()
 	{
-	    Print( "CommunityOfflineServer::CommunityOfflineServer()" );
+	    Print( "Dayz-Sa-Tomato initialized .." );
 	    m_bLoaded = false;
 	    devTeleport = new DevTeleport();
-	    devCam = new DevCam();
+	    
 		adminMenu = new AdminMenu();
+		devCam = new DevCam();
 	}
 
-	void ~CommunityOfflineServer()
+	void ~MissionServer()
 	{
 	    Print( "CommunityOfflineServer::~CommunityOfflineServer()" );
 	}
-
+	void WelcomeMswgClient()
+	{
+		GetPlayer().MessageStatus( "Admin Menu Is Client" );
+	}
 	
 	//Create Mags And Custom Guns
 	void addMags(PlayerBase player, string mag_type, int count)
@@ -355,7 +360,7 @@ class CommunityOfflineServer : MissionServer
 	override void OnInit()
 	{
 		super.OnInit();
-        SetupWeather();
+        //SetupWeather();
 		
 		//Admin list Insert from text
 		m_AdminList    = new map<string, string>; //UID, name
@@ -550,18 +555,18 @@ class CommunityOfflineServer : MissionServer
 	}
 	
 	
-    void InitHive()
-	{
-		Hive oHive = GetHive();
+    // void InitHive()
+	// {
+		// Hive oHive = GetHive();
 		
-		if( !oHive )
-		{
-			oHive = CreateHive();
-		}
+		// if( !oHive )
+		// {
+			// oHive = CreateHive();
+		// }
 
-		if( oHive )
-		{
-			oHive.InitOffline();
-		}
-	}
+		// if( oHive )
+		// {
+			// oHive.InitOffline();
+		// }
+	// }
 }
