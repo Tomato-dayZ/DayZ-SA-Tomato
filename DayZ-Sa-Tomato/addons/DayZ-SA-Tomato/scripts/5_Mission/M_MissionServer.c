@@ -50,7 +50,7 @@ modded class MissionServer
 	}
 	void WelcomeMswgClient()
 	{
-		GetPlayer().MessageStatus( "Admin Menu Is Client" );
+		GetPlayer().MessageStatus( "Client Mod active and functional." );
 	}
 	
 	//Create Mags And Custom Guns
