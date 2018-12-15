@@ -23,21 +23,23 @@ modded class MissionServer
 {
     protected bool m_bLoaded;
     ref DevTeleport devTeleport;
-	
+	ref FileHandler fileHandler;
 	ref AdminMenu adminMenu;
 	ref DevCam devCam;
-	protected float m_LogInTimerLength = 1;
+	protected float m_LogInTimerLength1 = 1;
 	//admin list
 	PlayerBase Admin = NULL;
 	protected ref map<string, string> m_AdminList;
 	static ref map<string, string> m_StaminaList;
 	protected string m_AdminListPath = "$CurrentDir:\\DayZ-SA-Tomato\\Config\\";
+	protected string m_AdminListPath2 = "$CurrentDir:\\@DayZ-SA-Tomato\\Config\\";
 	void MissionServer()
 	{
+		//super.MissionServer();
 	    Print( "Dayz-Sa-Tomato initialized .." );
 	    m_bLoaded = false;
 	    devTeleport = new DevTeleport();
-	    
+	    fileHandler = new FileHandler();
 		adminMenu = new AdminMenu();
 		devCam = new DevCam();
 	}
@@ -77,7 +79,7 @@ modded class MissionServer
 			NewPosition[0] = OldPosition[0] + 1.5;
 			NewPosition[1] = OldPosition[1] + 0.1;
 			NewPosition[2] = OldPosition[2] + 1.5;
-			EntityAI gun = GetGame().CreateObject( "SVD", NewPosition, false, true );
+			EntityAI gun = EntityAI.Cast(GetGame().CreateObject( "SVD", NewPosition, false, true ));
 			gun.GetInventory().CreateAttachment("PSO1Optic");
 			gun.GetInventory().CreateAttachment("ImprovisedSuppressor");
 			gun.GetInventory().CreateAttachment("GhillieAtt_Tan");
@@ -91,6 +93,8 @@ modded class MissionServer
 		}
 		return gun;
 }
+	
+	
 	
 	override void OnEvent(EventType eventTypeId, Param params) 
 	{
@@ -164,7 +168,7 @@ modded class MissionServer
 			vector pos;
 				
 			pos = currentPlayer.GetPosition();
-			CLogDebug("CommunityOfflineServer - SendPosTOAdmins1/2() - Name :" + PlayerName + "pos : " + pos);
+			Print("CommunityOfflineServer - SendPosTOAdmins1/2() - Name :" + PlayerName + "pos : " + pos);
 			//SendPosToAdmins(PlayerName, pos);
 			m_currentPlayer1++;
 			
@@ -187,7 +191,7 @@ modded class MissionServer
 				PlayerSteam64ID1 = AdminIdent1.GetPlainId();
 				if (IsAdmin(AdminPlayerName1, PlayerSteam64ID1 ))
 				{
-					CLogDebug("CommunityOfflineServer - SendPosTOAdmins2/2() - Name :" + PlayerName + "pos : " + pos);
+					Print("CommunityOfflineServer - SendPosTOAdmins2/2() - Name :" + PlayerName + "pos : " + pos);
 					ScriptRPC PPos = new ScriptRPC();
 					PPos.Write(PlayerName);
 					PPos.Write(pos);
@@ -218,7 +222,7 @@ modded class MissionServer
 			PlayerIdent = currentPlayer.GetIdentity();
 			PlayerName = PlayerIdent.GetName();
 			PlayerSteam64ID = PlayerIdent.GetPlainId();		
-			CLogDebug("CommunityOfflineServer - SendPlayerListToAdmins() - Name :" + PlayerName + "m_currentPlayer1 : " + m_currentPlayer1);
+			Print("CommunityOfflineServer - SendPlayerListToAdmins() - Name :" + PlayerName + "m_currentPlayer1 : " + m_currentPlayer1);
 			//SendPosToAdmins(PlayerName, pos);
 			m_currentPlayer1++;
 			
@@ -272,19 +276,7 @@ modded class MissionServer
 	
 	
 	
-	// bool  IsAdmin( string name, string ID ) 
-	// {
-		// array<Man> players = new array<Man>;
-					// GetGame().GetPlayers( players );
-		// for (int i = 0; i < players.Count(); ++i)
-			// {
-				// if (players.Get(i).GetIdentity().GetName() == name && m_AdminList.Contains(ID))
-				// {
-					// return true;	
-				// }
-			// }
-			// return false;
-	// }
+	
 	
 	
 	
@@ -302,17 +294,17 @@ modded class MissionServer
 					Count = 0;
 				}
 			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(Count));
-			CLogDebug("Current Player : " + currentPlayer.GetIdentity().GetName() + "Count : " + Count.ToString());
+			Print("Current Player : " + currentPlayer.GetIdentity().GetName() + "Count : " + Count.ToString());
 			if (currentPlayer.GetIdentity().GetName() == name && m_AdminList.Contains(ID))
 			{
 				Admin 		  = currentPlayer;
 				//AdminIdentity = Admin.GetIdentity();
 				//AdminUID 	  = AdminIdentity.GetPlainId();
-				CLogDebug("Returning True for : " + players.Get(i).GetIdentity().GetName() );
+				Print("Returning True for : " + players.Get(i).GetIdentity().GetName() );
 				return Admin;	
 			}else
 			{
-			CLogDebug("Returning False 1" );
+			Print("Returning False 1" );
 			Admin = NULL;
 			}
 			Count ++;
@@ -366,6 +358,8 @@ modded class MissionServer
 		m_AdminList    = new map<string, string>; //UID, name
 		m_StaminaList    = new map<string, string>; //UID, name
 		FileHandle AdminUIDSFile = OpenFile(m_AdminListPath + "Admins.txt", FileMode.READ);
+		FileHandle AdminUIDSFile2 = OpenFile(m_AdminListPath2 + "Admins.txt", FileMode.READ);
+		
 		if (AdminUIDSFile != 0)
 		{
 			string line_content = "";
@@ -375,6 +369,16 @@ modded class MissionServer
 				Print("Adding Admin: "+ line_content + " To the Admin List!");
 			}
 			CloseFile(AdminUIDSFile);
+		}
+		if (AdminUIDSFile2 != 0)
+		{
+			string line_content2 = "";
+			while ( FGets(AdminUIDSFile2,line_content2) > 0 )
+			{
+				m_AdminList.Insert(line_content2,"null"); //UID , NAME
+				Print("Adding Admin: "+ line_content2 + " To the Admin List!");
+			}
+			CloseFile(AdminUIDSFile2);
 		}
 
 	}
@@ -412,37 +416,37 @@ modded class MissionServer
     static void SetupWeather()
     {
         //Offical DayZ SA weather code
-        Weather weather = g_Game.GetWeather();
+        // Weather weather = g_Game.GetWeather();
 
-        weather.GetOvercast().SetLimits( 0.0 , 2.0 );
-        weather.GetRain().SetLimits( 0.0 , 2.0 );
-        weather.GetFog().SetLimits( 0.0 , 2.0 );
+        // weather.GetOvercast().SetLimits( 0.0 , 2.0 );
+        // weather.GetRain().SetLimits( 0.0 , 2.0 );
+        // weather.GetFog().SetLimits( 0.0 , 2.0 );
 
-        weather.GetOvercast().SetForecastChangeLimits( 0.0, 0.0 );
-        weather.GetRain().SetForecastChangeLimits( 0.0, 0.0 );
-        weather.GetFog().SetForecastChangeLimits( 0.0, 0.0 );
+        // weather.GetOvercast().SetForecastChangeLimits( 0.0, 0.0 );
+        // weather.GetRain().SetForecastChangeLimits( 0.0, 0.0 );
+        // weather.GetFog().SetForecastChangeLimits( 0.0, 0.0 );
 
-        weather.GetOvercast().SetForecastTimeLimits( 1800 , 1800 );
-        weather.GetRain().SetForecastTimeLimits( 600 , 600 );
-        weather.GetFog().SetForecastTimeLimits( 600 , 600 );
+        // weather.GetOvercast().SetForecastTimeLimits( 1800 , 1800 );
+        // weather.GetRain().SetForecastTimeLimits( 600 , 600 );
+        // weather.GetFog().SetForecastTimeLimits( 600 , 600 );
 
-        weather.GetOvercast().Set( 0.0, 0, 0 );
-        weather.GetRain().Set( 0.0, 0, 0 );
-        weather.GetFog().Set( 0.0, 0, 0 );
+        // weather.GetOvercast().Set( 0.0, 0, 0 );
+        // weather.GetRain().Set( 0.0, 0, 0 );
+        // weather.GetFog().Set( 0.0, 0, 0 );
 
-        weather.SetWindMaximumSpeed( 50 );
-        weather.SetWindFunctionParams( 0, 0, 1 );
+        // weather.SetWindMaximumSpeed( 50 );
+        // weather.SetWindFunctionParams( 0, 0, 1 );
     }
 
 	override void OnPreloadEvent(PlayerIdentity identity, out bool useDB, out vector pos, out float yaw, out int queueTime)
 	{
 		if (GetHive())
 		{
-			queueTime = m_LogInTimerLength;
+			queueTime = m_LogInTimerLength1;
 		}
 		else
 		{
-			queueTime = m_LogInTimerLength;
+			queueTime = m_LogInTimerLength1;
 		}
 	}
 	

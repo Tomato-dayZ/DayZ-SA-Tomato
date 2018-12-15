@@ -35,7 +35,7 @@ class DevCam
 			{
 				Print( " receive rpc dev cam is server");
 
-				ref PlayerBase player = GetServerMission().GetPlayerFromIdentity( sender );
+				ref PlayerBase player = PlayerBase.Cast(GetServerMission().GetPlayerFromIdentity( sender ));
 
 				Param2< bool, vector > camParams;
 				ctx.Read( camParams );

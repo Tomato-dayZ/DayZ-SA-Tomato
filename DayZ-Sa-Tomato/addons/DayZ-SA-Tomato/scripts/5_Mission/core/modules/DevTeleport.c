@@ -39,7 +39,7 @@ class DevTeleport
 
 			if ( GetGame().IsServer() ) 
 			{
-				ref PlayerBase player = GetServerMission().GetPlayerFromIdentity( sender );
+				ref PlayerBase player = PlayerBase.Cast(GetServerMission().GetPlayerFromIdentity( sender ));
 				// permission check - server mission file
 				// if has permissions send message back to client
 				if ( GetServerMission().IsAdmin( sender.GetName(), sender.GetPlainId()) )

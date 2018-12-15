@@ -24,6 +24,11 @@ class AdminMenuGui extends UIScriptedMenu
 	protected ref AdminMenuGuiSpawn		m_SpawnTab;
 	protected ref AdminMenuGuiPlayer		m_PlayerTab;
 	protected ref AdminMenuGuiMap	m_MapTab;
+	protected ref AdminMenuGuiTeleport	m_TeleportTab;
+	protected ref AdminMenuGuiTeleport	m_ConfigTab;
+	protected ref AdminMenuGuiTeleport	m_todo;
+	protected ref AdminMenuGuiTeleport	m_todo2;
+	
 	protected ref map<string, string> m_TestListS;
 	protected string m_TestListPath = "$CurrentDir:\\DayZ-SA-Tomato\\";
 	
@@ -104,6 +109,10 @@ class AdminMenuGui extends UIScriptedMenu
 		m_SpawnTab			= new AdminMenuGuiSpawn( layoutRoot.FindAnyWidget( "Tab_1" ), this );
 		m_PlayerTab		= new AdminMenuGuiPlayer( layoutRoot.FindAnyWidget( "Tab_2" ), this );
 		m_MapTab	= new AdminMenuGuiMap( layoutRoot.FindAnyWidget( "Tab_3" ), this );
+		m_TeleportTab		= new AdminMenuGuiTeleport( layoutRoot.FindAnyWidget( "Tab_4" ), this );
+		m_ConfigTab	= new AdminMenuGuiTeleport( layoutRoot.FindAnyWidget( "Tab_5" ), this );
+		m_todo	= new AdminMenuGuiTeleport( layoutRoot.FindAnyWidget( "Tab_5" ), this );
+		m_todo2	= new AdminMenuGuiTeleport( layoutRoot.FindAnyWidget( "Tab_5" ), this );
 
 		m_Back				= ButtonWidget.Cast( layoutRoot.FindAnyWidget( "back" ) );
 
@@ -144,6 +153,13 @@ class AdminMenuGui extends UIScriptedMenu
 		if ( w.GetName().Contains("_spawn_") )
 		{
 			ok = m_SpawnTab.Click(w, x, y, button);
+			return ok;
+		}
+		
+		//TeleportTab
+		if ( w.GetName().Contains("_Teleport_") )
+		{
+			ok = m_TeleportTab.Click(w, x, y, button);
 			return ok;
 		}
 		
@@ -194,7 +210,17 @@ class AdminMenuGui extends UIScriptedMenu
 			}
 			case 3:
 			{
+				m_TeleportTab.Focus();
+				break;
+			}
+			case 4:
+			{
 				m_MapTab.Focus();
+				break;
+			}
+			case 5:
+			{
+				m_ConfigTab.Focus();
 				break;
 			}
 		}

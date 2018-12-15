@@ -265,7 +265,7 @@ static MissionServer GetServerMission()
 
 static ref PlayerBase GetPlayer()
 {
-    return GetGame().GetPlayer();
+    return PlayerBase.Cast(GetGame().GetPlayer());
 }
 
 static bool SHIFT()

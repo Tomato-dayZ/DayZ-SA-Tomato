@@ -112,7 +112,7 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 			if( ( w == m_btn_Player_TpMe ) )
 			{
 				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpMe, new Param1<string>(PlayerName), false, NULL );
-				LogD("AdminMenuPlayer - Click - m_btn_Player_TpMe Playername : " + PlayerName)
+				LogD("AdminMenuPlayer - Click - m_btn_Player_TpMe Playername : " + PlayerName);
 				return true;
 			}
 			
@@ -269,7 +269,7 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 		PlayerIdentity selectedIdentity;
 		for ( int a = 0; a < players.Count(); ++a )
 			{
-				selectedPlayer = players.Get(a);
+				selectedPlayer = PlayerBase.Cast(players.Get(a));
 				selectedIdentity = selectedPlayer.GetIdentity();
 				if ( selectedIdentity.GetName() == GetCurrentSelection() )
 				{

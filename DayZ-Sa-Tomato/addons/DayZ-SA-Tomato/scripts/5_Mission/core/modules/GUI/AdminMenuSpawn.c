@@ -56,7 +56,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 		m_item_widget = ItemPreviewWidget.Cast( m_Root.FindAnyWidget( "ItemPrev" ) );
 		m_Spawn_QuantityItem = EditBoxWidget.Cast( m_Root.FindAnyWidget( "quantity_items" ) );
 		
-		m_Spawn_editBox = m_Root.FindAnyWidget("className_spawner_box");
+		m_Spawn_editBox = EditBoxWidget.Cast( m_Root.FindAnyWidget("className_spawner_box") );
 		
 		UpdateList( "All" );
 	}
@@ -108,7 +108,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
             }
             else if ( w == m_Spawn_btnSpawnGround )
             {	
-				EntityAI oObj = g_Game.CreateObject( strSelection, GetGame().GetPlayer().GetPosition(), false, ai );
+				EntityAI oObj = EntityAI.Cast(g_Game.CreateObject( strSelection, GetGame().GetPlayer().GetPosition(), false, ai ));
 				text = m_Spawn_QuantityItem.GetText();
 				//RPC Build and Send
 				ScriptRPC rpc = new ScriptRPC();
@@ -220,7 +220,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 			if ( w == m_classList ) 
 			{
 				EntityAI item;
-				item = g_Game.CreateObject( GetCurrentSelection(), vector.Zero, false, false, false );
+				item = EntityAI.Cast(g_Game.CreateObject( GetCurrentSelection(), vector.Zero, false, false, false ));
 				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_ItemPrev, new Param1<string>( GetCurrentSelection() ), false, NULL );
 				if (item)
 				{
@@ -422,7 +422,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 			//delete m_item_widget;
 			if (item == NULL)
 			{
-				item = GetGame().CreateObject( "WaterBottle", vector.Zero, false, false );
+				item = EntityAI.Cast(GetGame().CreateObject( "WaterBottle", vector.Zero, false, false ));
 			}
 			if (!m_item_widget)
 			{

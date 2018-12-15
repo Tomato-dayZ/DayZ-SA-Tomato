@@ -61,4 +61,7 @@ enum M_RPCs
 	M_Admin_Menu_Log_Startup = 7039;
 	M_Admin_Menu_Log_RPC = 7040;
 	M_Admin_Menu_Message = 7041;
+	M_Admin_Menu_Teleport_List_Request = 7042;
+	M_Admin_Menu_Teleport_List = 7043;
+	M_Admin_Menu_TpMeToPos = 7044;
 }

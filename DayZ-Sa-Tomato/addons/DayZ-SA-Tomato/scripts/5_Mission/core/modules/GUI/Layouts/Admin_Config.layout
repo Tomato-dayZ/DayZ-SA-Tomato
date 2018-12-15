@@ -1,0 +1,97 @@
+FrameWidgetClass rootFrame {
+ position 10 10
+ size 1400 800
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  FrameWidgetClass command_settings_root {
+   ignorepointer 1
+   size 1 1
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+   {
+    TextWidgetClass TextWidget0 {
+     position 0 10
+     size 1 50
+     halign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 1
+     style Bold
+     text "Config"
+     "exact text" 0
+     "size to text h" 0
+     "size to text v" 0
+     "text halign" center
+     "text valign" center
+    }
+    PanelWidgetClass PanelWidget0 {
+     color 0.9333 0 0.0784 1
+     position 0 75
+     size 0.9 3.5
+     halign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 1
+     style rover_sim_colorable
+    }
+    ButtonWidgetClass btn_Config_Refresh_Admin {
+     position 1100 150
+     size 256.392 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Refresh Admins"
+     text_proportion 0.8
+    }
+    TextWidgetClass TextWidget2 {
+     position 40 90
+     size 167.963 49.9234
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Admins"
+    }
+    ButtonWidgetClass btn_Config_Add_Admin {
+     position 800 150
+     size 256.38998 50
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Add Steam64ID"
+     text_proportion 0.9
+     switch normal
+    }
+    PanelWidgetClass PanelWidget1 {
+     color 0.9333 0 0.0784 1
+     position 0 223.85101
+     size 0.9 3.5
+     halign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass Text_Config_Admin_ID {
+     position 40 150
+     size 734.37097 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style ServerBrowser
+    }
+   }
+  }
+ }
+}
