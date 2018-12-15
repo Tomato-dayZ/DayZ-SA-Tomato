@@ -40,6 +40,7 @@ Or @Discord https://discord.gg/qqjwVXV
 1. Copy DayZ-SA-Tomato to your Server/Client main Folder
 2. Copy SchnitzelPommes.bikey to your Servers keys folder
 3. Make sure YourServerFolder/DayZ-Sa-Tomato/Config/Admins.txt file exist (You can delete it Client side)
+3.1 If You need to use the mod folder with an @ Make sure to create DayZ-Sa-Tomato Folder with the Config Folder in it or it wont load Admins.txt and TpLocations file 
 4. Make sure when step 3 completed add your Steam64ID to this file(for every ID 1 line)
 5. Set start param -mod=DayZ-SA-Tomato at Server/Client 
 6. If not exist Add -profiles=D:\YourProfileFolderMaybe/DayzServer/Log and -scrAllowFileWrite To your server Parameters
