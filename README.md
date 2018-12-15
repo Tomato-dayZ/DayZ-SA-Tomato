@@ -10,11 +10,15 @@ See CHANGELOG.md
 
 ## News
 
-## 01.12.2018 23:00
+## 15.12.2018 23:00
 
 ### Fixed
-- No CustomMission is Created anymore this means Init.c File works now (Custom loadout and mods Using this file)
-- This means there should be no incompatibility with any mod now
+
+- For 1.0 Update (make sure to kopy the Key from Keys folder again !)
+
+### Added 
+
+- Teleport Locations Check the Config/List Folder u can add your own Locations to it (Adding Locations from ingame does not work since filewrite is bugged at the moment)
 
  ### next up
  - 
