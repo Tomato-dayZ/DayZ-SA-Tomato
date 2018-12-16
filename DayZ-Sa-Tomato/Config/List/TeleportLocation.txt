@@ -14,3 +14,5 @@ Severograd;8318.51 0.0 12743.4
 North West Airfield;4835.59 0.0 9667.72
 Green Mountain;3752.08 0.0 6002.94
 Zelenogorsk;2542.18 0.0 4994.26
+Tisy Military Base;1599.15 0.0 14166.66
+Pavlovo Military Base;2047.82 0.0 3293.36
