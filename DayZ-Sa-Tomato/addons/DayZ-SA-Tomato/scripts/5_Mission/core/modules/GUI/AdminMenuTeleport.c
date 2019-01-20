@@ -19,6 +19,7 @@
 	*/
 class AdminMenuGuiTeleport extends ScriptedWidgetEventHandler
 {
+	
 	protected Widget						m_Root;
 	
 
@@ -29,77 +30,150 @@ class AdminMenuGuiTeleport extends ScriptedWidgetEventHandler
 	protected ButtonWidget m_btn_Teleport_Teleport;
 	protected ButtonWidget m_btn_Teleport_Reload;
 	protected ButtonWidget m_btn_Teleport_Add_Location;
-	ref AdminMenuManager adminMenuManager;
-	protected EditBoxWidget m_Text_Teleport_Loacation_Name;		
+	protected ButtonWidget m_btn_Teleport_Spawn_Horde;
+	//ref AdminMenuManager adminMenuManager;
+	EditBoxWidget m_Text_Teleport_Loacation_Name;		
+	EditBoxWidget m_editbox_Teleport_HordeCount;		
 	static ref map<string, string> m_TeleportLocations;
 	static ref map<int, string> m_TeleportLocations_old;
 	TextListboxWidget m_List_Teleport_Location;
-	
-	
+	ref array<string> TLoacations;
+	ref array<vector> TPos;
+	ref HordeModule m_HordeModule;
+	//ref AdminMenuManager AMenuM;
+
 	void AdminMenuGuiTeleport( Widget parent, AdminMenuGui menu )
 	{
 		
 		m_Root					= GetGame().GetWorkspace().CreateWidgets( "com\\DayZ-SA-Tomato\\scripts\\5_Mission\\core\\modules\\GUI\\Layouts\\Admin_Teleport.layout", parent );
-		adminMenuManager = new AdminMenuManager(); 
+		//adminMenuManager = new AdminMenuManager();
+		m_HordeModule = new ref HordeModule();
 		m_Menu						= menu;
 		GetDayZGame().Event_OnRPC.Insert( this.ReceiveRPC );
 		m_TeleportLocations  = new map<string, string>;
 		m_TeleportLocations_old  = new map<int, string>;
 		m_List_Teleport_Location = TextListboxWidget.Cast( m_Root.FindAnyWidget( "List_Teleport_Location" ) );
 		m_Text_Teleport_Loacation_Name = EditBoxWidget.Cast( m_Root.FindAnyWidget( "Text_Teleport_Loacation_Name" ) );
+		m_editbox_Teleport_HordeCount = EditBoxWidget.Cast( m_Root.FindAnyWidget( "editbox_Teleport_HordeCount" ) );
 		m_btn_Teleport_Teleport = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Teleport_Teleport" ) );
 		m_btn_Teleport_Reload = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Teleport_Reload" ) );
 		m_btn_Teleport_Add_Location = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Teleport_Add_Location" ) );
-		
-		m_List_Teleport_Location.ClearItems();
+		m_btn_Teleport_Spawn_Horde = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Teleport_Spawn_Horde" ) );
+		//m_List_Teleport_Location.ClearItems();
 		//TpLocations;
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Teleport_List_Request, new Param1<string>(""), false, NULL );
+		// for ( int i = 0; i < m_Root.Locations.Count(); i++ )
+		// {
+			// m_List_Teleport_Location.AddItem( GetAdminMenu().Locations[i], NULL, 0 );
+		// }
+		
+		Print("Request Data");
+		
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Teleport_RequestData, new Param1<string>(""), false, NULL );
+	
 	}
 	
+	void MouseLeave(Widget w, Widget enterW, int x, int y)
+	{
+		if ( w == m_Text_Teleport_Loacation_Name ) 
+		{
+			GetAdminMenuManager().CanClose = true;
+		}
+		
+		if ( w == m_editbox_Teleport_HordeCount ) 
+		{
+			GetAdminMenuManager().CanClose = true;
+		}
+	}
+	
+	void MouseEnter(Widget w, int x, int y )
+	{
+		if ( w == m_Text_Teleport_Loacation_Name ) 
+		{
+			GetAdminMenuManager().CanClose = false;
+		}
+		
+		if ( w == m_editbox_Teleport_HordeCount ) 
+		{
+			GetAdminMenuManager().CanClose = false;
+		}
+	}
+	
+	void DeleteTeleportLocation()
+	{
+		m_List_Teleport_Location.ClearItems();
+	}
+	
+	int GetHordeCount() 
+	{
+		return m_editbox_Teleport_HordeCount.GetText().ToInt();
+	}
+	
+	void AddTeleportLocation(string name)
+	{
+		m_List_Teleport_Location.AddItem( name, NULL, 0 );
+	}
 	void LogD(string s)
 	{
 		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Debug, new Param1<string>( s ), false, NULL );
 	}
 	bool Click(Widget w, int x, int y, int button)
 	{
+		
 		PlayerBase player = PlayerBase.Cast( GetGame().GetPlayer() );
 		string TpLocation = GetCurrentSelection();
 		if (player)
 		{
 			if( ( w == m_btn_Teleport_Teleport ) )
 			{
-				string TpDest;
-				
-				m_TeleportLocations.Find(TpLocation, TpDest);
-				Print("TpLocation : " + TpLocation + " Tp Dest : " + TpDest);
-				//GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpMeToPos, new Param1<string>(TpDest.ToString()), false, NULL );
-				ScriptRPC TListDst = new ScriptRPC();
-				TListDst.Write(TpDest);
-				TListDst.Send(NULL, M_RPCs.M_Admin_Menu_TpMeToPos, false, NULL);
-				return true;
+				for (int t = 0; t < GetFileHandler().RootTeleport.Children.Count(); ++t)
+						{
+							if(GetFileHandler().RootTeleport.Children[t].LocationName == TpLocation)
+							{
+								ScriptRPC TListDst = new ScriptRPC();
+								TListDst.Write( GetFileHandler().RootTeleport.Children[t].LocationPos[0] );
+								TListDst.Write( GetFileHandler().RootTeleport.Children[t].LocationPos[2] );
+								TListDst.Send(NULL, M_RPCs.M_Admin_Menu_TpMeToPosVec, false, NULL);
+
+							}
+						}
 			}
 			
 			if( ( w == m_btn_Teleport_Reload ) )
 			{
-				m_TeleportLocations.Clear();
-				m_List_Teleport_Location.ClearItems();
-				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Teleport_List_Request, new Param1<string>(""), false, NULL );
+				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Teleport_RequestData, new Param1<string>(""), false, NULL );
 			}
 			
 			if( ( w == m_btn_Teleport_Add_Location ) )
 			{
-				
-				
-				m_List_Teleport_Location.ClearItems();
-				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Teleport_List_Request, new Param1<string>(""), false, NULL );
+				string text =  m_Text_Teleport_Loacation_Name.GetText();
+				SendToFile(text);
+				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Teleport_RequestData, new Param1<string>(""), false, NULL );
+			}
+			
+			if( ( w == m_btn_Teleport_Spawn_Horde ) )
+			{
+				int HCount = GetHordeCount();
+				for (t = 0; t < GetFileHandler().RootTeleport.Children.Count(); ++t)
+						{
+							if(GetFileHandler().RootTeleport.Children[t].LocationName == TpLocation)
+							{
+								m_HordeModule.Spawn(GetFileHandler().RootTeleport.Children[t].LocationPos, GetHordeCount(), 50, GetCurrentSelection())
+							}
+						}			
 			}
 		}
 		return true;
+		
 	}
-	
+	void SendToFile(string name)
+	{
+		ScriptRPC Adding = new ScriptRPC();
+		Adding.Write(name);
+		Adding.Send(NULL, M_RPCs.M_Admin_Menu_Teleport_Write_Pre, false, NULL);
+	}
 	void ~AdminMenuGuiTeleport()
 	{
-		m_List_Teleport_Location.ClearItems();
+		
 	}
 	
 	void Focus()
@@ -111,8 +185,10 @@ class AdminMenuGuiTeleport extends ScriptedWidgetEventHandler
 	{
 		
 	}
+	
 	override bool OnFocus( Widget w, int x, int y )
 	{
+		/*
 		if( m_Menu )
 			m_Menu.OnFocus( w, x, y );
 		if( w )
@@ -125,88 +201,48 @@ class AdminMenuGuiTeleport extends ScriptedWidgetEventHandler
 		}
 
 		return ( w != null );
+		*/
 	}
 	bool stop = false;
 	
+	
+	
 	void ReceiveRPC( PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx ) 
 	{
-		int ListCount = 0;
 		
+		int ListCount = 0;
+		ref array<string> TLoacations = new ref array< string >;
+		ref array<vector> TPos = new ref array< vector >;
+		PlayerBase Admin;
 		switch(rpc_type)
 		{
-			
-			case M_RPCs.M_Admin_Menu_Teleport_List:
-			string PosName;
-			vector Pos1;	//Vector Postition
-			// ctx.Read(PosName);
-			// ctx.Read(Pos1);
-			ctx.Read(m_TeleportLocations_old);			
-			//ctx.Read(m_TeleportLocations);
-			
-				if ( GetGame().IsServer() ) 
-					{
-						
-					}	
-				if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
-					{
-						
-						for (int i = 0; i < m_TeleportLocations_old.Count(); ++i)
+			case M_RPCs.M_Admin_Menu_Teleport_ReciveData:
+			Print("Data Recived");
+				ref array<string> TpName = new ref array< string >;	
+				ref array<vector> TpPos = new ref array< vector >;	
+				ctx.Read(TpName);
+				ctx.Read(TpPos);
+				Print("Data Count = " + TpName.Count())
+					if ( GetGame().IsServer() ) 
 						{
-							ListCount ++;
-							string save;
-							string a =";";
-							vector v;
-							TStringArray strs = new TStringArray;
-							save = m_TeleportLocations_old.GetElement(i);
-							save.Split(a, strs );
-							v = strs.Get(1).ToVector();
-							string Lname = strs.Get(0);
-							if (m_TeleportLocations.Contains(Lname))
-							{
-								return;
-							}
-							m_TeleportLocations.Insert(Lname, strs.Get(1)); //int Name, posvector
-							m_List_Teleport_Location.AddItem( Lname, NULL, 0 );
-							Print("SendTeleportList Number : " + i + " Name : " + Lname + "Pos : " + strs.Get(1));
+							
+						}	
+					if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
+						{
+							m_List_Teleport_Location.ClearItems();
+						for ( int i = 0; i < TpName.Count(); i++ )
+						{
+							TLoacations.Insert(TpName[i])
+							TPos.Insert(TpPos[i])
+							m_List_Teleport_Location.AddItem( TLoacations[i], NULL, 0 );
+							Print("Client - Created Child with name = " + TpName[i]);
+							GetFileHandler().RootTeleport.AddChilds(TpName[i], TpPos[i])
 						}
-						// Print("Adding : PosName : " + PosName + " Pos1 : " + Pos1);
-						// m_TeleportLocations.Insert(PosName, Pos1); //int Name, posvector
-						// m_List_Teleport_Location.AddItem( PosName, NULL, 0 ); 
-					}
+						//Loadarray();
+						}
 			break;
 		}
-	}
-	
-	// void PlayerSelect()
-	// {
-		// array<Man> players = new array<Man>;
-		// GetGame().GetPlayers( players );
-		// PlayerBase selectedPlayer;
-		// PlayerIdentity selectedIdentity;
-		// for ( int a = 0; a < players.Count(); ++a )
-			// {
-				// selectedPlayer = players.Get(a);
-				// selectedIdentity = selectedPlayer.GetIdentity();
-				// if ( selectedIdentity.GetName() == GetCurrentSelection() )
-				// {
-					// GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_Health_Request, new Param1<PlayerBase>(selectedPlayer), false, NULL );
-					// GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_Stamina_Request, new Param1<string>(selectedIdentity.GetName()), false, NULL );
-				// }
-			// }
-	// }
-	
-	void PlayerList()
-	{
 		
-		// m_PlayerList.ClearItems();
-		// array<Man> players = new array<Man>;
-		// GetGame().GetPlayers( players );
-		// for (int i = 0; i < players.Count(); ++i)
-			// {
-				// string msg = "AdminMenuPlayer - PlayerList() Adding " + players.Get(i).GetIdentity().GetName() + " To List";
-				// GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Info, new Param1<string>( msg ), false, NULL );
-				// m_PlayerList.AddItem( players.Get(i).GetIdentity().GetName(), NULL, 0 );  
-			// }
 	}
 	
 	string GetCurrentSelection()
@@ -221,10 +257,10 @@ class AdminMenuGuiTeleport extends ScriptedWidgetEventHandler
 		return "";
 	}
 	
-	void Message( string txt ) 
-	{
-        GetGame().GetMission().OnEvent(ChatMessageEventTypeID, new ChatMessageEventParams(0, "", txt, ""));
-	}
+	// void Message( string txt ) 
+	// {
+        // GetGame().GetMission().OnEvent(ChatMessageEventTypeID, new ChatMessageEventParams(0, "", txt, ""));
+	// }
 	
 	
 	

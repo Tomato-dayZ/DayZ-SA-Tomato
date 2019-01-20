@@ -3,8 +3,6 @@
 	Copyright (C) 2018  DayZ-SA-Tomato
 	
 	This file is part of DayZ SA Tomato.
-	Originally from DayZCommunityOfflineMode
-	Link : https://github.com/Arkensor/DayZCommunityOfflineMode
 	
     DayZ SA Tomato is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,86 +19,66 @@
 	*/
 modded class MissionServer
 {
-    protected bool m_bLoaded;
+	protected ref PermissionBase m_PermissionBase;
+	protected ref ConfigModule m_ConfigModule;
+	protected ref TeleportModule m_TeleportModule;
+	protected ref FileHandler m_FileHandler;
+	protected ref HordeModule m_HordeModule;
+	protected bool m_bLoaded;
+	//ref LogHandler m_LogHandler;
     ref DevTeleport devTeleport;
-	ref FileHandler fileHandler;
 	ref AdminMenu adminMenu;
 	ref DevCam devCam;
-	protected float m_LogInTimerLength1 = 1;
+	ref TeleportData Tdata;
+	ref ChatModules m_ChatModule;
 	//admin list
+	ref PlayerModule PModule;
 	PlayerBase Admin = NULL;
-	protected ref map<string, string> m_AdminList;
-	static ref map<string, string> m_StaminaList;
-	protected string m_AdminListPath = "$CurrentDir:\\DayZ-SA-Tomato\\Config\\";
-	protected string m_AdminListPath2 = "$CurrentDir:\\@DayZ-SA-Tomato\\Config\\";
 	void MissionServer()
 	{
-		//super.MissionServer();
+		//m_LogHandler = new ref LogHandler();
+		m_FileHandler = new ref FileHandler();
+		m_HordeModule = new ref HordeModule();
+		m_PermissionBase = new ref PermissionBase;
+		m_ConfigModule = new ref ConfigModule;
+		m_ChatModule = new ref ChatModules;
+		m_TeleportModule = new ref TeleportModule;
 	    Print( "Dayz-Sa-Tomato initialized .." );
-	    m_bLoaded = false;
 	    devTeleport = new DevTeleport();
-	    fileHandler = new FileHandler();
+	    PModule = new PlayerModule();
 		adminMenu = new AdminMenu();
 		devCam = new DevCam();
+		//Tdata = new TeleportData();
 	}
 
 	void ~MissionServer()
 	{
-	    Print( "CommunityOfflineServer::~CommunityOfflineServer()" );
+		
+		delete PModule;
+		delete adminMenu;
+	    delete m_PermissionBase;
+		Print( "CommunityOfflineServer::~CommunityOfflineServer()" );
 	}
-	void WelcomeMswgClient()
-	{
-		GetPlayer().MessageStatus( "Client Mod active and functional." );
-	}
-	
-	//Create Mags And Custom Guns
-	void addMags(PlayerBase player, string mag_type, int count)
-	{
-		if (count < 1)
-			return;
-
-		EntityAI mag;
-
-		for (int i = 0; i < count; i++) {
-			mag = player.GetInventory().CreateInInventory(mag_type);
-		}
-
-		player.SetQuickBarEntityShortcut(mag, 1, true);
-	}
-	EntityAI SVD(int ground, PlayerBase player)
-	{
-		EntityAI item;
-		ItemBase itemBs
-		vector NewPosition;
-		vector OldPosition;
-		if (ground == 1)
-		{
-			OldPosition = player.GetPosition();
-			NewPosition[0] = OldPosition[0] + 1.5;
-			NewPosition[1] = OldPosition[1] + 0.1;
-			NewPosition[2] = OldPosition[2] + 1.5;
-			EntityAI gun = EntityAI.Cast(GetGame().CreateObject( "SVD", NewPosition, false, true ));
-			gun.GetInventory().CreateAttachment("PSO1Optic");
-			gun.GetInventory().CreateAttachment("ImprovisedSuppressor");
-			gun.GetInventory().CreateAttachment("GhillieAtt_Tan");
-		}else
-		{
-			EntityAI gun1 = player.GetHumanInventory().CreateInHands("SVD");
-			gun1.GetInventory().CreateAttachment("PSO1Optic");
-			gun1.GetInventory().CreateAttachment("ImprovisedSuppressor");
-			gun1.GetInventory().CreateAttachment("GhillieAtt_Tan");
-			addMags(player, "Mag_SVD_10Rnd", 3);
-		}
-		return gun;
-}
 	
 	
 	
 	override void OnEvent(EventType eventTypeId, Param params) 
 	{
 		super.OnEvent(eventTypeId,params);
-		
-		
+		//PlayerIdentity identity;
+		switch(eventTypeId)
+		{
+			case ChatMessageEventTypeID:
+			 Print("Chat Event");
+			 ChatMessageEventParams chat_params = ChatMessageEventParams.Cast(params);
+			 //chat_params.param1 == 0 && 
+			 if (chat_params.param2 != "") //trigger only when channel is Global == 0 and Player Name does not equal to null
+				{
+					Param4<int,string,string,string> request_info = new Param4<int,string,string,string>(chat_params.param1, chat_params.param2, chat_params.param3, chat_params.param4);
+					GetChatModule().ChatHandler(request_info); //Send the param to Admintools
+				}
+			break;
+		}
 	}
 	
 	
@@ -127,19 +105,12 @@ modded class MissionServer
 			PlayerPos = currentPlayer.GetPosition();
 			currentPlayer.OnTick();
 
-			if (m_StaminaList.Contains(PlayerName))
+			if(GetFileHandler().HasPermission("DisableStamina", PlayerIdent)
 				{
 					currentPlayer.GetStaminaHandler().SyncStamina(1000,1000);
 					currentPlayer.GetStatStamina().Set(currentPlayer.GetStaminaHandler().GetStaminaCap());
-					
 				}
-				
-			if (IsAdmin(PlayerName, PlayerSteam64ID ))
-			{
-				currentPlayer.GetStaminaHandler().SyncStamina(1000,1000);
-				currentPlayer.GetStatStamina().Set(currentPlayer.GetStaminaHandler().GetStaminaCap());
-			}
-			
+
 			m_currentPlayer++;
 			
 			
@@ -168,7 +139,6 @@ modded class MissionServer
 			vector pos;
 				
 			pos = currentPlayer.GetPosition();
-			Print("CommunityOfflineServer - SendPosTOAdmins1/2() - Name :" + PlayerName + "pos : " + pos);
 			//SendPosToAdmins(PlayerName, pos);
 			m_currentPlayer1++;
 			
@@ -189,9 +159,8 @@ modded class MissionServer
 				AdminIdent1 = currentPlayer1.GetIdentity();
 				AdminPlayerName1 = AdminIdent1.GetName();
 				PlayerSteam64ID1 = AdminIdent1.GetPlainId();
-				if (IsAdmin(AdminPlayerName1, PlayerSteam64ID1 ))
+				if (GetFileHandler().HasPermission("Admin", AdminIdent1))
 				{
-					Print("CommunityOfflineServer - SendPosTOAdmins2/2() - Name :" + PlayerName + "pos : " + pos);
 					ScriptRPC PPos = new ScriptRPC();
 					PPos.Write(PlayerName);
 					PPos.Write(pos);
@@ -203,144 +172,37 @@ modded class MissionServer
 				
 		}
 	}
-	void SendPlayerListToAdmins()
-	{
-		int m_currentPlayer1;
-		array<Man> players = new array<Man>;
-		GetGame().GetPlayers( players );
-				
-		for (int i = 0; i < players.Count(); ++i)
-		{
-			if(m_currentPlayer1 >= m_Players.Count() )
-			{
-				m_currentPlayer1 = 0;
-			}
-			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(m_currentPlayer1));
-			string PlayerName;
-			PlayerIdentity PlayerIdent;
-			string PlayerSteam64ID;
-			PlayerIdent = currentPlayer.GetIdentity();
-			PlayerName = PlayerIdent.GetName();
-			PlayerSteam64ID = PlayerIdent.GetPlainId();		
-			Print("CommunityOfflineServer - SendPlayerListToAdmins() - Name :" + PlayerName + "m_currentPlayer1 : " + m_currentPlayer1);
-			//SendPosToAdmins(PlayerName, pos);
-			m_currentPlayer1++;
-			
-			int m_currentPlayer2 = 0;
-			array<Man> players1 = new array<Man>;
-			GetGame().GetPlayers( players1 );
-					
-			for (int i1 = 0; i1 < players1.Count(); ++i1)
-			{
-				if(m_currentPlayer2 >= m_Players.Count() )
-				{
-					m_currentPlayer2 = 0;
-				}
-				PlayerBase currentPlayer1 = PlayerBase.Cast(m_Players.Get(m_currentPlayer2));
-				string AdminPlayerName1;
-				PlayerIdentity AdminIdent1;
-				string PlayerSteam64ID1;
-				AdminIdent1 = currentPlayer1.GetIdentity();
-				AdminPlayerName1 = AdminIdent1.GetName();
-				PlayerSteam64ID1 = AdminIdent1.GetPlainId();
-				if (IsAdmin(AdminPlayerName1, PlayerSteam64ID1 ))
-				{
-					ScriptRPC PList = new ScriptRPC();
-					PList.Write(PlayerName);
-					PList.Send(NULL, M_RPCs.M_Admin_Menu_Player_List, false, AdminIdent1);
-				}
-				m_currentPlayer2++;
-			}
-				
-				
-		}
-	}
-	
-	void AddStamina(string name)
-	{
-		m_StaminaList.Insert(name, "null");
-	}
-	
-	void RemoveStamina(string name)
-	{
-		m_StaminaList.Remove(m_StaminaList.GetKeyByValue(name));
-	}
-	bool StaminaContains(string name)
-	{
-		if (m_StaminaList.Contains(name))
-			{
-				return true;	
-			}
-		return false;
-	}
 	
 	
-	
-	
-	
-	
-	
-	PlayerBase IsAdminID(string name, string ID ) 
+	PlayerBase IsAdminID(string name, PlayerIdentity ID ) 
 	{
 		GetGame().GetWorld().GetPlayerList(m_Players);
 		array<Man> players = new array<Man>;
 		GetGame().GetPlayers( players );
-		//PlayerBase currentPlayer;
+		PlayerIdentity CurIdent;
+		string id;
 		int Count = 0;
 		for (int i = 0; i < players.Count(); ++i)
 		{
-			if(Count >= m_Players.Count() )
-				{
-					Count = 0;
-				}
-			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(Count));
-			Print("Current Player : " + currentPlayer.GetIdentity().GetName() + "Count : " + Count.ToString());
-			if (currentPlayer.GetIdentity().GetName() == name && m_AdminList.Contains(ID))
+			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(i));
+			CurIdent = currentPlayer.GetIdentity();
+			if(GetFileHandler().HasPermission("Admin", ID) && CurIdent.GetName() == name )
 			{
 				Admin 		  = currentPlayer;
-				//AdminIdentity = Admin.GetIdentity();
-				//AdminUID 	  = AdminIdentity.GetPlainId();
-				Print("Returning True for : " + players.Get(i).GetIdentity().GetName() );
-				return Admin;	
+				break;				
 			}else
 			{
-			Print("Returning False 1" );
 			Admin = NULL;
 			}
 			Count ++;
 		}
 		return Admin; 
 	}
-	
-	bool IsAdmin(string name, string ID ) 
-	{
-		GetGame().GetWorld().GetPlayerList(m_Players);
-		array<Man> players = new array<Man>;
-		GetGame().GetPlayers( players );
-		//PlayerBase currentPlayer;
-		int Count = 0;
-		for (int i = 0; i < players.Count(); ++i)
-		{
-			if(Count >= m_Players.Count() )
-				{
-					Count = 0;
-				}
-			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(Count));
-			if (currentPlayer.GetIdentity().GetName() == name && m_AdminList.Contains(ID))
-			{
-				Admin 		  = currentPlayer;
-				return true;	
-			}else
-			Count ++;
-		}
-		return false; 
-	}
 
 	ref Man GetPlayerFromIdentity( PlayerIdentity identity ) 
 	{
 		foreach( ref Man manBase : m_Players ) 
 		{
-			Print( "Getter: " + manBase  + " : " + manBase.GetIdentity().GetName() + " : " + manBase.GetIdentity().GetId() + ":" + manBase.GetIdentity().GetPlainId());
 			if ( manBase.GetIdentity().GetPlayerId() == identity.GetPlayerId() ) 
 			{
 				return manBase;
@@ -352,51 +214,46 @@ modded class MissionServer
 	override void OnInit()
 	{
 		super.OnInit();
-        //SetupWeather();
+		m_ConfigModule.Init();
+		m_TeleportModule.Init();
 		
-		//Admin list Insert from text
-		m_AdminList    = new map<string, string>; //UID, name
-		m_StaminaList    = new map<string, string>; //UID, name
-		FileHandle AdminUIDSFile = OpenFile(m_AdminListPath + "Admins.txt", FileMode.READ);
-		FileHandle AdminUIDSFile2 = OpenFile(m_AdminListPath2 + "Admins.txt", FileMode.READ);
-		
-		if (AdminUIDSFile != 0)
-		{
-			string line_content = "";
-			while ( FGets(AdminUIDSFile,line_content) > 0 )
-			{
-				m_AdminList.Insert(line_content,"null"); //UID , NAME
-				Print("Adding Admin: "+ line_content + " To the Admin List!");
-			}
-			CloseFile(AdminUIDSFile);
-		}
-		if (AdminUIDSFile2 != 0)
-		{
-			string line_content2 = "";
-			while ( FGets(AdminUIDSFile2,line_content2) > 0 )
-			{
-				m_AdminList.Insert(line_content2,"null"); //UID , NAME
-				Print("Adding Admin: "+ line_content2 + " To the Admin List!");
-			}
-			CloseFile(AdminUIDSFile2);
-		}
-
 	}
 
 	override void OnMissionStart()
 	{
 		super.OnMissionStart();
-	
-    
+
+        m_PermissionBase.OnStart();
 	}
 
 	override void OnMissionFinish()
 	{
+		m_PermissionBase.OnFinish();
 
-
-		super.OnMissionFinish();
+        super.OnMissionFinish();
 	}
 
+	override void OnPreloadEvent(PlayerIdentity identity, out bool useDB, out vector pos, out float yaw, out int queueTime)
+	{
+        super.OnPreloadEvent( identity, useDB, pos, yaw, queueTime );
+		GetFileHandler().GetPlayerByIdentity( identity );
+    }
+	
+	override void InvokeOnConnect( PlayerBase player, PlayerIdentity identity)
+	{
+        super.InvokeOnConnect( player, identity );
+		GetFileHandler().GetPlayerByIdentity( identity );
+
+        GetGame().SelectPlayer( identity, player );
+    } 
+	
+	override void InvokeOnDisconnect( PlayerBase player )
+	{
+        GetFileHandler().PlayerLeft( player.GetIdentity() );
+		
+		super.InvokeOnDisconnect( player );
+    } 
+	
     void OnMissionLoaded()
     {
 
@@ -405,51 +262,10 @@ modded class MissionServer
 	override void OnUpdate( float timeslice )
 	{
 	    super.OnUpdate( timeslice );
-
-        if( !m_bLoaded && !GetDayZGame().IsLoading() )
-        {
-            m_bLoaded = true;
-            OnMissionLoaded();
-        }
+		
+		//m_PermissionBase.OnUpdate( timeslice );
 	}
 
-    static void SetupWeather()
-    {
-        //Offical DayZ SA weather code
-        // Weather weather = g_Game.GetWeather();
-
-        // weather.GetOvercast().SetLimits( 0.0 , 2.0 );
-        // weather.GetRain().SetLimits( 0.0 , 2.0 );
-        // weather.GetFog().SetLimits( 0.0 , 2.0 );
-
-        // weather.GetOvercast().SetForecastChangeLimits( 0.0, 0.0 );
-        // weather.GetRain().SetForecastChangeLimits( 0.0, 0.0 );
-        // weather.GetFog().SetForecastChangeLimits( 0.0, 0.0 );
-
-        // weather.GetOvercast().SetForecastTimeLimits( 1800 , 1800 );
-        // weather.GetRain().SetForecastTimeLimits( 600 , 600 );
-        // weather.GetFog().SetForecastTimeLimits( 600 , 600 );
-
-        // weather.GetOvercast().Set( 0.0, 0, 0 );
-        // weather.GetRain().Set( 0.0, 0, 0 );
-        // weather.GetFog().Set( 0.0, 0, 0 );
-
-        // weather.SetWindMaximumSpeed( 50 );
-        // weather.SetWindFunctionParams( 0, 0, 1 );
-    }
-
-	override void OnPreloadEvent(PlayerIdentity identity, out bool useDB, out vector pos, out float yaw, out int queueTime)
-	{
-		if (GetHive())
-		{
-			queueTime = m_LogInTimerLength1;
-		}
-		else
-		{
-			queueTime = m_LogInTimerLength1;
-		}
-	}
-	
 	void  CLogInfo(string log) 
 	{
 		int year, month, day, hour, minute, second;

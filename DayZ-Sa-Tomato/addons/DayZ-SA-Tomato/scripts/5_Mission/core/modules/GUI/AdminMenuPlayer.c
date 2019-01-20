@@ -22,7 +22,7 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 	protected Widget						m_Root;
 	
 
-	
+	ref AdminMenuManager AMenuM;
 	protected AdminMenuGui					m_Menu;
 	
 	protected ref map<int, ref Param2<string, string>> m_TextMap;
@@ -36,15 +36,15 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 	protected ButtonWidget m_btn_Player_HealAll;
 	protected ButtonWidget m_btn_Player_StripAll;
 	protected ButtonWidget m_btn_Player_TpMeAll;
+	protected ButtonWidget m_btn_Player_Spectate;
 	protected ButtonWidget m_btn_Player_Send;
 	protected TextWidget m_Text_Player_Blood;
 	protected TextWidget m_Text_Player_Health;
 	protected TextWidget m_Text_Player_Pos;
 	protected TextWidget m_Text_Player_Stamina;
-	protected EditBoxWidget m_Box_Player_Message;		
+	EditBoxWidget m_Box_Player_Message;		
 	CheckBoxWidget m_Cb_Player_Stamina;
 	TextListboxWidget m_PlayerList;
-	
 	
 	void AdminMenuGuiPlayer( Widget parent, AdminMenuGui menu )
 	{
@@ -65,6 +65,7 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 		m_btn_Player_HealAll = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_HealAll" ) );
 		m_btn_Player_StripAll = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_StripAll" ) );
 		m_btn_Player_TpMeAll = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_tpMeAll" ) );
+		m_btn_Player_Spectate = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_Spectate" ) );
 		m_btn_Player_Send = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Player_Send" ) );
 		m_Text_Player_Blood = TextWidget.Cast( m_Root.FindAnyWidget( "Text_Player_Blood" ) );
 		m_Text_Player_Health = TextWidget.Cast( m_Root.FindAnyWidget( "Text_Player_Energy" ) );
@@ -72,7 +73,10 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 		m_Cb_Player_Stamina	= CheckBoxWidget.Cast( m_Root.FindAnyWidget( "Cb_Player_Stamina" ) );
 		//PlayerList();
 		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_List_Request, new Param1<string>(""), false, NULL );
+	
 	}
+	
+	
 	void LogD(string s)
 	{
 		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Debug, new Param1<string>( s ), false, NULL );
@@ -112,7 +116,6 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 			if( ( w == m_btn_Player_TpMe ) )
 			{
 				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TpMe, new Param1<string>(PlayerName), false, NULL );
-				LogD("AdminMenuPlayer - Click - m_btn_Player_TpMe Playername : " + PlayerName);
 				return true;
 			}
 			
@@ -147,12 +150,22 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 				return true;
 			}
 			
+			if( ( w == m_btn_Player_Spectate ) )
+			{
+				if(GetAdminMenuManager().IsSpectate())
+				{
+					GetAdminMenuManager().CamSpectate(GetAdminMenuManager().IsSpectate(), GetCurrentSelection(), false, vector.Zero, false);
+					GetAdminMenuManager().SetSpectate();
+					return true;
+				}
+				GetAdminMenuManager().CamSpectate(GetAdminMenuManager().IsSpectate(), GetCurrentSelection(), false, vector.Zero, true);
+				GetAdminMenuManager().SetSpectate();
+				return true;
+			}
+			
 			if( ( w == m_btn_Player_Send ) )
 			{
-				ScriptRPC MSG = new ScriptRPC();
-				MSG.Write(m_Box_Player_Message.GetText());
-				MSG.Write(GetCurrentSelection());
-				MSG.Send(NULL, M_RPCs.M_Admin_Menu_Spawn_Inventory, false, NULL);
+				TL().all(m_Box_Player_Message.GetText());
 				return true;
 			}
 			return true;
@@ -173,6 +186,24 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 	}
 	void ~AdminMenuGuiPlayer()
 	{
+		GetGame().GetCallQueue( CALL_CATEGORY_SYSTEM ).Remove( this.UpdateStats );
+	}
+	
+	void MouseEnter(Widget w, int x, int y )
+	{
+		if ( w == m_Box_Player_Message ) 
+		{
+			//TL().player(PlayerBase.Cast( GetGame().GetPlayer()).GetIdentity(), "Cant close !");
+			GetAdminMenuManager().CanClose = false;
+		}
+	}
+	
+	void MouseLeave(Widget w, Widget enterW, int x, int y)
+	{
+		if ( w == m_Box_Player_Message ) 
+		{
+			GetAdminMenuManager().CanClose = true;
+		}
 	}
 	
 	void Focus()
@@ -199,6 +230,7 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 	
 	void ReceiveRPC( PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx ) 
 	{
+		int i;
 		switch(rpc_type)
 		{
 			
@@ -245,23 +277,33 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 			break;
 			
 			case M_RPCs.M_Admin_Menu_Player_List:
-				string ListName;
-				ctx.Read(ListName);
+				array<string> allplayers = new array<string>;
+				ctx.Read(allplayers);
+				
 					if ( GetGame().IsServer() ) 
 						{
 							
 						}	
 					if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
 						{
-							m_PlayerList.AddItem( ListName, NULL, 0 ); 
-							string msg = "AdminMenuMap - M_RPCs.M_Admin_Menu_Player_List Adding " + ListName;
-							GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Debug, new Param1<string>( msg ), false, NULL );
+							m_PlayerList.ClearItems();
+							for (i = 0; i < allplayers.Count(); ++i)
+							{
+								m_PlayerList.AddItem( allplayers[i], NULL, 0 ); 
+							}
+						}
+			break;
+			
+			case M_RPCs.M_Admin_Menu_Player_List_Clear:
+					if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
+						{
+							m_PlayerList.ClearItems(); 
 						}
 			break;
 		}
 	}
 	
-	void PlayerSelect()
+	void UpdateStats()//Remove
 	{
 		array<Man> players = new array<Man>;
 		GetGame().GetPlayers( players );
@@ -273,24 +315,46 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 				selectedIdentity = selectedPlayer.GetIdentity();
 				if ( selectedIdentity.GetName() == GetCurrentSelection() )
 				{
-					GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_Health_Request, new Param1<PlayerBase>(selectedPlayer), false, NULL );
+					GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_Stamina_Request, new Param1<string>(selectedIdentity.GetName()),  false, NULL );
+					GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_Health_Request, new Param1<string>(selectedIdentity.GetName()), false, NULL );
+				}
+			}
+		//GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_Health_Request, new Param1<PlayerBase>(selectedPlayer), false, NULL );
+	}
+	
+	void PlayerSelect()
+	{
+		//GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_Stamina_Request, new Param1<string>(GetCurrentSelection() ), false, NULL );
+		array<Man> players = new array<Man>;
+		GetGame().GetPlayers( players );
+		PlayerBase selectedPlayer;
+		PlayerIdentity selectedIdentity;
+		for ( int a = 0; a < players.Count(); ++a )
+			{
+				selectedPlayer = PlayerBase.Cast(players.Get(a));
+				selectedIdentity = selectedPlayer.GetIdentity();
+				if ( selectedIdentity.GetName() == GetCurrentSelection() )
+				{
+					GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_Health_Request, new Param1<string>(selectedIdentity.GetName()), false, NULL );
 					GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_Stamina_Request, new Param1<string>(selectedIdentity.GetName()), false, NULL );
 				}
 			}
+		GetGame().GetCallQueue( CALL_CATEGORY_SYSTEM ).CallLater( this.UpdateStats, 1500, true );
+
 	}
 	
 	void PlayerList()
 	{
 		
-		// m_PlayerList.ClearItems();
-		// array<Man> players = new array<Man>;
-		// GetGame().GetPlayers( players );
-		// for (int i = 0; i < players.Count(); ++i)
-			// {
-				// string msg = "AdminMenuPlayer - PlayerList() Adding " + players.Get(i).GetIdentity().GetName() + " To List";
-				// GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Info, new Param1<string>( msg ), false, NULL );
-				// m_PlayerList.AddItem( players.Get(i).GetIdentity().GetName(), NULL, 0 );  
-			// }
+		 m_PlayerList.ClearItems();
+		 array<Man> players = new array<Man>;
+		 GetGame().GetPlayers( players );
+		 for (int i = 0; i < players.Count(); ++i)
+			 {
+				 string msg = "AdminMenuPlayer - PlayerList() Adding " + players.Get(i).GetIdentity().GetName() + " To List";
+				 GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Info, new Param1<string>( msg ), false, NULL );
+				 m_PlayerList.AddItem( players.Get(i).GetIdentity().GetName(), NULL, 0 );  
+			 }
 	}
 	
 	string GetCurrentSelection()
@@ -307,7 +371,7 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 	
 	void Message( string txt ) 
 	{
-        GetGame().GetMission().OnEvent(ChatMessageEventTypeID, new ChatMessageEventParams(0, "", txt, ""));
+        // GetGame().GetMission().OnEvent(ChatMessageEventTypeID, new ChatMessageEventParams(0, "", txt, ""));
 	}
 	
 	

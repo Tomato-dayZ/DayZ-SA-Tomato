@@ -37,15 +37,21 @@ class DevCam
 
 				ref PlayerBase player = PlayerBase.Cast(GetServerMission().GetPlayerFromIdentity( sender ));
 
-				Param2< bool, vector > camParams;
+				Param3< bool, vector, bool > camParams;
 				ctx.Read( camParams );
 
 				bool spectating = camParams.param1;
 				vector pos = camParams.param2;
-				if ( GetServerMission().IsAdmin( sender.GetName(), sender.GetPlainId() ) ) 
+				if ( GetFileHandler().HasPermission("Admin", sender) ) 
 				{
 					if ( spectating ) 
 					{
+						if(!camParams.param3)
+						{
+							SetFreezePlayer( player, false );
+							GetGame().SelectPlayer( sender, player );
+							return;
+						}
 						player.SetPosition( pos );
 						SetFreezePlayer( player, false );
 						GetGame().SelectPlayer( sender, player );
@@ -59,7 +65,66 @@ class DevCam
 			}
 			if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
 			{ // test if setting camera works on client side. instead of server side ^
-				GetPlayer().MessageStatus("Toggle Free cam");
+			}
+
+		}
+		
+		if ( rpc_type == M_RPCs.M_SET_CAM_Spectate ) 
+		{
+			Print("rpc spec");
+			if ( GetGame().IsServer() ) 
+			{
+				array<Man> players = new array<Man>;
+				GetGame().GetPlayers( players );
+				PlayerIdentity selectedIdentity;
+				PlayerBase selectedPlayer;
+				player = PlayerBase.Cast(GetServerMission().GetPlayerFromIdentity( sender ));
+
+				Param4< bool, string, bool, vector > specParams;
+				ctx.Read( specParams );
+
+				bool spectatingnew = specParams.param1;
+				
+				if ( GetFileHandler().HasPermission("Admin", sender) ) 
+				{
+					for ( int a = 0; a < players.Count(); ++a )
+						{
+							selectedPlayer = PlayerBase.Cast(players.Get(a));
+							selectedIdentity = NULL;
+							if ( selectedPlayer.GetIdentity().GetName() == specParams.param2 )
+							{
+								selectedIdentity = selectedPlayer.GetIdentity();
+								pos = GetServerMission().GetPlayerFromIdentity( selectedIdentity ).GetPosition()
+								break;
+							}
+						}
+						
+						if(selectedIdentity == NULL) {return;}
+					
+					if ( spectatingnew ) 
+					{
+						Print("Stop spec");
+						if(!specParams.param3)
+						{
+							SetFreezePlayer( player, false );
+							GetGame().SelectPlayer( sender, player );
+							return;
+						}
+						
+						player.SetPosition( specParams.param4 );
+						SetFreezePlayer( player, false );
+						GetGame().SelectPlayer( sender, player );
+					} 
+					else 
+					{
+						Print("Start Spec " + selectedIdentity.GetName());
+						SetFreezePlayer( player, true );
+						GetGame().SelectSpectator( sender, "DayZSpectator", pos );
+					}
+				}
+			}
+			if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
+			{ // test if setting camera works on client side. instead of server side ^
 			}
 
 		}

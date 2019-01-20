@@ -42,7 +42,8 @@ class DevTeleport
 				ref PlayerBase player = PlayerBase.Cast(GetServerMission().GetPlayerFromIdentity( sender ));
 				// permission check - server mission file
 				// if has permissions send message back to client
-				if ( GetServerMission().IsAdmin( sender.GetName(), sender.GetPlainId()) )
+				if (GetFileHandler().HasPermission("Admin", sender) )
+					
 				{
 					player.SetPosition( positionToTeleport ); //set player position on server side
 
@@ -53,7 +54,6 @@ class DevTeleport
 			if ( GetGame().IsClient() && GetGame().IsMultiplayer() ) 
 			{
 				//GetPlayer().SetPosition( positionToTeleport ); //client side
-				GetPlayer().MessageStatus( "Teleported ");
 			}
 		}
 	}

@@ -22,12 +22,19 @@ class AdminMenuManager
 	
 	static bool Config_Teleport = false;
 	static bool Config_Cam = false;
+	static bool Spectate = false;
+	static string SpectatePlayer;
+	static bool Config_Map_Teleport = false;
+	static bool Config_Map_Horde = false;
+	static bool CanClose = true;
+	//ref AdminMenuMessage m_adMenuMessage;
+	static string Version = "Version : 1.20";
 	static ref map<string, vector> m_PlayerLocations;
 	static ref map<int, string> m_TeleportLocations;
 	protected string m_TeleportLocationsPath = "$CurrentDir:\\DayZ-Sa-Tomato\\Config\\List\\TeleportLocation.txt";
 	void ~AdminMenuManager()
 	{
-		
+		// GetGame().GetCallQueue( CALL_CATEGORY_SYSTEM ).Remove( this.MessageClose );
 	}	
 	
 	void AdminMenuManager()
@@ -35,6 +42,7 @@ class AdminMenuManager
 		m_PlayerLocations  = new map<string, vector>; 
 		m_TeleportLocations  = new map<int, string>;
 		//LoadTeleportLocations();
+		// GetGame().GetCallQueue( CALL_CATEGORY_SYSTEM ).CallLater( this.MessageClose, 1000, true );
 	}
 	
 	void Teleport() 
@@ -45,18 +53,76 @@ class AdminMenuManager
 		}
 	}
 	
-	void CamTeleport( bool isSpectating, vector toPos ) 
+	void Map_Teleport() 
+	{
+		if (Config_Teleport)
+		{
+			GetGame().RPCSingleParam( NULL, M_RPCs.M_TELEPORT, new Param1<vector>( GetCursorPos() ), false, NULL );
+		}
+	}
+	
+	bool IsSpectate()
+	{
+		return Spectate;
+	}
+	
+	void SetSpectate()
+	{
+		Spectate = !Spectate;
+	}
+	
+	void CamSpectate( bool isSpectating, string PlayerName, bool tp, vector posi, bool enable = true)	
+	{
+		if(enable)
+		{
+			//TL().player("enable");
+			SpectatePlayer = PlayerName;
+			GetGame().RPCSingleParam( NULL, M_RPCs.M_SET_CAM_Spectate, new Param4< bool, string, bool, vector >( Spectate, SpectatePlayer, tp, posi ), false, NULL );
+		}else
+		{
+			//TL().player("not Enable");
+			GetGame().RPCSingleParam( NULL, M_RPCs.M_SET_CAM_Spectate, new Param4< bool, string, bool, vector >( Spectate, SpectatePlayer, tp, posi ), false, NULL );
+			SpectatePlayer = "";
+		}
+		
+	}
+	
+	void CamTeleport( bool isSpectating, vector toPos, bool tp = true ) 
 	{
 		if (Config_Cam)
 		{
-			Print("Send Cam RPC");
-			GetGame().RPCSingleParam( NULL, M_RPCs.M_SET_CAM, new Param2< bool, vector >( isSpectating, toPos ), false, NULL );
+			GetGame().RPCSingleParam( NULL, M_RPCs.M_SET_CAM, new Param3< bool, vector, bool >( isSpectating, toPos, tp ), false, NULL );
 		}
 	}
 	
 	void MenuOpen() 
 	{
-		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu, new Param1<vector>( GetCursorPos() ), false, NULL );
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu, new Param1<string>( "" ), false, NULL );
+	}
+	
+	void MessageClose()
+	{
+		GetGame().GetMission().OnEvent(ChatMessageEventTypeID, new ChatMessageEventParams(0, "", "Should Close", ""));
+		g_Game.GetUIManager().CloseMenu(7001);
+	}
+	
+	void MessageMenu(string MenuMessage)
+	{
+		UIScriptedMenu adminMenuMessage = NULL;
+		adminMenuMessage = new AdminMenuMessage(MenuMessage);
+		
+		if ( g_Game.GetUIManager().IsMenuOpen(7001) ) 
+		{ 
+			adminMenuMessage.Close();
+			g_Game.GetUIManager().ShowScriptedMenu( adminMenuMessage, NULL );
+		}else{
+			g_Game.GetUIManager().ShowScriptedMenu( adminMenuMessage, NULL );
+		}
+	}
+	
+	void MessageOpen(PlayerIdentity ident, string msg)
+	{
+		GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_MessageBox, new Param1<string>( msg ), false, ident );
 	}
 	
 	void SendTeleportList(PlayerIdentity admin)
@@ -72,24 +138,6 @@ class AdminMenuManager
 		TList.Send(NULL, M_RPCs.M_Admin_Menu_Teleport_List, false, admin);
 		
 		
-		// for (int i = 0; i < m_TeleportLocations.Count(); ++i)
-		// {
-			
-			
-			// TStringArray strs = new TStringArray;
-			// save = m_TeleportLocations.GetElement(i);
-			// save.Split(a, strs );
-			// v = strs.Get(1).ToVector();
-			// string Lname = strs.Get(0);
-			// Print("SendTeleportList Number : " + i + " Name : " + Lname + "Pos : " + strs.Get(1).ToVector());
-			
-			
-			// ScriptRPC TList = new ScriptRPC();
-			// TList.Write(Lname);
-			// TList.Write(v);
-			// TList.Send(NULL, M_RPCs.M_Admin_Menu_Teleport_List, false, admin);
-		
-		//}
 		
 	}
 	void LoadTeleportLocations(PlayerIdentity admin)
@@ -103,19 +151,13 @@ class AdminMenuManager
 			string line_content = "";
 			while ( FGets(TpList,line_content) > 0 )
 			{
-			
 				TStringArray strs = new TStringArray;
-				//string.Split(line_content, a, strs );
-				//line_content.Split(";", strs)
-				//vector v = strs.Get(1).ToVector();
 				m_TeleportLocations.Insert(i,line_content); //int Name, posvector
-				Print("Adding Number : " + i + " line : " + line_content + " To the Teleport List!");
 				i++;
 			}
 			CloseFile(TpList);
 			SendTeleportList(admin);
 		}
-		Print("TpList = NULL");
 	}
 	
 	
@@ -127,4 +169,16 @@ class AdminMenuManager
 		
 	}
 	
+}
+
+ref AdminMenuManager Tomato_AdminMenuManager;
+
+ref AdminMenuManager GetAdminMenuManager()
+{
+    if( !Tomato_AdminMenuManager )
+    {
+        Tomato_AdminMenuManager = new ref AdminMenuManager();
+    }
+
+    return Tomato_AdminMenuManager;
 }

@@ -24,15 +24,6 @@ FrameWidgetClass rootFrame {
      vexactsize 1
      text "Day"
     }
-    ButtonWidgetClass btn_Command_Cam {
-     position 750 165
-     size 300 50
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     text "Camera"
-    }
     ButtonWidgetClass ButtonWidget2 {
      position 947.81403 -136.842
      size 300 50
@@ -58,7 +49,7 @@ FrameWidgetClass rootFrame {
      vexactpos 1
      hexactsize 1
      vexactsize 1
-     text "Refill"
+     text "Refuel"
     }
     CheckBoxWidgetClass Config_Cam {
      position 125 165
@@ -90,15 +81,6 @@ FrameWidgetClass rootFrame {
      style Default
      text "Heal"
     }
-    ButtonWidgetClass btn_Command_CamTp {
-     position 1100 165
-     size 300 50
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     text "Camera (Tp)"
-    }
     ButtonWidgetClass btn_Command_SpCar {
      position 125 460
      size 300 50
@@ -126,14 +108,14 @@ FrameWidgetClass rootFrame {
      vexactsize 1
      text "Heal"
     }
-    ButtonWidgetClass ButtonWidget11 {
-     position 12.8862 -89.7536
-     size 300 50
+    ButtonWidgetClass btn_Command_DelObj {
+     position 125 560
+     size 460.19101 50
      hexactpos 1
      vexactpos 1
      hexactsize 1
      vexactsize 1
-     text "Heal"
+     text "Delete Obj on cursor"
     }
     TextWidgetClass TextWidget0 {
      position 0 10
@@ -171,24 +153,6 @@ FrameWidgetClass rootFrame {
      vexactsize 1
      text "Teleport (n Key)"
      checked 0
-    }
-    ButtonWidgetClass btn_Command_Test {
-     position 152.78999 631.31201
-     size 378.93399 48
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     text "Test Load Conf"
-    }
-    TextWidgetClass Text_Command_Test {
-     position 573.13898 627.05402
-     size 342.647 48
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     text "Param"
     }
    }
   }

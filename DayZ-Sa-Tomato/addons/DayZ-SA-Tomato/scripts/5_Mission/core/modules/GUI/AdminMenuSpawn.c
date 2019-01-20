@@ -19,7 +19,10 @@
 	*/
 class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 {
+	
+	
 	protected Widget						m_Root;
+	
 	protected AdminMenuGui					m_Menu;
 	TextListboxWidget m_classList;
 	EditBoxWidget m_Spawn_SearchBox;
@@ -27,9 +30,9 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 	protected ButtonWidget m_Spawn_btnSpawnCursor;
 	protected ButtonWidget m_Spawn_btnSpawnInventory;
 	protected ButtonWidget m_Spawn_btnCancel;
-	protected EditBoxWidget m_Spawn_QuantityItem;
+	EditBoxWidget m_Spawn_QuantityItem;
 	ItemPreviewWidget m_item_widget;
-
+	//ref AdminMenuManager AMenuM;
 	//private ItemPreviewWidget m_item_widget;
 	protected EntityAI previewItem;
 	private int m_characterRotationX;
@@ -64,6 +67,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 	//TODO
 	bool Click( Widget w, int x, int y, int button )
 	{
+		
 	    string strSelection = GetCurrentSelection();
 	    bool ai = false;
 		
@@ -139,10 +143,43 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
         }
 
         return false;
+		
 	}
+	
+	void MouseLeave(Widget w, Widget enterW, int x, int y)
+	{
+		
+		if ( w == m_Spawn_QuantityItem ) 
+		{
+			GetAdminMenuManager().CanClose = true;
+		}
+		
+		if ( w == m_Spawn_SearchBox ) 
+		{
+			GetAdminMenuManager().CanClose = true;
+		}
+		
+	}
+	
+	void MouseEnter(Widget w, int x, int y)
+	{
+		
+		if ( w == m_Spawn_QuantityItem ) 
+		{
+			GetAdminMenuManager().CanClose = false;
+		}
+		
+		if ( w == m_Spawn_SearchBox ) 
+		{
+			GetAdminMenuManager().CanClose = false;
+		}
+		
+	}
+	
 	
 	void UpdateList( string classFilter ) // All default
     {
+		
         m_classList.ClearItems();
 		TStringArray configs = new TStringArray;
 		configs.Insert( CFG_VEHICLESPATH );
@@ -195,6 +232,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 				}
 			}
 		}
+		
     }
 	
 	string GetCurrentSelection()
@@ -216,7 +254,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 	
 	bool OnItemSelect( Widget w, int x, int y, int row, int column, int oldRow, int oldColumn)
 	{
-		
+		/*
 			if ( w == m_classList ) 
 			{
 				EntityAI item;
@@ -255,12 +293,12 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 				return true;
 			}
 		return true;
-		
+		*/
 	}
 	
 	void OnItemSelect2(EntityAI item)
 	{
-		
+		/*
 
 
 				if (item)
@@ -294,6 +332,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 					//m_item_widget.SetModelOrientation
 					PPEffects.SetBlurInventory(1);
 				}
+				*/
 	}
 	
 	override bool OnMouseButtonDown( Widget w, int x, int y, int button ) 
@@ -396,7 +435,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 	
 	void Message( string txt ) 
 	{
-        GetGame().GetMission().OnEvent(ChatMessageEventTypeID, new ChatMessageEventParams(0, "", txt, ""));
+        // GetGame().GetMission().OnEvent(ChatMessageEventTypeID, new ChatMessageEventParams(0, "", txt, ""));
 	}
 
 	void ReceiveRPC( PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx ) 
@@ -416,10 +455,15 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 	
 	void SetItem(EntityAI item)
 	{
+		/*
 		if (item)
 		{
+			
 			//InspectMenuNew.UpdateItemInfo(m_Root, item);
 			//delete m_item_widget;
+			
+			
+			
 			if (item == NULL)
 			{
 				item = EntityAI.Cast(GetGame().CreateObject( "WaterBottle", vector.Zero, false, false ));
@@ -451,6 +495,7 @@ class AdminMenuGuiSpawn extends ScriptedWidgetEventHandler
 			//m_item_widget.SetModelOrientation
 			//PPEffects.SetBlurInventory(1);
 		}
+		*/
 	}
 	
 	override bool OnFocus( Widget w, int x, int y )

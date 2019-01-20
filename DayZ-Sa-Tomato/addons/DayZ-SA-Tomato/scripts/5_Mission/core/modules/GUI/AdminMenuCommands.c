@@ -35,6 +35,7 @@ class AdminMenuGuiCommands extends ScriptedWidgetEventHandler
 	protected ButtonWidget m_Command_SpCar;
 	protected ButtonWidget m_Command_Cam;
 	protected ButtonWidget m_Command_CamTp;
+	protected ButtonWidget m_Command_DelObj;
 	protected ButtonWidget m_Command_Test;
 	protected ref map<string, string> m_TestList;
 	protected string m_TestListPath = "$CurrentDir:\\DayZ-SA-Tomato\\Config\\";
@@ -58,6 +59,7 @@ class AdminMenuGuiCommands extends ScriptedWidgetEventHandler
 		m_Command_Refill = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Command_Refill" ) );
 		m_Command_Cam = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Command_Cam" ) );
 		m_Command_CamTp = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Command_CamTp" ) );
+		m_Command_DelObj = ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Command_DelObj" ) );
 		 
 		m_Command_Test	= ButtonWidget.Cast( m_Root.FindAnyWidget( "btn_Command_Test" ) );
 		
@@ -77,21 +79,6 @@ class AdminMenuGuiCommands extends ScriptedWidgetEventHandler
 			m_Config_Teleport.SetChecked(false);
 		}
 		
-		
-		//-----Add Admins from txt-----
-		FileHandle AdminUIDSFile = OpenFile(m_TestListPath + "Test.txt",FileMode.READ);
-		if (AdminUIDSFile != 0)
-		{
-			m_TestList    = new map<string, string>; //UID, name
-			string line_content = "";
-			while ( FGets(AdminUIDSFile,line_content) > 0 )
-			{
-				m_TestList.Insert(line_content,"null"); //UID , NAME
-			}
-			CloseFile(AdminUIDSFile);
-		}
-		
-		
 	}
 	
 	bool Click(Widget w, int x, int y, int button)
@@ -102,7 +89,6 @@ class AdminMenuGuiCommands extends ScriptedWidgetEventHandler
 			if( ( w == m_Command_HealButton ) )
 			{
 				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Heal, new Param1<string>(""), false, NULL );
-				Message("1 Up");
 				return true;
 			}
 			
@@ -110,28 +96,30 @@ class AdminMenuGuiCommands extends ScriptedWidgetEventHandler
 			if( ( w == m_Command_SpCar ) )
 			{
 				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Spawn_Car, new Param1<string>(""), false, NULL );
-				Message("Going fast");
 				return true;
 			}
 			
 			if( ( w == m_Command_Day ) )
 			{
 				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Day, new Param1<string>(""), false, NULL );
-				Message("DayTime");
 				return true;
 			}
 			
 			if( ( w == m_Command_Night ) )
 			{
 				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Night, new Param1<string>(""), false, NULL );
-				Message("NightTime");
 				return true;
 			}
 			
 			if( ( w == m_Command_Refill ) )
 			{
 				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Car_Refill, new Param1<string>(""), false, NULL );
-				Message("Gas Station");
+				return true;
+			}
+			
+			if( ( w == m_Command_DelObj ) )
+			{
+				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Delete_Object, new Param1<Object>(GetCursorObject( 50.0, GetGame().GetPlayer(), 0.01 )), false, NULL );
 				return true;
 			}
 			
@@ -139,13 +127,27 @@ class AdminMenuGuiCommands extends ScriptedWidgetEventHandler
 			{
 				string msg;
 				msg = "TestLog";
-				GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Log_Info, new Param1<string>( msg ), false, NULL );
-				Message("Send Log RPC msg = " + msg);
+				//GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_TestConf, new Param1<string>( msg ), false, NULL );
 				return true;
 			}
 			return true;
 		}
 		return false;
+	}
+	
+	static Object GetCursorObject( float distance = 100.0, Object ignore = NULL, float radius = 0.5, Object with = NULL )
+	{
+    vector rayStart = GetGame().GetCurrentCameraPosition();
+    vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * distance;
+
+    auto objs = GetObjectsAt( rayStart, rayEnd, ignore, radius, with );
+
+    if( objs.Count() > 0 )
+    {
+        return objs[ 0 ];
+    }
+
+    return NULL;
 	}
 	
 	void Set_Teleport()

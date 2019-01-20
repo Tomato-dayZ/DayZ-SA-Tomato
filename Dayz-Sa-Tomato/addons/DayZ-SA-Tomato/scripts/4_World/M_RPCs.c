@@ -1,4 +1,4 @@
-/*
+	/*
 	DayZ SA Tomato Gui Admin tool for DayZ Standalone. Contact DayZ-SA-Tomato@Primary-Network.de
 	Copyright (C) 2018  DayZ-SA-Tomato
 	
@@ -58,10 +58,54 @@ enum M_RPCs
 	M_Admin_Menu_Player_List_Request = 7036;
 	M_Admin_Menu_Player_List = 7037;
 	M_Admin_Menu_Log_Debug = 7038;
-	M_Admin_Menu_Log_Startup = 7039;
+	M_Admin_Menu_Log_Admin = 7039;
 	M_Admin_Menu_Log_RPC = 7040;
 	M_Admin_Menu_Message = 7041;
 	M_Admin_Menu_Teleport_List_Request = 7042;
 	M_Admin_Menu_Teleport_List = 7043;
 	M_Admin_Menu_TpMeToPos = 7044;
+	M_Admin_Menu_TpMeToPosVec = 7045;
+	M_Admin_Menu_Player_List_Clear = 7046;
+	M_Admin_Menu_Teleport_RequestData = 7047;
+	M_Admin_Menu_Teleport_ReciveData = 7048;
+	M_Admin_Menu_Teleport_Write = 7049;
+	M_Admin_Player_UpdatePlayers = 7050;
+	M_Admin_Player_RemovePlayer = 7051;
+	M_Admin_Player_UpdatePlayer = 7052;
+	M_Admin_Player_SetHealth = 7053;
+	M_Admin_Player_SetBlood = 7054;
+	M_Admin_Player_SetEnergy = 7055;
+	M_Admin_Player_SetWater = 7056;
+	M_Admin_Player_SetShock = 7057;
+	M_Admin_Player_SetHeatComfort = 7058;
+	M_Admin_Player_SetWet = 7059;
+	M_Admin_Player_SetTremor = 7060;
+	M_Admin_Player_SetStamina = 7061;
+	M_Admin_Player_SetLifeSpanState = 7062;
+	M_Admin_Player_SetBloodyHands = 7063;
+	M_Admin_Player_KickTransport = 7064;
+	M_Admin_Player_RepairTransport = 7065;
+	M_Admin_Player_TeleportToMe = 7066;
+	M_Admin_Player_TeleportMeTo = 7067;
+	M_Admin_SpectatePlayer = 7068;
+	M_Admin_Player_GodMode = 7069;
+	M_Admin_SetConfigs = 7070;
+	M_Admin_KickPlayer = 7071;
+	M_Admin_BanPlayer = 7072;
+	M_Admin_Log_con = 7073;
+	M_Admin_Log_all = 7074;
+	M_Admin_Log_all_White = 7075;
+	M_Admin_Log_error = 7076;
+	M_Admin_Log_info = 7077;
+	M_Admin_Log_player = 7078;
+	M_Admin_Delete_Object = 7079;
+	M_SET_CAM_Spectate = 7080;
+	M_Admin_Horde = 7081;
+	M_Admin_Message = 7082;
+	M_Admin_Message_Setup = 7083;
+	M_Admin_Menu_MessageBox = 7084;
+	M_Admin_Menu_MessageStatus = 7085;
+	M_Admin_Menu_Teleport_Write_Pre = 7086;
+	
+	
 }

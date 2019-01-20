@@ -214,13 +214,24 @@ FrameWidgetClass rootFrame {
      text "Teleport all here"
     }
     CheckBoxWidgetClass Cb_Player_Stamina {
-     position 610 450
+     position 610 500
      size 350 48
      hexactpos 1
      vexactpos 1
      hexactsize 1
      vexactsize 1
-     text "Disable Stamina"
+     text "Dissable Stamina"
+    }
+    ButtonWidgetClass btn_Player_Spectate {
+     visible 1
+     clipchildren 1
+     position 610 445
+     size 350 45
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Spectate"
     }
    }
   }
@@ -253,7 +264,7 @@ FrameWidgetClass rootFrame {
    vexactpos 1
    hexactsize 1
    vexactsize 1
-   text "Energy :"
+   text "Health :"
    "text halign" center
    "text valign" center
   }
