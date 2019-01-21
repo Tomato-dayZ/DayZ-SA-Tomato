@@ -60,7 +60,7 @@ Or @Discord https://discord.gg/qqjwVXV
 ![alt text](https://i.ibb.co/YdpXCwS/Screenshot-2.png)
 ```
 ```
-6. Move the DayZ-Sa-Tomato profile folder from the mod folder's Tomato_Profiles folder to server profiles folder. (If the folder does not exist "DayzServer/YOURPROFILESNAME/Tomato_Profiles/Config/Players/" please create it BEFORE you start your server for the first time)
+6. Move the DayZ-Sa-Tomato profile folder from the mod folder's Tomato_Profiles folder to server profiles folder. (If the folder "DayzServer/YOURPROFILESNAME/Tomato_Profiles/Config/Players/" does not exist please create it BEFORE you start your server for the first time)
 ```
 ```
 ![alt text](https://i.ibb.co/HgSFFbF/Screenshot-3.png)
