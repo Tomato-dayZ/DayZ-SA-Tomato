@@ -28,7 +28,7 @@ class AdminMenuManager
 	static bool Config_Map_Horde = false;
 	static bool CanClose = true;
 	//ref AdminMenuMessage m_adMenuMessage;
-	static string Version = "Version : 1.20";
+	static string Version = "Version : 1.30";
 	static ref map<string, vector> m_PlayerLocations;
 	static ref map<int, string> m_TeleportLocations;
 	protected string m_TeleportLocationsPath = "$CurrentDir:\\DayZ-Sa-Tomato\\Config\\List\\TeleportLocation.txt";
