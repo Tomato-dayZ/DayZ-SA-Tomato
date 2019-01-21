@@ -1,0 +1,18 @@
+Prison Island;2651.42 0.0 1395.8
+Mogilevka;7572.65 0.0 5182.3
+Stary Sobor;6192.39 0.0 7666.5
+Msta;11206.6 0.0 5398.70
+Solnichniy;13436.5 0.0 6158.7
+Chernogorsk;6350.99 0.0 2666.12
+Elektrogorsk;10432.1 0.0 2218.56
+Berezino;12661.4 0.0 9465.03
+Tisy;1890.45 0.0 13704.6
+Gorka;9678.94 0.0 8828.93
+Balota;4546.92 0.0 2416.4
+Vybor;3916.85 0.0 8795.59
+Severograd;8318.51 0.0 12743.4
+North West Airfield;4835.59 0.0 9667.72
+Green Mountain;3752.08 0.0 6002.94
+Zelenogorsk;2542.18 0.0 4994.26
+Tisy Military Base;1599.15 0.0 14166.66
+Pavlovo Military Base;2047.82 0.0 3293.36

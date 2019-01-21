@@ -1,0 +1,219 @@
+FrameWidgetClass rootFrame {
+ position 10 10
+ size 1400 800
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  FrameWidgetClass command_settings_root {
+   ignorepointer 1
+   position 0 0
+   size 1 1
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+   {
+    TextWidgetClass TextWidget0 {
+     position 0 10
+     size 1 50
+     halign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 1
+     style Bold
+     text "About"
+     "exact text" 0
+     "size to text h" 0
+     "size to text v" 0
+     "text halign" center
+     "text valign" center
+    }
+    PanelWidgetClass PanelWidget0 {
+     color 0.9333 0 0.0784 1
+     position 0 75
+     size 0.9 3.5
+     halign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 1
+     style rover_sim_colorable
+    }
+    GridSpacerWidgetClass GridSpacerWidget0 {
+     position 65 100
+     size 1273.06006 676.08002
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     Columns 1
+     Rows 18
+     {
+      TextWidgetClass TextWidget2 {
+       position 86.02499 79.7848
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "DayZ-Sa-Tomato "
+      }
+      TextWidgetClass TextWidget3 {
+       position 273.02499 161.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "This mod is mainly created for fun."
+      }
+      TextWidgetClass TextWidget4 {
+       position 230.02501 160.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "However it took and still takes me a lot of time "
+      }
+      TextWidgetClass TextWidget5 {
+       position 223.02501 185.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "to create it and adding features you request. "
+      }
+      TextWidgetClass TextWidget6 {
+       position 237.02501 229.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+      }
+      TextWidgetClass TextWidget7 {
+       position 218.02501 186.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "I hope you enjoy it and it helps you managing"
+      }
+      TextWidgetClass TextWidget8 {
+       position 209.02501 186.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "your Servers if you have any feature requests"
+      }
+      TextWidgetClass TextWidget9 {
+       position 215.02501 224.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "I would be happy to hear them."
+      }
+      TextWidgetClass TextWidget10 {
+       position 255.02501 237.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "Follow the links down below."
+      }
+      TextWidgetClass TextWidget11 {
+       position 255.02501 271.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+      }
+      TextWidgetClass TextWidget12 {
+       position 229.02501 265.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "If you wanna support this mod and keep it alive"
+      }
+      TextWidgetClass TextWidget13 {
+       position 219.02501 279.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "you got two options to do so :"
+      }
+      TextWidgetClass TextWidget14 {
+       position 219.02501 277.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "- Paypal donation @ mariusgeb@live.de"
+      }
+      TextWidgetClass TextWidget15 {
+       position 135.02501 279.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "- Renting a server I host DayZ and other gameservers "
+      }
+      TextWidgetClass TextWidget16 {
+       position 121.02499 296.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "  with fair prices and multiple locations running on strong servers"
+      }
+      TextWidgetClass TextWidget17 {
+       position 218.02501 307.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+      }
+      TextWidgetClass TextWidget18 {
+       position 101.02499 305.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "Discord : https://discord.gg/Svgz48m"
+      }
+      TextWidgetClass TextWidget19 {
+       position 112.02499 296.785
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       text "Hosting Service : https://Shop.Primary-Network.com/ "
+      }
+     }
+    }
+   }
+  }
+ }
+}

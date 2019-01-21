@@ -1,6 +1,6 @@
-# DayZ-SA-Tomato
+# DayZ SA Tomato
 
-Dayz Standalone GUI Based Admin Tool
+Dayz Standalone UI Admin Tool
 
 
 
@@ -10,40 +10,48 @@ See CHANGELOG.md
 
 ## News
 
-## 20.01.2019 21:00
+## 15.12.2018 23:00
 
+### Fixed
+
+- For 1.0 Update (make sure to kopy the Key from Keys folder again !)
 
 ### Added 
 
-- Teleport Locations added right from in-game gui.
-- Spawn a changable size horde of zombies by a simple click on the map or on a defined location.
-- Delete Object on cursor
-- Player files sorted by Steam64ID for easy adding of admin to the server.
-- Teleport on Map click
-- Horde on Map Click 
-- Customizable Kill feed (standard is disabled, change it in Config.txt File in your profiles folder)
-- Customizable Welcome message
-- Kill log file 
-- Spectate Player
-
+- Teleport Locations Check the Config/List Folder u can add your own Locations to it (Adding Locations from ingame does not work since filewrite is bugged at the moment)
 
  ### next up
- 
-- TBA
+ - 
 
 
-#### If Someone has this mod working on a 3rd Party host (GSP) PLEASE Cantact me or join https://discord.gg/Svgz48m to let us know to help others with the same service get their mod working as well
+#### If Someone got the mod to work on a 3rd Party hoster Cantact me or join https://discord.gg/Svgz48m
 
 ##  Notes
 
-You can do what you like with this tool as the license states. But if you add any features to it, i would appreciate if you would share your code so that everyone can benefit from it.
+You can do with this tool what you want as the licence says if you add any features to it i would appreciate if you would share your code so that everyone can benefit from it.
 
 
-You could cantact me by email at DayZ-SA-Tomato@Primary-Network.de
+You could cantact me per mail at DayZ-SA-Tomato@Primary-Network.de
 Or @Discord https://discord.gg/qqjwVXV
 
-### Installation
+### Installing
 
+0. Check out this Link if you are using a 3rd party hoster they changed there Wiki since a user asked them how to Install this mod probs to them https://trugaming.com/wiki/index.php?title=DayZ#Server_Side_Mods hoefully this helps a little bit 
+1. Copy DayZ-SA-Tomato to your Server/Client main Folder
+2. Copy SchnitzelPommes.bikey to your Servers keys folder
+3. Make sure YourServerFolder/DayZ-Sa-Tomato/Config/Admins.txt file exist (You can delete it Client side)
+4. If You need to use the mod folder with an @ Make sure to create DayZ-Sa-Tomato Folder with the Config Folder in it or it wont load Admins.txt and TpLocations file 
+5. Make sure when step 3 completed add your Steam64ID to this file(for every ID 1 line)
+6. Set start param -mod=DayZ-SA-Tomato at Server/Client 
+7. If not exist Add -profiles=D:\YourProfileFolderMaybe/DayzServer/Log and -scrAllowFileWrite To your server Parameters
+![alt text](https://steamuserimages-a.akamaihd.net/ugc/43117016076707122/9D374D1F7933C13B477EE6792A3735D9FFAC74B4/)
+
+
+Also Available in the Steam workshop (not updated all the time)
+https://steamcommunity.com/sharedfiles/filedetails/?id=1575615457
+
+
+<<<<<<< HEAD
 0. If you upgrade from an older version delete all of it and start at step 1.
 1. Click download, get the zip file, and open it
 1. Copy DayZ-SA-Tomato to your Server AND Client main (ROOT) Folder
@@ -97,24 +105,30 @@ Check out this Link if you are using a 3rd party hoster. They changed their Wiki
 ```
 ```
 ### Enabling Logs and Messages
+=======
+>>>>>>> parent of c8d7f7d... Update to Ver. 1.30
 
--First thing you do is to go in to your server and open DayZServer/URPROFILES/Tomato_Profiles/Config/Config.txt file. Find the features you'd like to add and change the number 0 at the end to a 1 to enable it.
 
--Next if you want to customize the messages you can but REMEMBER you can not change certain parts or you wont get all your information from the message. Make sure you DO NOT edit anyting BEFORE the = symbol, the = symbol, or anything in the {} brackets.
+
+
+## Test and Use
+
+Start your Server and login
+
+Check your Server log for 
+
 ```
-```
-![alt text](https://i.ibb.co/4KWcsCJ/Screenshot-2.png)
-```
+Adding Admin:
 ```
 
-## Troubleshooting
+If this Meessage appears the server loadet the tool if not you did something wrong
 
--If you are still not able to access the admin tool with "M" there IS another way to activate the menu on your server. First, go to your DayZ server root and find your "profiles" (or whatever you named your profiles folder) and open it. Inside that folder will be a DayZ-Sa-Tomato folder. Inside that there is a "config" folder and inside that one is a "players" folder. There should be a file in there YOURSTEAM64ID.player (i.e. 76561198161388867.Player). right click and edit that to change Admin = 0 to Admin = 1 save and close that file. Back out to the "config" folder and edit config.txt to change the first option Setup = 0 to setup = 1. Restart the server and join your server and "M" should now work for you.
 ```
+In Game press "M" Key
 ```
-![alt text](https://i.ibb.co/NKWzG6q/Screenshot-1.png)
-```
-```
+If Your Client is configured with the mod a Message will appear @chat
+If Your Server is also configured correct and Admins.txt Contains your id The Ui will open
+
 ## Features
 
 * **In Game** - M Key brings up the UI
@@ -129,21 +143,10 @@ Check out this Link if you are using a 3rd party hoster. They changed their Wiki
 * **Commands Tab** - Nighttime
 * **Commands Tab** - Spawn Car repaired and filled
 * **Commands Tab** - Refill nearest Car
-* **Commands Tab** - Delete at cursor
-
-
-
-
-![alt text](https://i.ibb.co/f2f231q/COMMANDS.jpg)
 
 ------------
 
-* **Spawn Tab** - Item/AI/Building Spawning
-
-
-
-
-![alt text](https://i.ibb.co/rGY1kWS/SPAWN.jpg)
+* **Spawn Tab** - Item/AI/Building Spawning 
 
 ------------
 
@@ -154,50 +157,17 @@ Check out this Link if you are using a 3rd party hoster. They changed their Wiki
 * **Player Tab** - Disable Stamina for specific Player 
 * **Player Tab** - Heal Player
 * **Player Tab** - Kill Player
-* **Player Tab** - Spectate Player
-
-
-
-
-![alt text](https://i.ibb.co/HNtddT5/PLAYER.jpg)
-
-------------
-
-* **Teleport Tab** - Teleport location list
-* **Teleport Tab** - Add/remove teleport locations in list
-* **Teleport Tab** - Spawn zombie hordes on locations
-
-
-
-
-![alt text](https://i.ibb.co/XxWSmCb/TELEPORT.jpg)
 
 ------------
 
 * **Map Tab** - Shows Location of all Players on the Map
-* **Map Tab** - Spawn Zombie Horde on map
-* **Map Tab** - Teleport by map
-
-
-
-
-![alt text](https://i.ibb.co/h73WcvQ/MAP.jpg)
-
-------------
-
-* **About Tab** - All the information about support for DayZ-Sa-Tomato
-
-
-
-
-![alt text](https://i.ibb.co/sVfqfTx/20190119155652-1.jpg)
-
-
-------------
 
 
 ### Known Issues
 * **Spwan Tab** - Item Preview (right side not working)
+* **Spwan Tab** - Building spawning in ground
+* **Player Tab** - Blood Energy not showing correctly (sometimes it does)
+* **Player Tab** - Send Message not working
 
 ## License
 

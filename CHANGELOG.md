@@ -2,16 +2,17 @@
 All notable changes to this project will be documented in this file.
 
 
-## 15.12.2018 23:00
+## 01.12.2018 23:00
 
 ### Fixed
+- No CustomMission is Created anymore this means Init.c File works now (Custom loadout and mods Using this file)
+- This means there should be no incompatibility with any mod now
 
-- For 1.0 Update (make sure to kopy the Key from Keys folder again !)
+## 01.12.2018 23:00
 
-### Added 
-
-- Teleport Locations Check the Config/List Folder u can add your own Locations to it (Adding Locations from ingame does not work since filewrite is bugged at the moment)
-
+### Fixed
+- No CustomMission is Created anymore this means Init.c File works now (Custom loadout and mods Using this file)
+- This means there should be no incompatibility with any mod now
 
 ## 29.11.2018 23:00
 
@@ -45,5 +46,4 @@ Addet bikey you should be able to use the mod without Dissableing verifySignatur
 ## 2018-11-26
 ### Release
 Initial Release
-
 
