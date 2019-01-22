@@ -13,7 +13,7 @@
     which means this file is under CC BY SA 4.0) http://creativecommons.org/licenses/by-sa/4.0/ Licence.
 	*/
 	
-enum PermissionType 
+enum PermissionTypeN 
 {
     DISALLOW, ALLOW
 }

@@ -35,7 +35,7 @@ class FPPlayer
 	
 	}
 	
-	void SetPermission(string name, PermissionType type)
+	void SetPermission(string name, PermissionTypeN type)
 	{
 		Print("FPPlayer");
 		RootPermission.SetPermissionType(name , type)
@@ -147,7 +147,7 @@ class FPPlayer
         return RootPermission.HasPermission( fPPermission );
     }
 	
-	void AddPermission( string fPPermission, PermissionType type = PermissionType.DISALLOW )
+	void AddPermission( string fPPermission, PermissionTypeN type = PermissionTypeN.DISALLOW )
     {
         RootPermission.AddPermission( fPPermission, type);
     }

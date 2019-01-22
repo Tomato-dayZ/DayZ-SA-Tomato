@@ -68,7 +68,7 @@ class FileHandler
 	
 	// NEW BEGINN 
 	
-	void SetPermission(string perm, PermissionType type, string id) //Identity.GetID()
+	void SetPermission(string perm, PermissionTypeN type, string id) //Identity.GetID()
 	{
 		Print("FileHandler");
 		for ( int i = 0; i < FPPlayers.Count(); i++ )
@@ -126,7 +126,7 @@ class FileHandler
         }
     }
 
-    void RegisterPermission( string fPPermission, PermissionType type = PermissionType.DISALLOW )
+    void RegisterPermission( string fPPermission, PermissionTypeN type = PermissionTypeN.DISALLOW )
     {
         RootPermission.AddPermission( fPPermission, type );
     }

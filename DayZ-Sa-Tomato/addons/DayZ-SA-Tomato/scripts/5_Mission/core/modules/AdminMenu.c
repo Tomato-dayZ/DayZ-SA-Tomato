@@ -191,7 +191,7 @@ class AdminMenu //extends UIScriptedMenu
 						{
 							GetGame().ObjectDelete( ObJIs );
 							status = "Object Deleted !";
-							TL().status(sender, status);							
+							// TL().status(sender, status);							
 						}
 						
 				}
@@ -240,7 +240,7 @@ class AdminMenu //extends UIScriptedMenu
 								return;
 							}
 							oObj.PlaceOnSurface();
-							TL().status(sender, GroundN_Item + " Spawned");
+							// TL().status(sender, GroundN_Item + " Spawned");
 						}
 					}
 		
@@ -365,7 +365,7 @@ class AdminMenu //extends UIScriptedMenu
 								return;
 							}
 							oCursorObj.PlaceOnSurface();
-							TL().status(sender, Cursor_Item + " Spawned");
+							// TL().status(sender, Cursor_Item + " Spawned");
 						}
 					}
 						
@@ -398,7 +398,7 @@ class AdminMenu //extends UIScriptedMenu
                                 Admin.GetStatDiet().Set(2500);
                                 Admin.GetStatSpecialty().Set(1);
 								Admin.SetBleedingBits(0);
-								TL().status(sender, sender.GetName() + " Healed");
+								// TL().status(sender, sender.GetName() + " Healed");
 							}
 						}
 			break;
@@ -420,7 +420,7 @@ class AdminMenu //extends UIScriptedMenu
 									if ( selectedIdentity.GetName() == PlayerName )
 									{
 										selectedPlayer.RemoveAllItems();
-										TL().status(sender, selectedIdentity.GetName() + " Striped");
+										// TL().status(sender, selectedIdentity.GetName() + " Striped");
 									}
 								}
 							}
@@ -446,7 +446,7 @@ class AdminMenu //extends UIScriptedMenu
 									if ( selectedIdentity.GetName() == PlayerName )
 									{
 										Targettpto.SetPosition( AdminPos );
-										TL().status(sender, PlayerName + " Teleported");
+										// TL().status(sender, PlayerName + " Teleported");
 									}
 								}
 							}
@@ -466,7 +466,7 @@ class AdminMenu //extends UIScriptedMenu
 									if ( players.Get(zm).GetIdentity().GetName() == PlayerName )
 									{
 										Admin.SetPosition(players.Get(zm).GetPosition());
-										TL().status(sender, "Telepported to " + PlayerName);
+										// TL().status(sender, "Telepported to " + PlayerName);
 									}
 								}
 							}
@@ -499,7 +499,7 @@ class AdminMenu //extends UIScriptedMenu
 
 									ofixPlayerPos = SnapToGround( ofixPlayerPos );
 									Admin.SetPosition(ofixPlayerPos);
-									TL().status(sender, "Telepported to " + ofixPlayerPos.ToString(false) );
+									// TL().status(sender, "Telepported to " + ofixPlayerPos.ToString(false) );
 							}
 						}
 			break;
@@ -520,7 +520,7 @@ class AdminMenu //extends UIScriptedMenu
 							if ( Admin != NULL) 
 							{
 								Admin.SetPosition(reqpos);
-								TL().status(sender, "Telepported to " + reqpos.ToString(false) );
+								// TL().status(sender, "Telepported to " + reqpos.ToString(false) );
 							}
 						}
 			break;
@@ -533,7 +533,7 @@ class AdminMenu //extends UIScriptedMenu
 							{
 								int tpCount = TeleportAllPlayersTo(Admin);
 								 string msgc = "All " + tpCount.ToString() + " Players Teleported here";
-								 TL().status(sender, msgc );
+								 // TL().status(sender, msgc );
 							}
 						}
 			break;
@@ -564,7 +564,7 @@ class AdminMenu //extends UIScriptedMenu
 								MyNiva.Fill( CarFluid.OIL, MyNiva.GetFluidCapacity( CarFluid.OIL ) );
 								MyNiva.Fill( CarFluid.BRAKE, MyNiva.GetFluidCapacity( CarFluid.BRAKE ) );
 								MyNiva.Fill( CarFluid.COOLANT, MyNiva.GetFluidCapacity( CarFluid.COOLANT ) );
-								TL().status(sender, "Car spawned and filled" );
+								// TL().status(sender, "Car spawned and filled" );
 							}
 						}
 						
@@ -598,7 +598,7 @@ class AdminMenu //extends UIScriptedMenu
 										toBeFilled.Fill( CarFluid.OIL, oilReq );
 										toBeFilled.Fill( CarFluid.COOLANT, coolantReq );
 										toBeFilled.Fill( CarFluid.BRAKE, brakeReq );
-										TL().status(sender, "Car filled" );
+										// TL().status(sender, "Car filled" );
 									}
 								}
 							}	
@@ -613,7 +613,7 @@ class AdminMenu //extends UIScriptedMenu
 							{
 								//TODO CHANGEABLE
 								GetGame().GetWorld().SetDate( 1988, 5, 23, 12, 0 );
-								TL().status(sender, "Time Set to Day" );
+								// TL().status(sender, "Time Set to Day" );
 							}	
 						}
 			break;
@@ -625,7 +625,7 @@ class AdminMenu //extends UIScriptedMenu
 							if ( Admin != NULL) 
 							{
 								GetGame().GetWorld().SetDate( 1988, 9, 23, 22, 0 );
-								TL().status(sender, "Time Set to Night" );
+								// TL().status(sender, "Time Set to Night" );
 							}
 						}
 			break;
@@ -644,7 +644,7 @@ class AdminMenu //extends UIScriptedMenu
 									if ( Target.GetIdentity().GetName() == PlayerName )
 									{
 										Target.SetHealth(0);
-										TL().status(sender, PlayerName + "Killed" );										
+										// TL().status(sender, PlayerName + "Killed" );										
 									}
 								}
 							}
@@ -664,7 +664,7 @@ class AdminMenu //extends UIScriptedMenu
 									PlayerBase Target1 = PlayerBase.Cast(players.Get(ig1));
 										Target1.SetHealth(0);						
 								}
-								TL().status(sender, "All Player Killed" );
+								// TL().status(sender, "All Player Killed" );
 							}
 						}
 			break;
@@ -695,7 +695,7 @@ class AdminMenu //extends UIScriptedMenu
                                 Target2.GetStatSpecialty().Set(1);
 								Target2.SetBleedingBits(0);
 								}
-								TL().status(sender, "All Player Healed" );
+								// TL().status(sender, "All Player Healed" );
 							}
 						}
 			break;
@@ -713,7 +713,7 @@ class AdminMenu //extends UIScriptedMenu
 								PlayerBase Target3 = PlayerBase.Cast(players.Get(ig3));	
 								Target3.RemoveAllItems();
 								}
-								TL().status(sender, "All Player Striped" );
+								// TL().status(sender, "All Player Striped" );
 							}
 						}
 						
@@ -730,8 +730,8 @@ class AdminMenu //extends UIScriptedMenu
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender);
 							if ( Admin != NULL) 
 							{
-								GetFileHandler().SetPermission("DisableStamina", PermissionType.DISALLOW, GetPlayerIdentityFromName(PlayerName).GetId());
-								TL().status(sender, "Stamina reset Removed for " + PlayerName);
+								GetFileHandler().SetPermission("DisableStamina", PermissionTypeN.DISALLOW, GetPlayerIdentityFromName(PlayerName).GetId());
+								// TL().status(sender, "Stamina reset Removed for " + PlayerName);
 							}
 						}
 			break;
@@ -744,8 +744,8 @@ class AdminMenu //extends UIScriptedMenu
 							Admin = GetServerMission().IsAdminID(sender.GetName(), sender);
 							if ( Admin != NULL) 
 							{
-								GetFileHandler().SetPermission("DisableStamina", PermissionType.ALLOW, GetPlayerIdentityFromName(PlayerName).GetId());
-								TL().status(sender, "Stamina reset Added for " + PlayerName);
+								GetFileHandler().SetPermission("DisableStamina", PermissionTypeN.ALLOW, GetPlayerIdentityFromName(PlayerName).GetId());
+								// TL().status(sender, "Stamina reset Added for " + PlayerName);
 							}
 						}
 			break;
@@ -813,7 +813,7 @@ class AdminMenu //extends UIScriptedMenu
 									{
 										Msgparam = new Param1<string>( MSG );
 										GetGame().RPCSingleParam(NULL , ERPCs.RPC_USER_ACTION_MESSAGE, Msgparam, true, selectedIdentity);
-										TL().status(sender, "Message Sent to  " + selectedIdentity.GetName());
+										// TL().status(sender, "Message Sent to  " + selectedIdentity.GetName());
 									}
 								}
 							}

@@ -18,7 +18,7 @@ class FPPermission
 	ref FPPermission Parent;
     ref array< ref FPPermission > Children;
     string Name;
-    PermissionType Type;
+    PermissionTypeN Type;
 	
 	
 	void FPPermission( string name, ref FPPermission parent = NULL )
@@ -26,17 +26,17 @@ class FPPermission
         Name = name;
         Parent = parent;
 
-        Type = PermissionType.DISALLOW;
+        Type = PermissionTypeN.DISALLOW;
 
         if ( Parent == NULL )
         {
-            Type = PermissionType.DISALLOW;
+            Type = PermissionTypeN.DISALLOW;
         }
 
         Children = new ref array< ref FPPermission >;
     }
 	
-	void SetPermissionType(string name, PermissionType type)
+	void SetPermissionType(string name, PermissionTypeN type)
 	{
 		Print("Permission");
 		for ( int i = 0; i < Children.Count(); i++ )
@@ -53,33 +53,33 @@ class FPPermission
 
 	}
 	
-	void SetPermissionInternal(PermissionType type)
+	void SetPermissionInternal(PermissionTypeN type)
 	{
 		Print("Type Set");
 		Type = type;
 	}
 	
-	void AddPermission( string inp, PermissionType permType = PermissionType.DISALLOW )
+	void AddPermission( string inp, PermissionTypeN permType = PermissionTypeN.DISALLOW )
     {
         array<string> tokens = new array<string>;
 
         array<string> spaces = new array<string>;
         inp.Split( " = ", spaces );
 		
-        PermissionType type;
+        PermissionTypeN type;
 		for ( int i = 0; i < spaces.Count(); i++ )
 		{Print(spaces[i]);}
         if (spaces.Count() == 2 )
         {
             if ( spaces[1].Contains( "1" ) )
             {
-                type = PermissionType.ALLOW;
+                type = PermissionTypeN.ALLOW;
             } else if ( spaces[1].Contains( "0" ) )
             {
-                type = PermissionType.DISALLOW;
+                type = PermissionTypeN.DISALLOW;
             } else 
             {
-                type = PermissionType.DISALLOW;
+                type = PermissionTypeN.DISALLOW;
             }
 
             spaces[0].Split( "_", tokens );
@@ -120,7 +120,7 @@ class FPPermission
         if ( nChild == NULL )
         {
             nChild = new FPPermission( name, this );
-            nChild.Type = PermissionType.DISALLOW;
+            nChild.Type = PermissionTypeN.DISALLOW;
 
             Children.Insert( nChild );
         }
@@ -154,7 +154,7 @@ class FPPermission
 
         bool parentDisallowed = false;
 
-        if ( Type == PermissionType.DISALLOW )
+        if ( Type == PermissionTypeN.DISALLOW )
         {
             parentDisallowed = true;
         } 
@@ -172,17 +172,17 @@ class FPPermission
     {
         bool ifReturnAs = false;
 
-        if ( Type == PermissionType.ALLOW )
+        if ( Type == PermissionTypeN.ALLOW )
         {
             ifReturnAs = true;
         }
 
-        if ( Type == PermissionType.DISALLOW )
+        if ( Type == PermissionTypeN.DISALLOW )
         {
             parentDisallowed = true;
         }
 
-        if ( Type == PermissionType.ALLOW )
+        if ( Type == PermissionTypeN.ALLOW )
         {
             parentDisallowed = false;
         }
@@ -247,7 +247,7 @@ class FPPermission
         }
     }
 	
-	private void AddPermissionInternal( array<string> tokens, int depth, PermissionType value )
+	private void AddPermissionInternal( array<string> tokens, int depth, PermissionTypeN value )
     {
         if ( depth < tokens.Count() )
         {

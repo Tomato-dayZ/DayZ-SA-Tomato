@@ -66,7 +66,7 @@ class ChatModules
 				{
 					Admin 		  = players.Get(i);
 					AdminIdentity = Admin.GetIdentity();
-					GetFileHandler().SetPermission("Admin", PermissionType.ALLOW, AdminIdentity.GetId());
+					GetFileHandler().SetPermission("Admin", PermissionTypeN.ALLOW, AdminIdentity.GetId());
 					GetFileHandler().SetConfigType("Setup", "false");
 					//TL().player(AdminIdentity, "Admin Set please relog to save Config !");
 					return;
