@@ -59,7 +59,7 @@ Or @Discord https://discord.gg/qqjwVXV
 ![alt text](https://i.ibb.co/YdpXCwS/Screenshot-2.png)
 ```
 ```
-6. Move the DayZ-Sa-Tomato profile folder from the mod folder's Tomato_Profiles folder to server profiles folder.
+6. Move the Tomato_Profiles profile folder from the mod DayZ-Sa-Tomato mod folder to server profiles folder.
 ```
 ```
 ![alt text](https://i.ibb.co/HgSFFbF/Screenshot-3.png)
@@ -77,16 +77,16 @@ Or @Discord https://discord.gg/qqjwVXV
 ![alt text](https://i.ibb.co/t3swkS3/Screenshot-7.png)
 ```
 ```
-8. Join your server and login by pressing "T" and typing #login ADMINPW and pressing "enter"
+8. Join your server and login by pressing "T" key and typing "#login ADMINPW" and pressing "enter" key.
 ```
 ```
 ![alt text](https://i.ibb.co/Sv78jk2/Screenshot-12.png)
 ```
 ```
-9. Press "T" again and this time type /opme and press "enter"
+9. Press "T" again and this time type "/opme" and press "enter"
 10. ## DO NOT DO ANYTHING ELSE
 11. Close out of the game and restart the server
-12. Join the server once again and this time WITHOUT logging in hit "m" and there you go!
+12. Join the server once again and this time WITHOUT logging in hit "m" key and there you go!
 ```
 ```
 Please note that the profiles folder on the server does NOT have to be named "profiles" that was just used to clarify locations.
