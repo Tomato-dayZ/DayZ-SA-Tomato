@@ -36,22 +36,6 @@ Or @Discord https://discord.gg/qqjwVXV
 
 ### Installing
 
-0. Check out this Link if you are using a 3rd party hoster they changed there Wiki since a user asked them how to Install this mod probs to them https://trugaming.com/wiki/index.php?title=DayZ#Server_Side_Mods hoefully this helps a little bit 
-1. Copy DayZ-SA-Tomato to your Server/Client main Folder
-2. Copy SchnitzelPommes.bikey to your Servers keys folder
-3. Make sure YourServerFolder/DayZ-Sa-Tomato/Config/Admins.txt file exist (You can delete it Client side)
-4. If You need to use the mod folder with an @ Make sure to create DayZ-Sa-Tomato Folder with the Config Folder in it or it wont load Admins.txt and TpLocations file 
-5. Make sure when step 3 completed add your Steam64ID to this file(for every ID 1 line)
-6. Set start param -mod=DayZ-SA-Tomato at Server/Client 
-7. If not exist Add -profiles=D:\YourProfileFolderMaybe/DayzServer/Log and -scrAllowFileWrite To your server Parameters
-![alt text](https://steamuserimages-a.akamaihd.net/ugc/43117016076707122/9D374D1F7933C13B477EE6792A3735D9FFAC74B4/)
-
-
-Also Available in the Steam workshop (not updated all the time)
-https://steamcommunity.com/sharedfiles/filedetails/?id=1575615457
-
-
-<<<<<<< HEAD
 0. If you upgrade from an older version delete all of it and start at step 1.
 1. Click download, get the zip file, and open it
 1. Copy DayZ-SA-Tomato to your Server AND Client main (ROOT) Folder
