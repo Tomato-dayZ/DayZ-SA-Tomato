@@ -106,9 +106,9 @@ Check out this Link if you are using a 3rd party hoster. They changed their Wiki
 ```
 ```
 
-## Troubleshooting
+## Troubleshooting And Adding Additional Admin-
 
--If you are still not able to access the admin tool with "M" there IS another way to activate the menu on your server. First, go to your DayZ server root and find your "profiles" (or whatever you named your profiles folder) and open it. Inside that folder will be a DayZ-Sa-Tomato folder. Inside that there is a "config" folder and inside that one is a "players" folder. There should be a file in there YOURSTEAM64ID.player (i.e. 76561198161388867.Player). right click and edit that to change Admin = 0 to Admin = 1 save and close that file. Back out to the "config" folder and edit config.txt to change the first option Setup = 0 to setup = 1. Restart the server and join your server and "M" should now work for you. (Note: GodMode is not yet implemented)
+-If you are still not able to access the admin tool with "M" there IS another way to activate the menu on your server. First, go to your DayZ server root and find your "profiles" (or whatever you named your profiles folder) and open it. Inside that folder will be a DayZ-Sa-Tomato folder. Inside that there is a "config" folder and inside that one is a "players" folder. There should be a file in there YOURSTEAM64ID.player (i.e. 76561198161388867.Player). right click and edit that to change Admin = 0 to Admin = 1 save and close that file. Back out to the "config" folder and edit config.txt to change the first option Setup = 0 to setup = 1. Restart the server and join your server and "M" should now work for you. Adding and admin is the same process but using the player you want to be admin's Steam64ID instead. (Note: GodMode is not yet implemented)
 ```
 ```
 ![alt text](https://i.ibb.co/NKWzG6q/Screenshot-1.png)
