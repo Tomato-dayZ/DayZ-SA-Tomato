@@ -10,7 +10,7 @@ See CHANGELOG.md
 
 ## News
 
-## 01.14.2019 00:26
+## 21.01.2019 00:26
 
 
 ### Added 
@@ -59,7 +59,7 @@ Or @Discord https://discord.gg/qqjwVXV
 ![alt text](https://i.ibb.co/YdpXCwS/Screenshot-2.png)
 ```
 ```
-6. Move the DayZ-Sa-Tomato profile folder from the mod folder's Tomato_Profiles folder to server profiles folder. 
+6. Move the DayZ-Sa-Tomato profile folder from the mod folder's Tomato_Profiles folder to server profiles folder.
 ```
 ```
 ![alt text](https://i.ibb.co/HgSFFbF/Screenshot-3.png)
