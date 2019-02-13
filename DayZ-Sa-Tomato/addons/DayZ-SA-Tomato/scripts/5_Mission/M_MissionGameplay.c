@@ -35,7 +35,7 @@ modded class MissionGameplay
 	    Print( " Mission Gameplay Constructor ");
 		m_LogHandler = new ref LogHandler();
 		// m_AdminMenuGui = new ref AdminMenuGui();
-		// m_PermissionBase = new ref PermissionBase;
+		m_PermissionBase = new ref PermissionBase;
 	    devTeleport = new DevTeleport();
 	    devCam = new DevCam();
 		adminMenu = new AdminMenu();
@@ -49,7 +49,7 @@ modded class MissionGameplay
 		delete m_LogHandler;
 		delete adminMenuManager;
 		delete adminMenu;
-		// delete m_PermissionBase;
+		delete m_PermissionBase;
 	}
 
 	override void OnInit() 
@@ -59,17 +59,17 @@ modded class MissionGameplay
 		Print( " Mission Gameplay ");
 	}
 
-	// override void OnMissionStart()
-	// {
+	override void OnMissionStart()
+	{
 		
-        // super.OnMissionStart();
-		// m_PermissionBase.OnStart();
-        // GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Player_UpdatePlayers, new Param1<string>( "" ), false, NULL );
-	// }
+        super.OnMissionStart();
+		m_PermissionBase.OnStart();
+        GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Player_UpdatePlayers, new Param1<string>( "" ), false, NULL );
+	}
 	
 	override void OnMissionFinish()
     {
-		// m_PermissionBase.OnFinish();
+		m_PermissionBase.OnFinish();
 		GetGame().GetUIManager().CloseMenu( MENU_INGAME );
         super.OnMissionFinish();
     }

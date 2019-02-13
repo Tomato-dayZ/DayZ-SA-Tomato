@@ -339,7 +339,7 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 					GetGame().RPCSingleParam( NULL, M_RPCs.M_Admin_Menu_Player_Stamina_Request, new Param1<string>(selectedIdentity.GetName()), false, NULL );
 				}
 			}
-		GetGame().GetCallQueue( CALL_CATEGORY_SYSTEM ).CallLater( this.UpdateStats, 1500, true );
+		//GetGame().GetCallQueue( CALL_CATEGORY_SYSTEM ).CallLater( this.UpdateStats, 1500, true );
 
 	}
 	
@@ -364,6 +364,9 @@ class AdminMenuGuiPlayer extends ScriptedWidgetEventHandler
 			string result;
 			m_PlayerList.GetItemText( m_PlayerList.GetSelectedRow(), 0, result );
 			return result;
+		}else 
+		{
+			GetGame().GetCallQueue( CALL_CATEGORY_SYSTEM ).Remove( this.UpdateStats );
 		}
 
 		return "";

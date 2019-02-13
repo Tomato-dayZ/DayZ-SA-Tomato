@@ -50,7 +50,7 @@ class HordeModule
 						{
 							string msg = GetFileHandler().GetConfig("Horde_Message_Location");
 							int count = msg.Replace("{Location}", name);
-							GetGame().ChatPlayer(0, msg);
+							GetGame().ChatPlayer(msg);
 							TL().status(sender, msg);	
 						}
 						TL().status(sender, "Horde Spawned at Location : " + name);	

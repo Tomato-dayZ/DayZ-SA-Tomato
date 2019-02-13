@@ -263,7 +263,7 @@ modded class MissionServer
 	{
 	    super.OnUpdate( timeslice );
 		
-		//m_PermissionBase.OnUpdate( timeslice );
+		m_PermissionBase.OnUpdate( timeslice );
 	}
 
 	void  CLogInfo(string log) 

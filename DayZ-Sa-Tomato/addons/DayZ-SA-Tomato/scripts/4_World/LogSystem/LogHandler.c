@@ -137,7 +137,7 @@ class LogHandler
 			if ( GetGame().IsServer() ) 
 			{
 				
-					GetGame().ChatPlayer(0, msg);
+					GetGame().ChatPlayer(msg);
 			}else{
 				ScriptRPC Rpc = new ScriptRPC();
 				Rpc.Write(msg);

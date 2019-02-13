@@ -84,7 +84,7 @@ class DeathHandler
 			{
 				msg = GetMessage(GetFileHandler().GetConfig("Welcome_Message_Join"), VName);
 				int count = msg.Replace("{Player}", player.GetName());
-				GetGame().ChatPlayer(0, msg);
+				GetGame().ChatPlayer(msg);
 			}
 	}
 	void KilledHandler(Object killer, PlayerBase pbKilled)
@@ -108,7 +108,7 @@ class DeathHandler
 	{
         if (OutMessage != "")
         {
-            GetGame().ChatPlayer(0, OutMessage);
+            GetGame().ChatPlayer(OutMessage);
         }
 	}
 	
@@ -237,7 +237,7 @@ class DeathHandler
 
 				string KilledBySuicide = GetFileHandler().GetConfig("KillFeed_Suicide");
 				Killedname = sbKilled.GetPFullName();
-				GetGame().ChatPlayer( 0, GetMessage(KilledBySuicide, Killedname));
+				GetGame().ChatPlayer(GetMessage(KilledBySuicide, Killedname));
                 // TL.all(GetMessage(KilledBySuicide, Killedname));	
                 // TL.all(sbKilled.GetPFullName() + " took his own life");
 
@@ -247,14 +247,14 @@ class DeathHandler
 				string KilledByPlayer = GetFileHandler().GetConfig("KillFeed_ByPlayer");
 				Killername = sbKiller.GetPFullName();
 				Killedname = sbKilled.GetPFullName();
-				GetGame().ChatPlayer( 0, GetMessage(KilledByPlayer, Killedname , Killername));
+				GetGame().ChatPlayer(GetMessage(KilledByPlayer, Killedname , Killername));
                 // TL.all(GetMessage(KilledByPlayer, Killedname, Killername));
             }
         } else 
 		{
             string KilledByBleed = GetFileHandler().GetConfig("KillFeed_Bleeding_Zombie");
 			Killedname = sbKilled.GetPFullName();
-			GetGame().ChatPlayer( 0, GetMessage(KilledByBleed, Killedname)); 
+			GetGame().ChatPlayer(GetMessage(KilledByBleed, Killedname)); 
 			// TL.all(GetMessage(KilledByBleed, Killedname));
         }
 	}

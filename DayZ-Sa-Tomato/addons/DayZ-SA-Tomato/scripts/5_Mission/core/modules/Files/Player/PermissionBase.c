@@ -140,6 +140,7 @@ class PermissionBase
 									Adding.Write(PData);
 									Adding.Send(NULL, M_RPCs.M_Admin_Player_UpdatePlayer, true, sender);
 									//GetRPCManager().SendRPC( "PermissionBase", "UpdatePlayer", new Param1< ref PlayerDataN >( SerializePlayer( GetFileHandler().GetPlayers().Get( i ) ) ), true, sender );
+									Print("Perm Base Update PLayers");
 								}
 							}
 						}
@@ -150,6 +151,7 @@ class PermissionBase
 					{
 						ctx.Read(PData);
 						GetFileHandler().FPPlayers.RemoveItem( DeserializePlayer( PData ) );
+						Print("Perm Base remove Player");
 					}
 			break;
 			
@@ -158,6 +160,7 @@ class PermissionBase
 						{
 							ctx.Read(PData);
 							DeserializePlayer( PData );
+							Print("Perm Base Update Player");
 						}
 			break;
 			

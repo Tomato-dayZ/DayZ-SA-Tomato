@@ -117,7 +117,7 @@ FrameWidgetClass rootFrame {
      vexactsize 1
      text "Delete Obj on cursor"
     }
-    TextWidgetClass TextWidget0 {
+    TextWidgetClass _Title {
      position 0 10
      size 1 50
      halign center_ref

@@ -26,8 +26,7 @@ class AdminMenuGui extends UIScriptedMenu
 	protected ref AdminMenuGuiMap	m_MapTab;
 	protected ref AdminMenuGuiTeleport	m_TeleportTab;
 	protected ref AdminMenuGuiAbout	m_AboutTab;
-	protected ref AdminMenuGuiTeleport	m_todo;
-	protected ref AdminMenuGuiTeleport	m_todo2;
+	protected ref AdminMenuGuiAbout2	m_AboutTab2;
 	ref AdminMenuManager AMenuM;
 	protected ref map<string, string> m_TestListS;
 	protected string m_TestListPath = "$CurrentDir:\\DayZ-SA-Tomato\\";
@@ -151,6 +150,7 @@ class AdminMenuGui extends UIScriptedMenu
 		 m_MapTab	= new AdminMenuGuiMap( layoutRoot.FindAnyWidget( "Tab_3" ), this );
 		 m_TeleportTab		= new AdminMenuGuiTeleport( layoutRoot.FindAnyWidget( "Tab_4" ), this );
 		 m_AboutTab	= new AdminMenuGuiAbout( layoutRoot.FindAnyWidget( "Tab_5" ), this );
+		 m_AboutTab2	= new AdminMenuGuiAbout2( layoutRoot.FindAnyWidget( "Tab_6" ), this );
 		
 		//m_todo	= new AdminMenuGuiTeleport( layoutRoot.FindAnyWidget( "Tab_5" ), this );
 		//m_todo2	= new AdminMenuGuiTeleport( layoutRoot.FindAnyWidget( "Tab_5" ), this );
@@ -171,9 +171,11 @@ class AdminMenuGui extends UIScriptedMenu
 	{
 		delete m_SpawnTab;
 		delete m_AboutTab;
+		delete m_AboutTab2;
 		delete m_MapTab;
 		delete m_CommandTab;
 		delete m_TeleportTab;
+		delete m_PlayerTab;
 	}
 	
 	void SetStatus(string txt)
@@ -360,7 +362,7 @@ class AdminMenuGui extends UIScriptedMenu
 			}
 			case 6:
 			{
-				//m_AboutTab.Focus();
+				m_AboutTab2.Focus();
 				break;
 			}
 		}

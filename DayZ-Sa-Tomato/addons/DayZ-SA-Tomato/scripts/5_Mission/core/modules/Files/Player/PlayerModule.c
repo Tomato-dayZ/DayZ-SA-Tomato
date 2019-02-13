@@ -31,7 +31,7 @@ class PlayerModule
     {
     }
 
-	
+	/*
 	void ReceiveRPC( PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx ) 
 	{
 	PlayerBase Admin;
@@ -331,53 +331,53 @@ class PlayerModule
 			break;
 			
 			case M_RPCs.M_Admin_Player_RepairTransport:
-					ctx.Read(Dstring);
-					if ( !FileHandler().HasPermission( "Admin", sender ) )
-					return;
-					if ( GetGame().IsServer() ) 
-						{
-							array< Transport > completedTransports = new array< Transport >;
+					// ctx.Read(Dstring);
+					// if ( !FileHandler().HasPermission( "Admin", sender ) )
+					// return;
+					// if ( GetGame().IsServer() ) 
+						// {
+							// array< Transport > completedTransports = new array< Transport >;
 
-							players = DeserializePlayersGUID( Dstring );
+							// players = DeserializePlayersGUID( Dstring );
 
-							for (i = 0; i < players.Count(); i++ )
-							{
-								player = players[i].PlayerObject;
+							// for (i = 0; i < players.Count(); i++ )
+							// {
+								// player = players[i].PlayerObject;
 
-								if ( player == NULL || player.GetTransport() == NULL ) continue;
+								//if ( player == NULL || player.GetTransport() == NULL ) continue;
 
-								Transport transport = player.GetTransport();
+								// Transport transport = player.GetTransport();
 
-								if ( completedTransports.Find( transport ) > -1 )
-								{
-									ItemBase radiator;
+								// if ( completedTransports.Find( transport ) > -1 )
+								// {
+									// ItemBase radiator;
 
-									Class.CastTo( radiator, transport.FindAttachmentBySlotName("CarRadiator") );
+									// Class.CastTo( radiator, transport.FindAttachmentBySlotName("CarRadiator") );
 
-									if ( radiator )
-									{
-										radiator.SetHealth( "", "", 1 );
-									}
+									// if ( radiator )
+									// {
+										// radiator.SetHealth( "", "", 1 );
+									// }
 
-									transport.SetHealth( "Engine", "", 1 );
-									transport.SetHealth( "FuelTank", "", 1 );
+									// transport.SetHealth( "Engine", "", 1 );
+									// transport.SetHealth( "FuelTank", "", 1 );
 
-									CarScript car = CarScript.Cast( transport );
+									// CarScript car = CarScript.Cast( transport );
 
-									if ( car )
-									{
-										car.Fill( CarFluid.FUEL, car.GetFluidCapacity( CarFluid.FUEL ) );
-										car.Fill( CarFluid.OIL, car.GetFluidCapacity( CarFluid.OIL ) );
-										car.Fill( CarFluid.BRAKE, car.GetFluidCapacity( CarFluid.BRAKE ) );
-										car.Fill( CarFluid.COOLANT, car.GetFluidCapacity( CarFluid.COOLANT ) );
-									}
+									// if ( car )
+									// {
+										// car.Fill( CarFluid.FUEL, car.GetFluidCapacity( CarFluid.FUEL ) );
+										// car.Fill( CarFluid.OIL, car.GetFluidCapacity( CarFluid.OIL ) );
+										// car.Fill( CarFluid.BRAKE, car.GetFluidCapacity( CarFluid.BRAKE ) );
+										// car.Fill( CarFluid.COOLANT, car.GetFluidCapacity( CarFluid.COOLANT ) );
+									// }
 
-									completedTransports.Insert( transport );
+									// completedTransports.Insert( transport );
 
 									//COTLog( sender, "Repaired transport for " + players[i].GetGUID() );
-								}
-							}
-						}
+								// }
+							// }
+						// }
 			break;
 			
 			case M_RPCs.M_Admin_Player_TeleportToMe:
@@ -587,5 +587,5 @@ class PlayerModule
 			// break;
 		}
 	}
-	
+	*/
 }
